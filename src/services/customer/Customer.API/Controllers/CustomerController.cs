@@ -28,15 +28,15 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet("{id}", Name = "GetById")]
-    public ActionResult<CustomerReadModel> GetById(int id) 
+    public ActionResult<CustomerReadModel> GetById(int id)
     {
         Console.WriteLine("Getting single customers data with id: " + id);
         var customer = _repository.GetById(id);
 
-        if (customer == null)
-            return NotFound("Customer not found");
-
-        return Ok(_mapper.Map<CustomerReadModel>(customer));
+        if (customer != null)
+            return Ok(_mapper.Map<CustomerReadModel>(customer));
+            
+        return NotFound("Customer not found");
     }
 
     [HttpPost]
