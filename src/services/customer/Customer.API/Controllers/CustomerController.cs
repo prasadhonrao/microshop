@@ -3,6 +3,8 @@ using Customer.API.Entities;
 using Customer.API.Repositories;
 using Customer.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System;
 
 namespace Customer.API.Controllers;
 

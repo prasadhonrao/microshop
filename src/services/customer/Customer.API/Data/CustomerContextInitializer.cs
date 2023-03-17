@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using Customer.API.Entities;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Customer.API.Data;
 
