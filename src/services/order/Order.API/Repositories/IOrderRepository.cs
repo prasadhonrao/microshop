@@ -5,12 +5,11 @@ namespace Order.API.Repositories;
 
 public interface IOrderRepository
 {
-    IEnumerable<OrderEntity> GetAll();
-    OrderEntity GetById(int id);
-    OrderEntity DeleteById(int id);
-    void Add(OrderEntity newOrder);
-    void Update(int id, OrderEntity updatedOrder);
-
+    // Order specific functionality
+    IEnumerable<OrderEntity> GetAllOrders();
+    OrderEntity GetOrderByID(int orderID);
+    OrderEntity DeleteOrderById(int orderID);
+    void AddOrder(OrderEntity newOrder);
+    void UpdateOrder(int orderID, OrderEntity updatedOrder);
     bool SaveChanges();
-
 }

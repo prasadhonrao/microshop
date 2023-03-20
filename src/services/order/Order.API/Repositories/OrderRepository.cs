@@ -14,25 +14,25 @@ public class OrderRepository : IOrderRepository
     {
         _context = context;
     }
-    public void Add(OrderEntity newOrder)
+    public void AddOrder(OrderEntity newOrder)
     {
         if (newOrder == null) throw new ArgumentNullException(nameof(newOrder));
         _context.Orders.Add(newOrder);
     }
 
-    public OrderEntity DeleteById(int id)
+    public OrderEntity DeleteOrderById(int orderID)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<OrderEntity> GetAll()
+    public IEnumerable<OrderEntity> GetAllOrders()
     {
         return (IEnumerable<OrderEntity>)_context.Orders.ToList();
     }
 
-    public OrderEntity GetById(int id)
+    public OrderEntity GetOrderByID(int orderID)
     {
-        return _context.Orders.FirstOrDefault(c => c.OrderID == id);
+        return _context.Orders.FirstOrDefault(c => c.OrderID == orderID);
     }
 
     public bool SaveChanges()
@@ -40,7 +40,7 @@ public class OrderRepository : IOrderRepository
         return _context.SaveChanges() >= 0;
     }
 
-    public void Update(int id, OrderEntity updatedOrder)
+    public void UpdateOrder(int orderID, OrderEntity updatedOrder)
     {
         throw new NotImplementedException();
     }

@@ -25,7 +25,7 @@ public class OrderController : ControllerBase
     public ActionResult<IEnumerable<OrderReadModel>> Get() 
     {
         Console.WriteLine("Getting all orders data...");
-        var orders = _repository.GetAll();
+        var orders = _repository.GetAllOrders();
         return Ok(_mapper.Map<IEnumerable<OrderReadModel>>(orders));
     }
 
@@ -33,7 +33,7 @@ public class OrderController : ControllerBase
     public ActionResult<OrderReadModel> GetById(int id)
     {
         Console.WriteLine("Getting single order data with id: " + id);
-        var orders = _repository.GetById(id);
+        var orders = _repository.GetOrderByID(id);
 
         if (orders != null)
             return Ok(_mapper.Map<OrderReadModel>(orders));
@@ -48,7 +48,7 @@ public class OrderController : ControllerBase
 
         var order = _mapper.Map<OrderEntity>(model);
 
-        _repository.Add(order);
+        _repository.AddOrder(order);
         _repository.SaveChanges();
 
         var addedOrder = _mapper.Map<OrderReadModel>(order);
