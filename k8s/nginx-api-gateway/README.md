@@ -1,0 +1,1 @@
+Refer to https://kubernetes.github.io/ingress-nginx/deploy/#quick-start to configure your ingress
