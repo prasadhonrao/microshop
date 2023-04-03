@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "K8S",
+			"name": "K8S-NodePort",
 			"item": [
 				{
 					"name": "Get All Orders",
@@ -92,6 +92,102 @@
 								"localhost"
 							],
 							"port": "31001",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "K8S-Ingress",
+			"item": [
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://microshop.com/api/order",
+							"protocol": "http",
+							"host": [
+								"microshop",
+								"com"
+							],
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://microshop.com/api/order/1",
+							"protocol": "http",
+							"host": [
+								"microshop",
+								"com"
+							],
+							"path": [
+								"api",
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Error When Querying Order Which Doesn't Exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://microshop.com/api/order/101",
+							"protocol": "http",
+							"host": [
+								"microshop",
+								"com"
+							],
+							"path": [
+								"api",
+								"order",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://microshop.com/api/customer",
+							"protocol": "http",
+							"host": [
+								"microshop",
+								"com"
+							],
 							"path": [
 								"api",
 								"customer"
