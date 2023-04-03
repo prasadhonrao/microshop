@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    app-service: order
+spec:
+  selector:
+    matchLabels:
+      app-service: order
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app-service: order
+    spec:
+      containers:
+        - name: order-deployment-container
+          image: thegeekspad/microshop-order-microservice
+          ports:
+          - containerPort: 80

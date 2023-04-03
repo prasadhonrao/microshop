@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: customer-pod
+  labels:
+    app-service: customer
+spec:
+  containers:
+  - name: customer-pod-container
+    image: thegeekspad/microshop-customer-microservice
+    ports:
+    - containerPort: 80
