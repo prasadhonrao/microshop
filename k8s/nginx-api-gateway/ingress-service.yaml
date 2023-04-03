@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microshop-ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+  - host: microshop.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api/customer"
+        backend:
+          service:
+            name: customer-cluster-ip-service
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: "/api/order"
+        backend:
+          service:
+            name: order-cluster-ip-service
+            port: 
+              number: 80
