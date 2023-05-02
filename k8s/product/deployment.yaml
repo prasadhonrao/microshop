@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+  labels:
+    app-service: product
+spec:
+  selector:
+    matchLabels:
+      app-service: product
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: product
+    spec:
+      containers:
+        - name: product-deployment-container
+          image: thegeekspad/microshop-product-microservice
+          ports:
+          - containerPort: 80

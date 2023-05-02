@@ -1,27 +1,30 @@
+using AutoMapper;
+using Customer.MicroService.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace Customer.MicroService.Services;
 
-public class OrderDataService : IOrderDataService
+public class ProductDataService : IProductDataService
 {
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
-    private readonly ILogger<OrderDataService> _logger;
+    private readonly ILogger<ProductDataService> _logger;
 
-    public OrderDataService(HttpClient client, IConfiguration configuration, ILogger<OrderDataService> logger)
+    public ProductDataService(HttpClient client, 
+    IConfiguration configuration, 
+    IMapper mapper,
+    ILogger<ProductDataService> logger)
     {
         this._httpClient = client;
         this._configuration = configuration;
         this._logger = logger;
     }
 
-    public async Task<string> GetOrders() 
+    public async Task<IEnumerable<ProductReadModel>> GetProducts()
     {
         try
         {
-            string responseBody = await _httpClient.GetStringAsync(_configuration["OrderServiceUrl"]);
-            // _logger.LogInformation(responseBody);
-            return responseBody;
+            return await _httpClient.GetFromJsonAsync<List<ProductReadModel>>(_configuration["ProductServiceUrl"]);
         }
         catch (HttpRequestException e)
         {
@@ -30,4 +33,5 @@ public class OrderDataService : IOrderDataService
             return null;
         }
     }
+
 }

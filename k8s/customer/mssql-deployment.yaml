@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-mssql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-service: customer-db
+  template:
+    metadata:
+      labels:
+        app-service: customer-db
+    spec:
+      containers:
+      - name: customer-mssql-deployment-container
+        image: mcr.microsoft.com/mssql-server:2017-latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 1433
+        env:
+        - name: MSSQL_PID
+          value: "Express"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: customer-mssql-db
+              key: SA_PASSWORD
+        volumeMounts:
+        - mountPath: /var/opt/mssql/data
+          name: mssqlcustomerdb
+      volumes:
+        - name: mssqlcustomerdb
+          persistentVolumeClaim:
+            claimName: mssql-customer-pvc
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-mssql-cluster-ip-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: dbport
+    protocol: TCP
+    port: 1433
+    targetPort: 1433
+  selector: # this connects the service to the pods
+    app-service: customer-db
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-mssql-load-balancer-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: lbport
+    protocol: TCP
+    port: 1433
+    targetPort: 1433
+  selector: # this connects the service to the pods
+    app-service: customer-db
+

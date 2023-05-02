@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: product-pod
+  labels:
+    app-service: product
+spec:
+  containers:
+  - name: product-pod-container
+    image: thegeekspad/microshop-product-microservice
+    ports:
+    - containerPort: 80

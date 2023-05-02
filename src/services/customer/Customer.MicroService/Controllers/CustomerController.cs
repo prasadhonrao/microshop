@@ -13,6 +13,8 @@ public class CustomerController : ControllerBase
 {
     private readonly ICustomerRepository _repository;
     private readonly IOrderDataService _orderDataService;
+
+    private readonly IProductDataService _productDataService;
     private readonly IMapper _mapper;
     private readonly ILogger<CustomerController> _logger;
 
@@ -20,12 +22,14 @@ public class CustomerController : ControllerBase
     public CustomerController(
         ICustomerRepository repository, 
         IOrderDataService orderDataService,
+        IProductDataService productDataService,
         IMapper mapper,
         ILogger<CustomerController> logger
     ) 
     {
         _repository = repository;
         _orderDataService = orderDataService;
+        _productDataService = productDataService;
         _mapper = mapper;
         _logger = logger;
     }
@@ -39,6 +43,13 @@ public class CustomerController : ControllerBase
         // TODO: This is for demo only. Get all orders synchronously
         var orders = await _orderDataService.GetOrders();
         Console.WriteLine(orders);
+
+        var products = await _productDataService.GetProducts();
+        System.Console.WriteLine("Products: " + products);
+        foreach (var p in products)
+        {
+            System.Console.WriteLine(p.ProductName);
+        }
 
         return Ok(_mapper.Map<IEnumerable<CustomerReadModel>>(customers));
     }
