@@ -48,7 +48,7 @@ public class CustomerController : ControllerBase
         System.Console.WriteLine("Products: " + products);
         foreach (var p in products)
         {
-            System.Console.WriteLine(p.ProductName);
+            _logger.LogInformation(p.ProductName);
         }
 
         return Ok(_mapper.Map<IEnumerable<CustomerReadModel>>(customers));
