@@ -24,3 +24,10 @@ spec:
             name: order-cluster-ip-service
             port: 
               number: 80
+      - pathType: Prefix
+        path: "/api/product"
+        backend:
+          service:
+            name: product-cluster-ip-service
+            port: 
+              number: 80

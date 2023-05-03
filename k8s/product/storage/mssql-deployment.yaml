@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-mssql-deployment
+  name: product-mssql-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app-service: customer-db
+      app-service: product-db
   template:
     metadata:
       labels:
-        app-service: customer-db
+        app-service: product-db
     spec:
       containers:
-      - name: customer-mssql-deployment-container
-        image: mcr.microsoft.com/mssql-server:2017-latest
+      - name: product-mssql-deployment-container
+        image: mcr.microsoft.com/mssql/server:2022-latest
         resources:
           limits:
             memory: "128Mi"
@@ -26,47 +26,47 @@ spec:
           value: "Express"
         - name: ACCEPT_EULA
           value: "Y"
-        - name: SA_PASSWORD
+        - name: MSSQL_SA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: customer-mssql-db
+              name: product-sa-password
               key: SA_PASSWORD
         volumeMounts:
         - mountPath: /var/opt/mssql/data
-          name: mssqlcustomerdb
+          name: mssqlproductdb
       volumes:
-        - name: mssqlcustomerdb
+        - name: mssqlproductdb
           persistentVolumeClaim:
-            claimName: mssql-customer-pvc
+            claimName: product-mssql-pvc
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-mssql-cluster-ip-service
+  name: product-mssql-cluster-ip-service
 spec:
   type: ClusterIP
   ports:
-  - name: dbport
+  - name: db-port
     protocol: TCP
     port: 1433
     targetPort: 1433
   selector: # this connects the service to the pods
-    app-service: customer-db
+    app-service: product-db
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-mssql-load-balancer-service
+  name: product-mssql-load-balancer-service
 spec:
   type: LoadBalancer
   ports:
-  - name: lbport
+  - name: lb-port
     protocol: TCP
     port: 1433
     targetPort: 1433
   selector: # this connects the service to the pods
-    app-service: customer-db
+    app-service: product-db
 
