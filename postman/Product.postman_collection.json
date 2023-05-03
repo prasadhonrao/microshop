@@ -106,12 +106,12 @@
 			"name": "K8S-Ingress",
 			"item": [
 				{
-					"name": "Get All Customers",
+					"name": "Get All Products",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://microshop.com/api/customer",
+							"raw": "http://microshop.com/api/product",
 							"protocol": "http",
 							"host": [
 								"microshop",
@@ -119,19 +119,19 @@
 							],
 							"path": [
 								"api",
-								"customer"
+								"product"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Customer",
+					"name": "Get Product",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://microshop.com/api/customer/1",
+							"raw": "http://microshop.com/api/product/1",
 							"protocol": "http",
 							"host": [
 								"microshop",
@@ -139,7 +139,7 @@
 							],
 							"path": [
 								"api",
-								"customer",
+								"product",
 								"1"
 							]
 						}
@@ -147,12 +147,12 @@
 					"response": []
 				},
 				{
-					"name": "Get Error When Querying Customer Which Doesn't Exist",
+					"name": "Get Error When Querying Product Which Doesn't Exist",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://microshop.com/api/customer/101",
+							"raw": "http://microshop.com/api/product/101",
 							"protocol": "http",
 							"host": [
 								"microshop",
@@ -160,7 +160,7 @@
 							],
 							"path": [
 								"api",
-								"customer",
+								"product",
 								"101"
 							]
 						}
@@ -168,13 +168,13 @@
 					"response": []
 				},
 				{
-					"name": "Create Customer",
+					"name": "Create Product",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
+							"raw": "{\n    \"productName\": \"P9999\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,7 +182,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://microshop.com/api/customer",
+							"raw": "http://microshop.com/api/product",
 							"protocol": "http",
 							"host": [
 								"microshop",
@@ -190,7 +190,7 @@
 							],
 							"path": [
 								"api",
-								"customer"
+								"product"
 							]
 						}
 					},
