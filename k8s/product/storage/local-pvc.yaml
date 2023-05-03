@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mssql-customer-pvc
+  name: product-mssql-pvc
 spec:
   resources:
     requests:
