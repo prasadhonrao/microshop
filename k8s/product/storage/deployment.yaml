@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-ms-sql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-service: product-db
+  template:
+    metadata:
+      labels:
+        app-service: product-db
+    spec:
+      containers:
+      - name: product-ms-sql-deployment-container
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: product-db-sa-password
+              key: SA_PASSWORD
+        volumeMounts:
+        - mountPath: /var/opt/mssql/data
+          name: product-db-volume
+      volumes:
+        - name: product-db-volume
+          persistentVolumeClaim:
+            claimName: product-ms-sql-pvc
+
