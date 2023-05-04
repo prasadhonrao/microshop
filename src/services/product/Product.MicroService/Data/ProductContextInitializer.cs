@@ -40,9 +40,9 @@ public static class ProductContextInitializer
             System.Console.WriteLine("Populating in memory Product data");
 
             context.Products.AddRange(
-                new ProductEntity() { ProductID = 1, ProductName = "P1" },
-                new ProductEntity() { ProductID = 2,ProductName = "P2" },
-                new ProductEntity() { ProductID = 3,ProductName = "P3" }
+                new ProductEntity() { ProductName = "P1" },
+                new ProductEntity() { ProductName = "P2" },
+                new ProductEntity() { ProductName = "P3" }
             );
 
             context.SaveChanges(); 
