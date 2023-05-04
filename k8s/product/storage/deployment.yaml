@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: product-ms-sql-deployment-container
-        image: mcr.microsoft.com/mssql/server:2022-latest
+        image: mcr.microsoft.com/mssql/server:2019-latest
         resources:
           limits:
             memory: "128Mi"
@@ -24,7 +24,7 @@ spec:
         env:
         - name: ACCEPT_EULA
           value: "Y"
-        - name: SA_PASSWORD
+        - name: MSSQL_SA_PASSWORD
           valueFrom:
             secretKeyRef:
               name: product-db-sa-password
