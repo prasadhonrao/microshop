@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace Customer.MicroService.Services;
+namespace Customer.MicroService.Services.Sync;
 
 public class OrderDataService : IOrderDataService
 {
@@ -15,7 +15,7 @@ public class OrderDataService : IOrderDataService
         this._logger = logger;
     }
 
-    public async Task<string> GetOrders() 
+    public async Task<string?> GetOrders() 
     {
         try
         {

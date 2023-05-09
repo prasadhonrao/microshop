@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit-mq-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microshop
+  template:
+    metadata:
+      labels:
+        app: microshop
+    spec:
+      containers:
+      - name: microshop-rabbit-mq-container
+        image: rabbitmq:3-management
+        ports:
+          - containerPort: 15672
+            name: management-port
+          - containerPort: 5672
+            name: messaging-port

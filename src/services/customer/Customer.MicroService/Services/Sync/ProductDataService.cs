@@ -2,7 +2,7 @@ using AutoMapper;
 using Customer.MicroService.Models;
 using Microsoft.Extensions.Configuration;
 
-namespace Customer.MicroService.Services;
+namespace Customer.MicroService.Services.Sync;
 
 public class ProductDataService : IProductDataService
 {
@@ -20,7 +20,7 @@ public class ProductDataService : IProductDataService
         this._logger = logger;
     }
 
-    public async Task<IEnumerable<ProductReadModel>> GetProducts()
+    public async Task<IEnumerable<ProductReadModel>?> GetProducts()
     {
         try
         {
