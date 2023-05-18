@@ -14,12 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Setup Working Directory
+      working-directory: ../../src/services/product/Product.MicroService
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Setup Working Directory
-      working-directory: ../../src/services/product/Product.MicroService
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
