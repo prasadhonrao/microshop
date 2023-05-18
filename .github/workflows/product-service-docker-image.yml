@@ -1,4 +1,4 @@
-name: Build Product MicroService
+name: Product MicroService
 
 on:
   push:
@@ -10,19 +10,18 @@ env:
   SERVICE: product-microservice
   IMAGE: thegeekspad/product-microservice
   DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: services/product/Product.Microservice
+  PROJECT_PATH: services/product/Product.MicroService
 
 jobs:
 
-  BuildLinux:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - uses: ./.github/workflows/composite/build-test
     - name: Build and run unit tests
+      uses: ./.github/workflows/composite/build-test
       with:
         service: ${{ env.SERVICE }}
         dotnet_version: ${{ env.DOTNET_VERSION }}
         project_path: ${{ env.PROJECT_PATH }}
-#         tests_path: ${{ env.TESTS_PATH }}
