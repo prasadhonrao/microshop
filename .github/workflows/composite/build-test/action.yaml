@@ -31,4 +31,5 @@ runs:
     run: |
       cd src
       cd ${{ inputs.project_path }}
+      dotnet restore
       dotnet build --no-restore
