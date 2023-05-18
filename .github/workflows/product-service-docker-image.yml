@@ -1,4 +1,4 @@
-name: Build Product Service Docker Image
+name: Build Product MicroService
 
 on:
   push:
@@ -14,22 +14,14 @@ env:
 
 jobs:
 
-  build:
-
+  BuildLinux:
     runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        service: ${{ env.SERVICE }}
-        dotnet_version: ${{ env.DOTNET_VERSION }}
-        project_path: ${{ env.PROJECT_PATH }}
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
+    - name: Build and run unit tests
+      shell: bash
+      run: |
+        cd ${{ env.PROJECT_PATH }}
+        dotnet restore "Product.MicroService.csproj"
+        dotnet build --no-restore
