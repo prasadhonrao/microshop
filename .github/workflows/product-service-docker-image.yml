@@ -10,7 +10,7 @@ env:
   SERVICE: product-microservice
   IMAGE: thegeekspad/product-microservice
   DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: ../../../src/services/product/Product.Microservice
+  PROJECT_PATH: services/product/Product.Microservice
 
 jobs:
 
@@ -19,9 +19,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+    - uses: ./.github/workflows/composite/build-test
     - name: Build and run unit tests
-      shell: bash
-      run: |
-        cd ${{ env.PROJECT_PATH }}
-        dotnet restore "Product.MicroService.csproj"
-        dotnet build --no-restore
+      with:
+        service: ${{ env.SERVICE }}
+        dotnet_version: ${{ env.DOTNET_VERSION }}
+        project_path: ${{ env.PROJECT_PATH }}
+#         tests_path: ${{ env.TESTS_PATH }}
