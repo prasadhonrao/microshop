@@ -25,3 +25,11 @@ jobs:
         service: ${{ env.SERVICE }}
         dotnet_version: ${{ env.DOTNET_VERSION }}
         project_path: ${{ env.PROJECT_PATH }}
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
