@@ -29,5 +29,6 @@ runs:
   - name: Build
     shell: bash
     run: |
+      cd src
       cd ${{ inputs.project_path }}
       dotnet build --no-restore
