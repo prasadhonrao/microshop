@@ -29,4 +29,4 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{env.IMAGE}}:latest
+        run: docker build . --file ${{env.PROJECT_PATH}}/Dockerfile --tag ${{env.IMAGE}}:latest
