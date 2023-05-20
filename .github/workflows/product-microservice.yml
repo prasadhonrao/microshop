@@ -10,7 +10,7 @@ env:
   SERVICE: product-microservice
   IMAGE: thegeekspad/product-microservice
   DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: Product.MicroService
+  PROJECT_PATH: ../../src/services/product/Product.MicroService
 
 jobs:
 
@@ -23,10 +23,10 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Restore dependencies
-        run: dotnet restore Product.MicroService.csproj
+        run: dotnet restore ${{env.PROJECT_PATH}}/*.csproj
       - name: Build
-        run: dotnet build --no-restore --verbosity normal Product.MicroService.csproj
+        run: dotnet build --no-restore --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
       - name: Test
-        run: dotnet test --no-build --verbosity normal Product.MicroService.csproj
+        run: dotnet test --no-build --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
       - name: Build the Docker image
-        run: docker build --file Dockerfile --tag ${{env.IMAGE}}:latest .
+        run: docker build . --file Dockerfile --tag ${{env.IMAGE}}:latest
