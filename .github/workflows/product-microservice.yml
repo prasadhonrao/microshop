@@ -10,7 +10,7 @@ env:
   SERVICE: product-microservice
   IMAGE: thegeekspad/product-microservice
   DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: ../../src/services/product/Product.MicroService
+  PROJECT_PATH: ./src/services/product/Product.MicroService
 
 jobs:
 
