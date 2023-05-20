@@ -23,10 +23,10 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ${{env.PROJECT_PATH}}/*.csproj
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{env.IMAGE}}:latest
