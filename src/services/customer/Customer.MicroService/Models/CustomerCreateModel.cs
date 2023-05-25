@@ -4,15 +4,17 @@ namespace Customer.MicroService.Models;
 
 public class CustomerCreateModel 
 {
-    public string? CompanyName { get; set; }
-    [Required]
-    public string? ContactName { get; set; }
-    public string? ContactTitle { get; set; }
-    public string? Address { get; set; }
-    public string? City { get; set; }
-    public string? Region { get; set; }
-    public string? PostalCode { get; set; }
-    public string? Country { get; set; }
-    public string? Phone { get; set; }
-    public string? Fax { get; set; }
+    [Required(ErrorMessage = "First name is required")]
+    [MaxLength(100)]
+    public string FirstName { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Last name is required")]
+    [MaxLength(100)]
+    public string LastName { get; set; } = string.Empty;
+
+    public CustomerCreateModel(string firstName, string lastName)
+    {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+    }
 }

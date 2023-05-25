@@ -1,47 +1,73 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Http;
 using Customer.MicroService.Data;
 using Customer.MicroService.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Customer.MicroService.Repositories;
 
 public class CustomerRepository : ICustomerRepository
 {
-    private readonly CustomerContext _context;
+    private readonly CustomerContext context;
 
     public CustomerRepository(CustomerContext context)
     {
-        _context = context;
-    }
-    public void Add(CustomerEntity newCustomer)
-    {
-        if (newCustomer == null) throw new ArgumentNullException(nameof(newCustomer));
-        _context.Customers.Add(newCustomer);
+        this.context = context;
     }
 
-    public CustomerEntity DeleteById(int id)
+    public void Add(CustomerEntity customer)
     {
-        throw new NotImplementedException();
+        if (customer == null) throw new ArgumentNullException(nameof(customer));
+        context.Add(customer);
     }
 
-    public IEnumerable<CustomerEntity> GetAll()
+    public void Update(int id, CustomerEntity customer)
     {
-        return (IEnumerable<CustomerEntity>)_context.Customers.ToList();
+        var existingCustomer = context.Customers.FirstOrDefault(c => c.Id == id);
+        if (existingCustomer == null) throw new ArgumentNullException(nameof(existingCustomer));
+
+        existingCustomer.FirstName = customer.FirstName;
+        existingCustomer.LastName = customer.LastName;
+        context.Entry(existingCustomer).State = EntityState.Modified;
     }
 
-    public CustomerEntity GetById(int id)
+    public void Patch(int id, CustomerEntity customer)
     {
-        return _context.Customers.FirstOrDefault(c => c.CustomerID == id);
+        var existingCustomer = context.Customers.FirstOrDefault(c => c.Id == id);
+        if (existingCustomer == null) throw new ArgumentNullException(nameof(existingCustomer));
+
+        context.Entry(existingCustomer).Property("Id").IsModified = false;
+        context.Entry(existingCustomer).CurrentValues.SetValues(customer);
     }
 
-    public bool SaveChanges()
+    public void Delete(CustomerEntity customer)
     {
-        return _context.SaveChanges() >= 0;
+        if (customer == null) throw new ArgumentNullException(nameof(customer));
+        context.Remove(customer);
     }
 
-    public void Update(int id, CustomerEntity updatedCustomer)
+    public async Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return await context.Customers.Where(predicate).ToListAsync();
     }
+
+    public async Task<IEnumerable<CustomerEntity>> GetAllAsync()
+    {
+        return await context.Customers.ToListAsync();
+    }
+
+    public async Task<CustomerEntity?> GetAsync(int id)
+    {
+        return await context.Customers.FirstOrDefaultAsync(c => c.Id == id);
+    }
+
+    public async Task<bool> SaveChangesAsync()
+    {
+        return (await context.SaveChangesAsync() > 0);
+    }
+
+
 }

@@ -56,12 +56,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5147/api/customer/101",
+							"raw": "http://localhost:30001/api/customer/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5147",
+							"port": "30001",
 							"path": [
 								"api",
 								"customer",
@@ -203,16 +203,59 @@
 			"item": [
 				{
 					"name": "Get All Customers",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": "http://localhost:5001/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5001",
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Customers in XML Format",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer"
@@ -223,16 +266,27 @@
 				},
 				{
 					"name": "Get Customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:5001/api/customer/1",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5001",
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -243,17 +297,38 @@
 					"response": []
 				},
 				{
-					"name": "Get Error When Querying Customer Which Doesn't Exist",
+					"name": "Delete Customer",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5001/api/customer/101",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5001",
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Which Does Not Exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/101",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -270,7 +345,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,12 +353,167 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5001/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5001",
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"AAA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/firstName\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer Invalid Property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/invalidProperty\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer Remove Property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"remove\",\n        \"path\": \"/firstName\",\n        \"value\": \"Jack\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer Invalid Body",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer"

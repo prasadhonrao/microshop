@@ -1,7 +1,11 @@
 {
     "cSpell.words": [
         "appsettings",
-        "microshop"
+        "ASPNETCORE",
+        "microshop",
+        "Newtonsoft",
+        "nvarchar",
+        "Serilog"
     ],
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "disabled"

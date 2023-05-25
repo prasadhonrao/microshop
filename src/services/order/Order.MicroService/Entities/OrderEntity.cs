@@ -10,4 +10,8 @@ public class OrderEntity
     
     public int CustomerID { get; set; }
     public DateTime OrderDate { get; set; }
+
+    public override string ToString() {
+        return "OrderID: " + OrderID + ", CustomerID: " + CustomerID + ", OrderDate: " + OrderDate;
+    }
 }

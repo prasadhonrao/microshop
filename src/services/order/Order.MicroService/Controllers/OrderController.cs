@@ -15,8 +15,10 @@ public class OrderController : ControllerBase
     private readonly IOrderRepository _repository;
     private readonly IMapper _mapper;
     private readonly ILogger<OrderController> _logger;
-    public OrderController(IOrderRepository repository, 
-                            IMapper mapper, ILogger<OrderController> logger)
+    public OrderController(
+        IOrderRepository repository, 
+        IMapper mapper, 
+        ILogger<OrderController> logger)
     {
         _repository = repository;
         _mapper = mapper;
@@ -28,6 +30,18 @@ public class OrderController : ControllerBase
     {
         _logger.LogInformation("Getting all orders data...");
         var orders = _repository.GetAllOrders();
+        return Ok(_mapper.Map<IEnumerable<OrderReadModel>>(orders));
+    }
+
+    [HttpGet("{customerId}/orders", Name = "GetOrdersByCustomerId")]
+    public ActionResult<IEnumerable<OrderReadModel>> GetOrdersByCustomerId(int customerId) 
+    {
+        _logger.LogInformation("Getting all orders of customer ID: " + customerId + "...");
+        var orders = _repository.GetAllOrders().Where(o => o.CustomerID == customerId);
+        Console.WriteLine("Orders: " + orders);
+        foreach (var order in orders) {
+            Console.WriteLine("Order: " + order);
+        }
         return Ok(_mapper.Map<IEnumerable<OrderReadModel>>(orders));
     }
 

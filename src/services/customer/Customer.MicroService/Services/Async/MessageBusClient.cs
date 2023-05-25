@@ -1,4 +1,4 @@
-using System.Text;
+    using System.Text;
 using System.Text.Json;
 using Customer.MicroService.Models;
 using RabbitMQ.Client;
@@ -41,7 +41,7 @@ public class MessageBusClient : IMessageBusClient
             _logger.LogError(ex.StackTrace);
         }
     }
-    public void CreateNewOrder(OrderCreateModel order)
+    public void CreateNewOrder(OrderReadModel order)
     {
         var message = JsonSerializer.Serialize(order);
         if (_connection.IsOpen) {
