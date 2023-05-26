@@ -10,7 +10,7 @@ public class OrderReadModel
 
     public override string ToString()
     {
-        return "** OrderID: " + OrderID + ", CustomerID: " + CustomerID + ", OrderDate: " + OrderDate;
+        return "OrderID: " + OrderID + ", CustomerID: " + CustomerID + ", OrderDate: " + OrderDate;
     }
 
 }

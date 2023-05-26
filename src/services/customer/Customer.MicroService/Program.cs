@@ -23,14 +23,14 @@ builder.Host.UseSerilog();
 
 
 // Application specific services
-#if DEBUG
-Console.WriteLine("Using in memory database");
-builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("customer-microservice-db"));
-#else
+//#if DEBUG
+//Console.WriteLine("Using in memory database");
+//builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("customer-microservice-db"));
+//#else
 var connectionString = builder.Configuration["ConnectionStrings:CustomerDBConnectionString"];
 Console.WriteLine($"Connecting string : {connectionString}");
 builder.Services.AddDbContext<CustomerContext>(opt => opt.UseSqlServer(connectionString));
-#endif
+//#endif
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICustomerService, CustomerService>();

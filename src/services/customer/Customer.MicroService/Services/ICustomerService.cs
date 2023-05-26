@@ -10,7 +10,7 @@ namespace Customer.MicroService.Services
         void Add(CustomerEntity entity);
         void Update(int id, CustomerEntity entity);
         void Patch(int id, CustomerEntity entity);
-        void Delete(CustomerEntity entity);
+        Task Delete(int entity);
         Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate);
         Task<bool> SaveChangesAsync();
     }

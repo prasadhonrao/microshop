@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Customer.MicroService.Controllers;
-using Customer.MicroService.Entities;
+﻿using Customer.MicroService.Entities;
 using Customer.MicroService.Repositories;
 //using Customer.MicroService.Services.Async;
-using Customer.MicroService.Services.Sync;
 using System.Linq.Expressions;
 
 namespace Customer.MicroService.Services
@@ -19,27 +16,63 @@ namespace Customer.MicroService.Services
 
         public void Add(CustomerEntity entity)
         {
-            this.customerRepository.Add( entity );
+            if (entity  == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+      
+            customerRepository.Add( entity );
         }
 
         public void Update(int id, CustomerEntity entity)
         {
-            this.customerRepository.Update( id, entity );
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            customerRepository.Update( id, entity );
         }
 
         public void Patch(int id, CustomerEntity entity)
         {
-            this.customerRepository.Patch(id, entity);
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            customerRepository.Patch(id, entity);
         }
 
-        public void Delete(CustomerEntity entity)
+        public async Task Delete(int id)
         {
-            this.customerRepository.Delete(entity);   
+            if (id <= 0)
+            {
+                throw new ArgumentException(nameof(id));
+            }
+
+            var entity = await customerRepository.GetAsync(id);
+            
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            customerRepository.Delete(entity);
         }
 
         public Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate)
         {
-            return this.customerRepository.FindAsync( predicate );
+            return customerRepository.FindAsync( predicate );
         }
 
         public Task<IEnumerable<CustomerEntity>> GetAllAsync()
@@ -49,6 +82,11 @@ namespace Customer.MicroService.Services
 
         public Task<CustomerEntity?> GetAsync(int id)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentException($"Customer Id can not be a negative value");
+            }
+
             return customerRepository.GetAsync( id );
         }
 

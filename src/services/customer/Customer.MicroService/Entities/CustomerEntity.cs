@@ -18,6 +18,7 @@ public class CustomerEntity
     [MaxLength(100)]
     public string LastName { get; set; }
 
+
     public CustomerEntity(int id, string firstName, string lastName)
     {
         this.Id = id;
