@@ -1,6 +1,7 @@
 ﻿using Customer.MicroService.Entities;
+using Customer.MicroService.Models;
 using Customer.MicroService.Repositories;
-//using Customer.MicroService.Services.Async;
+using Customer.MicroService.Services.Sync;
 using System.Linq.Expressions;
 
 namespace Customer.MicroService.Services
@@ -8,10 +9,14 @@ namespace Customer.MicroService.Services
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository customerRepository;
+        private readonly IOrderDataService orderDataService;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService(
+                ICustomerRepository customerRepository,
+                IOrderDataService orderDataService)
         {
             this.customerRepository = customerRepository;
+            this.orderDataService = orderDataService ?? throw new ArgumentNullException(nameof(orderDataService));
         }
 
         public void Add(CustomerEntity entity)
@@ -53,7 +58,7 @@ namespace Customer.MicroService.Services
             customerRepository.Patch(id, entity);
         }
 
-        public async Task Delete(int id)
+        public async void Delete(int id)
         {
             if (id <= 0)
             {
@@ -94,5 +99,20 @@ namespace Customer.MicroService.Services
         {
             return customerRepository.SaveChangesAsync();
         }
+
+        public Task<IEnumerable<OrderReadModel>?> GetOrders(int customerId)
+        {
+            return orderDataService.GetOrders(customerId);
+        }
+
+        public async Task<bool> CustomerExistsAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException($"Customer Id can not be a negative value");
+            }
+            return await customerRepository.CustomerExistsAsync(id);
+        }
+
     }
 }

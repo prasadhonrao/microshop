@@ -6,13 +6,21 @@ namespace Customer.MicroService.UnitTests.Services
 {
     public class CustomerServiceTests
     {
+        private readonly CustomerTestRepository customerTestRepository;
+        private readonly OrderDataTestService orderDataService;
+        private readonly CustomerService customerService;
+
+        public CustomerServiceTests()
+        {
+            customerTestRepository = new CustomerTestRepository();
+            orderDataService = new OrderDataTestService();
+            customerService = new CustomerService(customerTestRepository, orderDataService);
+        }
+
         [Fact]
         public async void Get_All_Customer()
         {
             // Arrange
-
-            var customerTestRepository = new CustomerTestRepository();
-            var customerService = new CustomerService(customerTestRepository);
 
             // Act
 
@@ -27,9 +35,6 @@ namespace Customer.MicroService.UnitTests.Services
         public async void Get_Customer_With_Valid_Id()
         {
             // Arrange
-
-            var customerTestRepository = new CustomerTestRepository();
-            var customerService = new CustomerService(customerTestRepository);
 
             // Act
 
@@ -46,9 +51,6 @@ namespace Customer.MicroService.UnitTests.Services
         public async Task Get_Customer_With_Negative_Id_Should_Throw_ArgumentException()
         {
             // Arrange
-
-            var customerTestRepository = new CustomerTestRepository();
-            var customerService = new CustomerService(customerTestRepository);
             int invalidId = -1;
 
             // Act and Assert
@@ -59,9 +61,6 @@ namespace Customer.MicroService.UnitTests.Services
         public async void Add_Customer_With_Valid_Data_Should_Add_The_Customer()
         {
             // Arrange
-
-            var customerTestRepository = new CustomerTestRepository();
-            var customerService = new CustomerService(customerTestRepository);
 
             // Act
 
@@ -81,11 +80,8 @@ namespace Customer.MicroService.UnitTests.Services
         {
             // Arrange
 
-            var customerTestRepository = new CustomerTestRepository();
-            var customerService = new CustomerService(customerTestRepository);
-
             // Act
-            CustomerEntity entity = null;
+            CustomerEntity entity = null!;
 
             // Assert
             Assert.Throws<ArgumentNullException>(() => customerService.Add(entity));

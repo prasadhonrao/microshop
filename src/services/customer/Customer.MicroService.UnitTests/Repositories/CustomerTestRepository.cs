@@ -51,7 +51,7 @@ namespace Customer.MicroService.UnitTests.Repositories
 
         public async Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate)
         {
-            return customers.AsQueryable().Where(predicate.Compile()).ToList();
+            return await Task.FromResult(customers.AsQueryable().Where(predicate.Compile()).ToList());
         }
 
         public async Task<IEnumerable<CustomerEntity>> GetAllAsync()
@@ -69,6 +69,12 @@ namespace Customer.MicroService.UnitTests.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             return await Task.FromResult(true); // In-memory repository does not require saving changes
+        }
+
+        public Task<bool> CustomerExistsAsync(int id)
+        {
+            bool customerExists = customers.Any(c => c.Id == id);
+            return Task.FromResult(customerExists);
         }
     }
 }

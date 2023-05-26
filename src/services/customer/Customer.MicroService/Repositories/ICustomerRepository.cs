@@ -14,5 +14,6 @@ public interface ICustomerRepository
     void Delete(CustomerEntity entity);
     Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate);
     Task<bool> SaveChangesAsync();
+    public Task<bool> CustomerExistsAsync(int id);
 
 }

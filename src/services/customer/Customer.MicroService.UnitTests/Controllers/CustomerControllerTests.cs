@@ -18,7 +18,6 @@ namespace Customer.MicroService.UnitTests.Controllers
         {
             // Arrange
             var mockLogger = new Mock<ILogger<CustomerController>>();
-            var mockOrderService = new Mock<IOrderDataService>();
             var mockCustomerService = new Mock<ICustomerService>();
             var mockMapper = new Mock<IMapper>();
 
@@ -35,7 +34,7 @@ namespace Customer.MicroService.UnitTests.Controllers
             mockCustomerService.Setup(service => service.GetAllAsync()).ReturnsAsync(expectedCustomers);
             mockMapper.Setup(mapper => mapper.Map<IEnumerable<CustomerReadModel>>(expectedCustomers)).Returns(expectedCustomerReadModels);
 
-            var controller = new CustomerController(mockCustomerService.Object, mockOrderService.Object, mockMapper.Object, mockLogger.Object);
+            var controller = new CustomerController(mockCustomerService.Object, mockMapper.Object, mockLogger.Object);
 
             // Act
             var result = await controller.GetAllCustomers();

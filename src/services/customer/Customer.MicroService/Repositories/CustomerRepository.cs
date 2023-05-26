@@ -37,6 +37,7 @@ public class CustomerRepository : ICustomerRepository
 
         context.Entry(existingCustomer).Property("Id").IsModified = false;
         context.Entry(existingCustomer).CurrentValues.SetValues(customer);
+        context.Entry(existingCustomer).State = EntityState.Modified;
     }
 
     public void Delete(CustomerEntity customer)
@@ -65,5 +66,9 @@ public class CustomerRepository : ICustomerRepository
         return (await context.SaveChangesAsync() > 0);
     }
 
+    public async Task<bool> CustomerExistsAsync(int id)
+    {
+        return await context.Customers.AnyAsync(c => c.Id == id);
+    }
 
 }

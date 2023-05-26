@@ -1,4 +1,5 @@
 ﻿using Customer.MicroService.Entities;
+using Customer.MicroService.Models;
 using System.Linq.Expressions;
 
 namespace Customer.MicroService.Services
@@ -10,8 +11,10 @@ namespace Customer.MicroService.Services
         void Add(CustomerEntity entity);
         void Update(int id, CustomerEntity entity);
         void Patch(int id, CustomerEntity entity);
-        Task Delete(int entity);
+        void Delete(int entity);
         Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate);
         Task<bool> SaveChangesAsync();
+        Task<IEnumerable<OrderReadModel>?> GetOrders(int customerId);
+        public Task<bool> CustomerExistsAsync(int id);
     }
 }

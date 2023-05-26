@@ -1,5 +1,6 @@
 using Customer.MicroService.Models;
 using Microsoft.Extensions.Configuration;
+using System.Net;
 using System.Text.Json;
 
 namespace Customer.MicroService.Services.Sync;
@@ -23,25 +24,32 @@ public class OrderDataService : IOrderDataService
         {
             logger.LogInformation("Getting orders for customer " +  customerId);
             var orderServiceUrl = configuration["OrderServiceUrl"] + "/" + customerId + "/orders" ;
-            
+
             var response = await httpClient.GetAsync(orderServiceUrl);
-            Console.WriteLine("Response : " + response);
+            logger.LogInformation($"Response: {response}");
 
             if (response.IsSuccessStatusCode)
             {
-                return JsonSerializer.Deserialize<IEnumerable<OrderReadModel>>(
-                    await response.Content.ReadAsStringAsync(), new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true,
-                    });
+                return await response.Content.ReadFromJsonAsync<IEnumerable<OrderReadModel>>(
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
-            return null;
+
+            // Handle specific error scenarios or throw appropriate exceptions
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                // Customer not found, return null or throw a custom exception
+                return null;
+            }
+            else
+            {
+                // Other error scenarios, return null or throw a custom exception
+                return null;
+            }
         }
-        catch (HttpRequestException e)
+        catch (HttpRequestException ex)
         {
-            logger.LogError("\nException Caught!");
-            logger.LogError("Message :{0} ", e.Message);
-            return null;
+            logger.LogError($"Exception while retrieving orders for customer {customerId}. Message: {ex.Message}");
+            throw; // Re-throw the exception to allow higher-level error handling
         }
     }
 }
