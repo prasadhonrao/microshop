@@ -1,25 +1,34 @@
-name: Customer MicroService Build and Deploy
+name: Customer MicroService Build
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
+    paths:
+      - src/**
+      - src/Services/Customer/**
+      - .github/workflows/customer-microservice.yml
+      
   pull_request:
     branches: [ "main" ]
+    paths:
+      - src/**
+      - src/Services/Customer/**
+      - .github/workflows/customer-microservice.yml
 
 env:
   SERVICE: customer-microservice
   IMAGE: thegeekspad/customer-microservice
   DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: ./src/services/customer/Customer.MicroService
-  UNIT_TEST_PROJECT_PATH: ./src/services/customer/Customer.MicroService.UnitTests
+  PROJECT_PATH: services/customer/Customer.MicroService
+  UNIT_TEST_PROJECT_PATH: services/customer/Customer.MicroService.UnitTests
 
 jobs:
-  build:
-
+  BuildLinux:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -30,5 +39,3 @@ jobs:
       run: dotnet build --no-restore --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
     - name: Run Unit Tests
       run: dotnet test --no-build --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
-#     - name: Build the Docker image
-#       run: docker build . --file ${{env.PROJECT_PATH}}/Dockerfile --tag ${{env.IMAGE}}:latest 
