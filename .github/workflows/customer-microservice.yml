@@ -37,5 +37,7 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}}/*.csproj
     - name: Build
       run: dotnet build --no-restore --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
+    - name: Build Unit Test Project
+      run: dotnet build --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
     - name: Run Unit Tests
       run: dotnet test --no-build --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
