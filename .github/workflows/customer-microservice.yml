@@ -20,8 +20,8 @@ env:
   SERVICE: customer-microservice
   IMAGE: thegeekspad/customer-microservice
   DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: services/customer/Customer.MicroService
-  UNIT_TEST_PROJECT_PATH: services/customer/Customer.MicroService.UnitTests
+  PROJECT_PATH: src/services/customer/Customer.MicroService
+  UNIT_TEST_PROJECT_PATH: src/services/customer/Customer.MicroService.UnitTests
 
 jobs:
   BuildLinux:
