@@ -43,3 +43,13 @@ jobs:
       run: dotnet build --no-restore --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
     - name: Run Unit Tests
       run: dotnet test --no-build --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
+    - name: Build the Docker image
+      run: docker build . --file ${{env.PROJECT_PATH}}/Dockerfile --tag ${{env.IMAGE}}:latest
+    - name: Login to Docker
+      with:
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+    - name: Push the Docker image
+      run: docker push ${{env.IMAGE}}:latest
+    
+
