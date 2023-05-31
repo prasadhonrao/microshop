@@ -1,0 +1,59 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  project: './src/services/customer/Customer.MicroService/Customer.MicroService.csproj'
+  unitTestProject: './src/services/customer/Customer.MicroService.UnitTests/Customer.MicroService.UnitTests.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+  displayName: Install NuGet
+- task: NuGetCommand@2
+  displayName: Restore Customer MicroService Project
+  inputs:
+    restoreSolution: '$(project)'
+
+- task: VSBuild@1
+  displayName: Build Customer Microservice project
+  inputs:
+    solution: '$(project)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: NuGetCommand@2
+  displayName: Restore Customer MicroService Unit Tests Project
+  inputs:
+    restoreSolution: '$(unitTestProject)'
+
+- task: VSBuild@1
+  displayName: Build Customer Microservice Unit Tests project
+  inputs:
+    solution: '$(unitTestProject)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    
+- task: VSTest@2
+  displayName: Run Unit Tests
+  inputs:
+    codeCoverageEnabled: true
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
