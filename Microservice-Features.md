@@ -12,7 +12,7 @@
 - Caching support
 - OpenAPI specification
 - Dev - Prod configuration
-- Consistent code repository pattern
+- Consistent code pattern
 - CI / CD pipelines using GitHub Actions
 - Security (Authentication and Authorization)
 - Centralized logging
