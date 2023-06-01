@@ -16,6 +16,15 @@ Log.Logger = new LoggerConfiguration()
             .CreateLogger();
 builder.Host.UseSerilog();
 
+// Retrieve an instance of ILoggerFactory
+var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder.AddSerilog(); // Add Serilog to the LoggerFactory
+});
+
+// Create a logger instance using ILoggerFactory
+var logger = loggerFactory.CreateLogger<Program>();
+
 
 // Throttle the thread pool 
 //Console.WriteLine("ThreadPool limit: " + Environment.ProcessorCount);
@@ -24,11 +33,11 @@ builder.Host.UseSerilog();
 
 // Application specific services
 //#if DEBUG
-//Console.WriteLine("Using in memory database");
-//builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("customer-microservice-db"));
+// Console.WriteLine("Using in memory database");
+// builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("customer-microservice-db"));
 //#else
 var connectionString = builder.Configuration["ConnectionStrings:CustomerDBConnectionString"];
-Console.WriteLine($"Connecting string : {connectionString}");
+logger.LogInformation("Connecting string: {connectionString}", connectionString);
 builder.Services.AddDbContext<CustomerContext>(opt => opt.UseSqlServer(connectionString));
 //#endif
 
@@ -48,8 +57,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Log Order Service URL
-string? OrderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
-Console.WriteLine("Order Service URL: " + OrderServiceUrl);
+string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
+logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
 
 // Log Rabbit MQ Host URL
 // string? RabbitMQHost = builder.Configuration.GetValue<string>("RabbitMQHost");

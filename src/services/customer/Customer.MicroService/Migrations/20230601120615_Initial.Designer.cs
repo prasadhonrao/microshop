@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Customer.MicroService.Migrations
 {
     [DbContext(typeof(CustomerContext))]
-    [Migration("20230525094820_SeedOrderData")]
-    partial class SeedOrderData
+    [Migration("20230601120615_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
