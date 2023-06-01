@@ -30,4 +30,5 @@
 ## Running Migration
 
 dotnet ef migrations add Initial
+dotnet ef database drop
 dotnet ef database update

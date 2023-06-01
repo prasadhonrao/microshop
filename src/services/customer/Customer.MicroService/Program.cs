@@ -67,6 +67,22 @@ logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
 
 var app = builder.Build();
 
+// This is required for Azure App Service
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        logger.LogInformation("Applying EF migrations...");
+        var dbContext = services.GetRequiredService<CustomerContext>();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occurred while applying EF migrations.");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
