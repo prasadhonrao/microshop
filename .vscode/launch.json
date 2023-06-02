@@ -2,18 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "type": "java",
+            "name": "ProductMicroserviceApplication",
+            "request": "launch",
+            "mainClass": "com.microshop.microservice.product.ProductMicroserviceApplication",
+            "projectName": "microservices.product"
+        },
+        {
+            "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "com.microshop.microservices.product.Application"
+        },
+        {
+            "type": "java",
+            "name": "InventoryMicroserviceApplication",
+            "request": "launch",
+            "mainClass": "com.microshop.microservice.inventory.InventoryMicroserviceApplication",
+            "projectName": "inventory-microservice"
+        },
+        {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/src/services/customer/Customer.MicroService.Tests/bin/Debug/net7.0/Customer.MicroService.Tests.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/services/customer/Customer.MicroService.Tests",
-            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
         },
