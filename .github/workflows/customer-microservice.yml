@@ -17,7 +17,6 @@ on:
       - .github/workflows/customer-microservice.yml
 
 env:
-  SERVICE: customer-microservice
   IMAGE_NAME: thegeekspad/customer-microservice
   DOTNET_VERSION: 7.0.x
   PROJECT_PATH: src/services/customer/Customer.MicroService
