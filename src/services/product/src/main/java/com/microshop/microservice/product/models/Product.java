@@ -1,4 +1,4 @@
-package com.microshop.microservice.product.model;
+package com.microshop.microservice.product.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -25,21 +25,29 @@ var loggerFactory = LoggerFactory.Create(builder =>
 // Create a logger instance using ILoggerFactory
 var logger = loggerFactory.CreateLogger<Program>();
 
-
 // Throttle the thread pool 
 //Console.WriteLine("ThreadPool limit: " + Environment.ProcessorCount);
 //ThreadPool.SetMaxThreads(Environment.ProcessorCount, Environment.ProcessorCount);
 
-
 // Application specific services
-//#if DEBUG
-// Console.WriteLine("Using in memory database");
-// builder.Services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("customer-microservice-db"));
-//#else
-var connectionString = builder.Configuration["ConnectionStrings:CustomerDBConnectionString"];
-logger.LogInformation("Connecting string: {connectionString}", connectionString);
-builder.Services.AddDbContext<CustomerContext>(opt => opt.UseSqlServer(connectionString));
-//#endif
+
+// Database configuration
+var isDevelopment = builder.Environment.IsDevelopment();
+var useInMemoryDb = isDevelopment; 
+
+builder.Services.AddDbContext<CustomerContext>(options =>
+{
+    if (useInMemoryDb)
+    {
+        logger.LogInformation("Using in-memory database");
+        options.UseInMemoryDatabase("InMemoryDb"); // In-memory database
+    }
+    else
+    {
+        logger.LogInformation("Using SQL Server database");
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:CustomerDBConnectionString"]); // Real SQL Server database
+    }
+});
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -57,8 +65,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Log Order Service URL
-string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
-logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
+// string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
+// logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
 
 // Log Rabbit MQ Host URL
 // string? RabbitMQHost = builder.Configuration.GetValue<string>("RabbitMQHost");
@@ -75,7 +83,7 @@ using (var scope = app.Services.CreateScope())
     {
         logger.LogInformation("Applying EF migrations...");
         var dbContext = services.GetRequiredService<CustomerContext>();
-        dbContext.Database.Migrate();
+        dbContext.Database.EnsureCreated();
     }
     catch (Exception ex)
     {

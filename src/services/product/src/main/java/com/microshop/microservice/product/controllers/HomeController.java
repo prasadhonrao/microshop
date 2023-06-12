@@ -1,4 +1,4 @@
-package com.microshop.microservice.product.controller;
+package com.microshop.microservice.product.controllers;
 
 import java.util.HashMap;
 import java.util.Map;

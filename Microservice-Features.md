@@ -26,6 +26,7 @@
 - HATEOAS
 - Concurrency
 - Markdown documentation
+- GraphQL Endpoints
 
 ## Running Migration
 

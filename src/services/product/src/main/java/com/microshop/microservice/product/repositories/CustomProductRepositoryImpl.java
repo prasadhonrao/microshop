@@ -1,4 +1,4 @@
-package com.microshop.microservice.product.repository;
+package com.microshop.microservice.product.repositories;
 
 import java.util.List;
 

@@ -22,7 +22,7 @@ namespace Customer.MicroService.Controllers
         }
 
         [HttpPost(Name = "CreateCustomerCollection")]
-        public async Task<IActionResult> CreateCustomerCollection(
+        public async Task<IActionResult> CreateCustomersCollection(
         [FromBody] IEnumerable<CustomerCreateModel> customerCollection)
         {
             var customerEntities = mapper.Map<IEnumerable<CustomerEntity>>(customerCollection);

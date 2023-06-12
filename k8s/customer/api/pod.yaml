@@ -9,4 +9,11 @@ spec:
   - name: customer-pod-container
     image: thegeekspad/microshop-customer-microservice
     ports:
-    - containerPort: 80
+    - name: http-port
+      containerPort: 80
+    - name: https-port
+      containerPort: 443
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

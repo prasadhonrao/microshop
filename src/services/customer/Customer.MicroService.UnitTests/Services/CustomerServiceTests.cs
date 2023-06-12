@@ -8,7 +8,7 @@ namespace Customer.MicroService.UnitTests.Services
     {
         private readonly CustomerTestRepository customerTestRepository;
         private readonly OrderDataTestService orderDataService;
-        private readonly CustomerService customerService;
+        private readonly CustomersService customerService;
 
         public CustomerServiceTests()
         {

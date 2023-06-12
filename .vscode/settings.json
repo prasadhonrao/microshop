@@ -3,9 +3,11 @@
         "appsettings",
         "ASPNETCORE",
         "microshop",
+        "mssql",
         "Newtonsoft",
         "nvarchar",
-        "Serilog"
+        "Serilog",
+        "thegeekspad"
     ],
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "disabled"

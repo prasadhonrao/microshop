@@ -1,7 +1,7 @@
-package com.microshop.microservice.product.repository;
+package com.microshop.microservice.product.repositories;
 
 
-import com.microshop.microservice.product.model.Product;
+import com.microshop.microservice.product.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
