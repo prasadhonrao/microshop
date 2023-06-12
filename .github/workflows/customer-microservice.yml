@@ -22,8 +22,6 @@ env:
   DOTNET_VERSION: 7.0.x
   PROJECT_PATH: src/services/customer/Customer.MicroService
   UNIT_TEST_PROJECT_PATH: src/services/customer/Customer.MicroService.UnitTests
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   BuildLinux:
@@ -46,10 +44,10 @@ jobs:
     - name: Run Unit Tests
       run: dotnet test --no-build --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
     - name: Build Docker image
-      run: docker build -t $IMAGE_NAME .
+      run: docker build -t ${{env.IMAGE_NAME}} .
     - name: Log in to Docker Hub
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
     - name: Push Docker image to Docker Hub
-      run: docker push $IMAGE_NAME
+      run: docker push ${{env.IMAGE_NAME}}
     
 
