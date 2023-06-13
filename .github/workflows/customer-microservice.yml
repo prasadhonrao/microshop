@@ -17,7 +17,7 @@ on:
       - .github/workflows/customer-microservice.yml
 
 env:
-  IMAGE_NAME: thegeekspad/customer-microservice
+  IMAGE_NAME: thegeekspad/microshop-customer-microservice
   DOTNET_VERSION: 7.0.x
   PROJECT_PATH: src/services/customer/Customer.MicroService
   UNIT_TEST_PROJECT_PATH: src/services/customer/Customer.MicroService.UnitTests
