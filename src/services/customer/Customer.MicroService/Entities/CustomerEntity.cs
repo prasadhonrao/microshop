@@ -12,12 +12,15 @@ public class CustomerEntity
     
     [Required(ErrorMessage = "First name is required")]
     [MaxLength(100)]
-    public string FirstName { get; set; } 
+    public string FirstName { get; set; } = null!;
 
     [Required(ErrorMessage = "Last name is required")]
     [MaxLength(100)]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = null!;
 
+    public CustomerEntity()
+    {
+    }
 
     public CustomerEntity(int id, string firstName, string lastName)
     {
