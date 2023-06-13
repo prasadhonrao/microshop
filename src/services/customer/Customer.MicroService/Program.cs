@@ -5,13 +5,14 @@ using Customer.MicroService.Services;
 using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure SeriLog
 Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
-            .WriteTo.Console()
+            .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
             .WriteTo.File("logs/customer-microservice.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();
 builder.Host.UseSerilog();
