@@ -46,7 +46,9 @@ builder.Services.AddDbContext<CustomerContext>(options =>
     else
     {
         logger.LogInformation("Using SQL Server database");
-        options.UseSqlServer(builder.Configuration["ConnectionStrings:CustomerDBConnectionString"]); // Real SQL Server database
+        var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
+        logger.LogInformation("Connection string: {connectionString}", connectionString);
+        options.UseSqlServer(connectionString); // Real SQL Server database
     }
 });
 

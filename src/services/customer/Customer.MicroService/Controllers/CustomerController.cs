@@ -99,7 +99,7 @@ public class CustomerController : ControllerBase
                 return NotFound($"No customer found with id: {id}");
             }
 
-            logger.LogInformation($"Getting all customer orders for customer id: {id} ");
+            logger.LogInformation($"Getting all orders for customer id: {id} ");
             var orders = await customerService.GetOrders(id);
             return Ok(orders);
         }
