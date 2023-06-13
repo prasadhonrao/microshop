@@ -1,32 +1,47 @@
-name: Product MicroService Build and Deploy
+name: Product MicroService Build and Deploy to Docker Hub
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
+    paths:
+      - src/**
+      - .github/workflows/product-microservice.yml
+      
   pull_request:
     branches: [ "main" ]
+    paths:
+      - src/**
+      - src/Services/product/**
+      - .github/workflows/product-microservice.yml
 
 env:
-  SERVICE: product-microservice
-  IMAGE: thegeekspad/product-microservice
-  DOTNET_VERSION: 7.0.x
-  PROJECT_PATH: ./src/services/product/Product.MicroService
+  IMAGE_NAME: thegeekspad/microshop-product-microservice
+  JAVA_VERSION: 7.0.x
+  PROJECT_PATH: src/services/product
 
 jobs:
-
-  Build:
+  BuildLinux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Restore dependencies
-        run: dotnet restore ${{env.PROJECT_PATH}}/*.csproj
-      - name: Build
-        run: dotnet build --no-restore --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
-      - name: Test
-        run: dotnet test --no-build --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
-      - name: Build the Docker image
-        run: docker build . --file ${{env.PROJECT_PATH}}/Dockerfile --tag ${{env.IMAGE}}:latest
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+
+    - name: Build with Maven
+      run: mvn clean package
+
+    - name: Build Docker image
+      run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
+
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker image to Docker Hub
+      run: docker push ${{env.IMAGE_NAME}}
+    
+
