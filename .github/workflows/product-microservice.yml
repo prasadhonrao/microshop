@@ -17,7 +17,7 @@ on:
 
 env:
   IMAGE_NAME: thegeekspad/microshop-product-microservice
-  JAVA_VERSION: 17
+  JAVA_VERSION: '17'
   PROJECT_PATH: src/services/product
 
 jobs:
