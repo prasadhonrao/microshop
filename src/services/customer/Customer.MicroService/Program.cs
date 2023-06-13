@@ -6,6 +6,7 @@ using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using Steeltoe.Discovery.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,11 +35,10 @@ var logger = loggerFactory.CreateLogger<Program>();
 
 // Database configuration
 var isDevelopment = builder.Environment.IsDevelopment();
-var useInMemoryDb = isDevelopment; 
 
 builder.Services.AddDbContext<CustomerContext>(options =>
 {
-    if (useInMemoryDb)
+    if (isDevelopment)
     {
         logger.LogInformation("Using in-memory database");
         options.UseInMemoryDatabase("InMemoryDb"); // In-memory database
@@ -64,6 +64,8 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDiscoveryClient(builder.Configuration);
 
 // Log Order Service URL
 // string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
@@ -92,7 +94,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-if (app.Environment.IsDevelopment())
+if (isDevelopment)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -101,5 +103,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.UseDiscoveryClient();
 
 app.Run();

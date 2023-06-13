@@ -7,6 +7,7 @@
         "Newtonsoft",
         "nvarchar",
         "Serilog",
+        "Steeltoe",
         "thegeekspad"
     ],
     "java.configuration.updateBuildConfiguration": "automatic",
