@@ -11,9 +11,29 @@ spec:
     ports:
     - name: http-port
       containerPort: 80
-    - name: https-port
-      containerPort: 443
     resources:
       limits:
         memory: "128Mi"
         cpu: "500m"
+    readinessProbe:
+      httpGet:
+        path: /api/home
+        port: 80
+      initialDelaySeconds: 2
+      periodSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: /api/home
+        port: 80
+      initialDelaySeconds: 15
+      timeoutSeconds: 2
+      periodSeconds: 20
+      failureThreshold: 1
+
+
+# kubectl apply -f pod.yaml
+# kubectl get pods
+# kubectl describe pod customer-pod
+# kubectl delete pod customer-pod
+# kubectl delete -f pod.yaml
+# kubectl exec -it customer-pod -- /bin/bash

@@ -18,4 +18,23 @@ spec:
         - name: customer-deployment-container
           image: thegeekspad/microshop-customer-microservice
           ports:
-          - containerPort: 80
+          - name: http-port
+            containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /api/home
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/home
+              port: 80
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+            periodSeconds: 20
+            failureThreshold: 1
