@@ -14,9 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure SeriLog
 Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
+            .Enrich.FromLogContext()
+            .Enrich.WithMachineName()
             .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
             .WriteTo.File("logs/customer-microservice.log", rollingInterval: RollingInterval.Day)
+            .WriteTo.Seq(builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value)
             .CreateLogger();
+            
 builder.Host.UseSerilog();
 
 // Retrieve an instance of ILoggerFactory
@@ -69,7 +73,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
-builder.Services.AddDiscoveryClient(builder.Configuration);
+if (!isDevelopment)
+{
+    builder.Services.AddDiscoveryClient(builder.Configuration);
+}
 
 // Log Order Service URL
 // string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
@@ -107,7 +114,12 @@ if (isDevelopment)
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.UseDiscoveryClient();
+
+if (!isDevelopment)
+{
+   app.UseDiscoveryClient();
+}
+
 app.UseHealthChecks("/api/health");
 
 app.Run();

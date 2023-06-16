@@ -11,5 +11,8 @@
         "thegeekspad"
     ],
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "disabled"
+    "java.compile.nullAnalysis.mode": "disabled",
+    "files.exclude": {
+        "**/*.user": true
+    }
 }

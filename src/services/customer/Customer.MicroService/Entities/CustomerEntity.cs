@@ -22,17 +22,15 @@ public class CustomerEntity
     {
     }
 
-    public CustomerEntity(int id, string firstName, string lastName)
+    public CustomerEntity(int id, string firstName, string lastName) : this(firstName, lastName)
     {
-        this.Id = id;
-        this.FirstName = firstName;
-        this.LastName = lastName;
+        Id = id;
     }
 
     public CustomerEntity(string firstName, string lastName)
     {
-        this.FirstName = firstName;
-        this.LastName = lastName;
+        FirstName = firstName;
+        LastName = lastName;
     }
 
 }
