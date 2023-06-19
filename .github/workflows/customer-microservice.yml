@@ -41,6 +41,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Restore Dependencies Unit Test Project
       run: dotnet restore ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
     - name: Build Unit Test Project
