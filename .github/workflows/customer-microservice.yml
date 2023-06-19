@@ -58,6 +58,8 @@ jobs:
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
     - name: Build Docker image
       run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
     - name: Log in to Docker Hub
