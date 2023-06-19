@@ -23,7 +23,7 @@ env:
   UNIT_TEST_PROJECT_PATH: src/services/customer/Customer.MicroService.UnitTests
 
 jobs:
-  BuildLinux:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
@@ -36,12 +36,22 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}}/*.csproj
     - name: Build Project
       run: dotnet build --no-restore --verbosity normal ${{env.PROJECT_PATH}}/*.csproj
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
     - name: Restore Dependencies Unit Test Project
       run: dotnet restore ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
     - name: Build Unit Test Project
       run: dotnet build --no-restore --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
     - name: Run Unit Tests
       run: dotnet test --no-build --verbosity normal ${{env.UNIT_TEST_PROJECT_PATH}}/*.csproj
+  
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
     - name: Build Docker image
       run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
     - name: Log in to Docker Hub
