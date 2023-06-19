@@ -13,3 +13,9 @@ Notification - Python (Flask)
 
 API Gateway - Spring Cloud
 Discovery Server - Spring Cloud
+
+## Build Status (GitHub Actions)
+
+| Image | Status | 
+| ------------- | ------------- |
+| Customer MicroService | [![Customer MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml)
