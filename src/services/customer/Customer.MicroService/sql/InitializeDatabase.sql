@@ -1,14 +1,5 @@
 USE master
 
-SET NOCOUNT ON
-GO
-
-set quoted_identifier on
-GO
-
-SET DATEFORMAT mdy
-GO
-
 GO
 DROP DATABASE IF EXISTS MicroshopCustomerDb
 GO
@@ -143,4 +134,18 @@ INSERT "Customers" VALUES('White Clover Markets','Karl Jablonski','Owner','305 -
 INSERT "Customers" VALUES('Wilman Kala','Matti Karttunen','Owner/Marketing Assistant','Keskuskatu 45','Helsinki',NULL,'21240','Finland','90-224 8858','90-224 8858')
 INSERT "Customers" VALUES('Wolski  Zajazd','Zbyszek Piestrzeniewicz','Owner','ul. Filtrowa 68','Warszawa',NULL,'01-012','Poland','(26) 642-7012','(26) 642-7012')
 
+GO
+
+----------------------------------------------------------------------------
+--- DB USER CREATION
+----------------------------------------------------------------------------
+USE master;
+GO
+CREATE LOGIN [ms_dbuser] WITH PASSWORD=N'Sql1nContainersR0cks!', CHECK_EXPIRATION=OFF, CHECK_POLICY=ON;
+GO
+USE MicroshopCustomerDb;
+GO
+CREATE USER [ms_dbuser] FOR LOGIN [ms_dbuser];
+GO
+EXEC sp_addrolemember N'db_owner', [ms_dbuser];
 GO
