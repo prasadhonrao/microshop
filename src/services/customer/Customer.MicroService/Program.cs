@@ -1,7 +1,6 @@
 using Customer.MicroService.Data;
 using Customer.MicroService.Repositories;
 using Customer.MicroService.Services;
-//using Customer.MicroService.Services.Async;
 using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -29,7 +28,7 @@ var loggerFactory = LoggerFactory.Create(builder =>
     builder.AddSerilog(); // Add Serilog to the LoggerFactory
 });
 
-// Create a logger instance using ILoggerFactory
+
 var logger = loggerFactory.CreateLogger<Program>();
 
 logger.LogInformation($"Environment: {builder.Environment.EnvironmentName}");
@@ -40,18 +39,22 @@ logger.LogInformation($"Seq URL: {seqURL}");
 var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
 logger.LogInformation($"Database Connection string: {connectionString}");
 
-// Database configuration
+string orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
+logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
+
+string RabbitMQHost = builder.Configuration.GetValue<string>("RabbitMQHost");
+string RabbitMQPort = builder.Configuration.GetValue<string>("RabbitMQPort");
+logger.LogInformation("RabbitMQ URL: " + RabbitMQHost + RabbitMQPort);
+
 builder.Services.AddDbContext<CustomersDbContext>(options =>
 {
     options.UseSqlServer(connectionString); 
 });
 
-// Application specific services
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddHttpClient<IOrderDataService, OrderDataService>();
-//builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
 builder.Services.AddControllers(options =>
 {
@@ -68,20 +71,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
-//if (!isDevelopment)
-//{
-//    builder.Services.AddDiscoveryClient(builder.Configuration);
-//}
-
-// Log Order Service URL
-// string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
-// logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
-
-// Log Rabbit MQ Host URL
-// string? RabbitMQHost = builder.Configuration.GetValue<string>("RabbitMQHost");
-// string? RabbitMQPort = builder.Configuration.GetValue<string>("RabbitMQPort");
-// Console.WriteLine("RabbitMQ URL: " + RabbitMQHost + RabbitMQPort);
-
 var app = builder.Build();
 
 app.UseSwagger();
@@ -90,10 +79,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// if (!isDevelopment)
-// {
-//    app.UseDiscoveryClient();
-// }
 
 app.UseHealthChecks("/api/health");
 
