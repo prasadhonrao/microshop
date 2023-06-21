@@ -5,21 +5,23 @@ using Customer.MicroService.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Customer.MicroService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CustomerController : ControllerBase
+public class CustomersController : ControllerBase
 {
     private readonly ICustomerService customerService;
     private readonly IMapper mapper;
-    private readonly ILogger<CustomerController> logger;
+    private readonly ILogger<CustomersController> logger;
 
-    public CustomerController(
+    public CustomersController(
         ICustomerService customerService,
         IMapper mapper,
-        ILogger<CustomerController> logger)
+        ILogger<CustomersController> logger)
     {
         this.customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
         this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -38,6 +40,11 @@ public class CustomerController : ControllerBase
             return Ok(mapper.Map<IEnumerable<CustomerReadModel>>(customers));
         }
         catch (InvalidOperationException ex)
+        {
+            logger.LogError(ex, $"Invalid operation exception occurred while getting all customer information");
+            return StatusCode(500, "An error occurred while retrieving customer information. Please try again later.");
+        }
+        catch (Exception ex)
         {
             logger.LogError(ex, $"Invalid operation exception occurred while getting all customer information");
             return StatusCode(500, "An error occurred while retrieving customer information. Please try again later.");
@@ -125,7 +132,6 @@ public class CustomerController : ControllerBase
         {
             if (!ModelState.IsValid)
             {
-                logger.LogInformation("Customer object sent from client is null");
                 return BadRequest("Customer object is null");
             }
 
@@ -188,8 +194,7 @@ public class CustomerController : ControllerBase
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public async Task<IActionResult> PatchCustomer([FromRoute] int id,
-     JsonPatchDocument<CustomerUpdateModel> patchDocument)
+    public async Task<IActionResult> PatchCustomer([FromRoute] int id, [FromBody] JsonElement[] patchArray)
     {
         try
         {
@@ -208,10 +213,27 @@ public class CustomerController : ControllerBase
                 return BadRequest("Customer object is invalid");
             }
 
-            var patchModel = new CustomerUpdateModel(existingCustomer.FirstName,
-                                existingCustomer.LastName);
+            var patchModel = new CustomerUpdateModel(existingCustomer.CompanyName,
+                                                     existingCustomer.ContactName,
+                                                     existingCustomer.ContactTitle,
+                                                     existingCustomer.Address,
+                                                     existingCustomer.City,
+                                                     existingCustomer.Region,
+                                                     existingCustomer.PostalCode,
+                                                     existingCustomer.Country,
+                                                     existingCustomer.Phone,
+                                                     existingCustomer.Fax);
 
-            patchDocument.ApplyTo(patchModel, ModelState);
+            //patchDocument.ApplyTo(patchModel, ModelState);
+
+            foreach (var patch in patchArray)
+            {
+                var op = patch.GetProperty("op").GetString();
+                var path = patch.GetProperty("path").GetString();
+                var value = patch.GetProperty("value").GetString();
+                ApplyPatchOperation(patchModel, op, path, value);
+            }
+
 
             if (!ModelState.IsValid)
             {
@@ -226,8 +248,16 @@ public class CustomerController : ControllerBase
 
             logger.LogInformation($"Patching single customer with id: {id}");
 
-            existingCustomer.FirstName = patchModel.FirstName;
-            existingCustomer.LastName = patchModel.LastName;
+            existingCustomer.CompanyName = patchModel.CompanyName;
+            existingCustomer.ContactName = patchModel.ContactName;
+            existingCustomer.ContactTitle = patchModel.ContactTitle;
+            existingCustomer.Address = patchModel.Address;
+            existingCustomer.City = patchModel.City;
+            existingCustomer.Region = patchModel.Region;
+            existingCustomer.PostalCode = patchModel.PostalCode;
+            existingCustomer.Country = patchModel.Country;
+            existingCustomer.Phone = patchModel.Phone;
+            existingCustomer.Fax = patchModel.Fax;
 
             var customer = mapper.Map<CustomerEntity>(existingCustomer);
             customerService.Patch(id, customer);
@@ -241,7 +271,7 @@ public class CustomerController : ControllerBase
             return StatusCode(500, "An error occurred while patching the customer. Please try again later.");
         }
     }
-
+       
     [HttpDelete("{id}", Name = "DeleteCustomerById")]
     [ProducesResponseType(204)]
     [ProducesResponseType(400)]
@@ -269,8 +299,6 @@ public class CustomerController : ControllerBase
         }
     }
 
-    //GET /api/customers/search? FirstName = John & LastName = Doe
-
     [HttpGet("search")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -294,8 +322,11 @@ public class CustomerController : ControllerBase
     private Expression<Func<CustomerEntity, bool>> GenerateSearchPredicate(CustomerSearchParametersModel searchParameters)
     {
         Expression<Func<CustomerEntity, bool>> predicate = c =>
-            (string.IsNullOrEmpty(searchParameters.FirstName) || c.FirstName == searchParameters.FirstName) &&
-            (string.IsNullOrEmpty(searchParameters.LastName) || c.LastName == searchParameters.LastName);
+            (string.IsNullOrEmpty(searchParameters.CompanyName) || c.CompanyName == searchParameters.CompanyName) &&
+            (string.IsNullOrEmpty(searchParameters.City) || c.City == searchParameters.City) &&
+            (string.IsNullOrEmpty(searchParameters.Region) || c.Region == searchParameters.Region) &&
+            (string.IsNullOrEmpty(searchParameters.Country) || c.Country == searchParameters.Country)
+            ;
 
         return predicate;
     }
@@ -306,6 +337,93 @@ public class CustomerController : ControllerBase
         {
             throw new ArgumentException($"Invalid customer id: {id}");
         }
+    }
+
+    private void ApplyPatchOperation(CustomerUpdateModel patchModel, string op, string path, string value)
+    {
+        var propertyPath = path.TrimStart('/');
+        var propertyNames = propertyPath.Split('/');
+
+        var targetType = typeof(CustomerUpdateModel);
+        var targetProperty = GetPropertyInHierarchy(targetType, propertyNames[0], ignoreCase: true);
+        if (targetProperty != null)
+        {
+            switch (op.ToLowerInvariant())
+            {
+                case "add":
+                case "replace":
+                    var valueToSet = Convert.ChangeType(value, targetProperty.PropertyType);
+                    targetProperty.SetValue(patchModel, valueToSet);
+                    break;
+
+                case "remove":
+                    targetProperty.SetValue(patchModel, null);
+                    break;
+
+                case "copy":
+                    var sourceProperty = GetPropertyInHierarchy(targetType, value, ignoreCase: true);
+
+                    if (sourceProperty != null)
+                    {
+                        var sourceValue = sourceProperty.GetValue(patchModel);
+                        targetProperty.SetValue(patchModel, sourceValue);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Invalid source property {value} for copy operation.", nameof(value));
+                    }
+                    break;
+
+                case "move":
+                    var sourceProp = GetPropertyInHierarchy(targetType, value, ignoreCase: true);
+
+                    if (sourceProp != null)
+                    {
+                        var sourceValue = sourceProp.GetValue(patchModel);
+                        targetProperty.SetValue(patchModel, sourceValue);
+                        sourceProp.SetValue(patchModel, null);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Invalid source property {value} for move operation.", nameof(value));
+                    }
+                    break;
+
+                case "test":
+                    var expectedValue = Convert.ChangeType(value, targetProperty.PropertyType);
+                    var currentValue = targetProperty.GetValue(patchModel);
+
+                    if (!Equals(currentValue, expectedValue))
+                    {
+                        throw new ArgumentException($"Test failed for property {path}.", nameof(path));
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentException($"Invalid operation {op}.", nameof(op));
+            }
+        }
+        else
+        {
+            throw new ArgumentException($"Invalid property {path}", nameof(path));
+        }
+    }
+
+    private PropertyInfo GetPropertyInHierarchy(Type targetType, string propertyName, bool ignoreCase)
+    {
+        // Search for the property in the inheritance hierarchy
+        var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        if (ignoreCase)
+        {
+            bindingFlags |= BindingFlags.IgnoreCase;
+        }
+
+        var property = targetType.GetProperty(propertyName, bindingFlags);
+        if (property == null && targetType.BaseType != null)
+        {
+            return GetPropertyInHierarchy(targetType.BaseType, propertyName, ignoreCase);
+        }
+        return property;
     }
 
 }

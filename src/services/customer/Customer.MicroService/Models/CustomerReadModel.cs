@@ -1,21 +1,15 @@
 namespace Customer.MicroService.Models;
 
-public class CustomerReadModel
+public class CustomerReadModel : CustomerBaseModel
 {
     public int Id { get; set; }
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string FullName { get; set; } = null!;
-
-    public CustomerReadModel()
-    {
-        
-    }
-    public CustomerReadModel(int id, string firstName, string lastName)
+    public CustomerReadModel(int id, string companyName, string contactName, string contactTitle, string address, string city, string region, string postalCode, string country, string phone, string fax) 
+        : base(companyName, contactName, contactTitle, address, city, region, postalCode, country, phone, fax)
     {
         Id = id;
-        FirstName = firstName;
-        LastName = lastName;
-        FullName = firstName + " " + lastName;
+    }
+
+    public CustomerReadModel() 
+    {
     }
 }

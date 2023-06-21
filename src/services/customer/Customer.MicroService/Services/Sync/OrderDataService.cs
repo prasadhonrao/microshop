@@ -18,7 +18,7 @@ public class OrderDataService : IOrderDataService
         this.logger = logger;
     }
 
-    public async Task<IEnumerable<OrderReadModel>?> GetOrders(int customerId) 
+    public async Task<IEnumerable<OrderReadModel>> GetOrders(int customerId) 
     {
         try
         {

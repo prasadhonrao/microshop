@@ -10,8 +10,10 @@ using Steeltoe.Discovery.Client;
 using Steeltoe.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+var isDevelopment = builder.Environment.IsDevelopment();
 
 // Configure SeriLog
+#pragma warning disable CS8604 // Possible null reference argument.
 Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .Enrich.FromLogContext()
@@ -20,7 +22,8 @@ Log.Logger = new LoggerConfiguration()
             .WriteTo.File("logs/customer-microservice.log", rollingInterval: RollingInterval.Day)
             .WriteTo.Seq(builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value)
             .CreateLogger();
-            
+#pragma warning restore CS8604 // Possible null reference argument.
+
 builder.Host.UseSerilog();
 
 // Retrieve an instance of ILoggerFactory
@@ -32,31 +35,32 @@ var loggerFactory = LoggerFactory.Create(builder =>
 // Create a logger instance using ILoggerFactory
 var logger = loggerFactory.CreateLogger<Program>();
 
+logger.LogInformation($"Environment: {builder.Environment.EnvironmentName}");
+
+var seqURL = builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value;
+logger.LogInformation($"Seq URL: {seqURL}");
+
 // Throttle the thread pool 
 //Console.WriteLine("ThreadPool limit: " + Environment.ProcessorCount);
 //ThreadPool.SetMaxThreads(Environment.ProcessorCount, Environment.ProcessorCount);
 
-// Application specific services
-
 // Database configuration
-var isDevelopment = builder.Environment.IsDevelopment();
-
-builder.Services.AddDbContext<CustomerContext>(options =>
+builder.Services.AddDbContext<CustomersDbContext>(options =>
 {
     if (isDevelopment)
     {
         logger.LogInformation("Using in-memory database");
-        options.UseInMemoryDatabase("InMemoryDb"); // In-memory database
+        options.UseInMemoryDatabase("InMemoryDb"); 
     }
     else
     {
-        logger.LogInformation("Using SQL Server database");
         var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
-        logger.LogInformation("Connection string: {connectionString}", connectionString);
+        logger.LogInformation($"Connection string: {connectionString}");
         options.UseSqlServer(connectionString); // Real SQL Server database
     }
 });
 
+// Application specific services
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -65,18 +69,23 @@ builder.Services.AddHttpClient<IOrderDataService, OrderDataService>();
 
 builder.Services.AddControllers(options =>
 {
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
     options.ReturnHttpNotAcceptable = true; // Return appropriate HTTP status code if client requested format is not supported by the service
-}).AddNewtonsoftJson() // Add JSON support
+}).AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+})
   .AddXmlDataContractSerializerFormatters(); // Add XML support
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
-if (!isDevelopment)
-{
-    builder.Services.AddDiscoveryClient(builder.Configuration);
-}
+//if (!isDevelopment)
+//{
+//    builder.Services.AddDiscoveryClient(builder.Configuration);
+//}
 
 // Log Order Service URL
 // string? orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
@@ -90,35 +99,31 @@ if (!isDevelopment)
 var app = builder.Build();
 
 // This is required for Azure App Service
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        logger.LogInformation("Applying EF migrations...");
-        var dbContext = services.GetRequiredService<CustomerContext>();
-        dbContext.Database.EnsureCreated();
-    }
-    catch (Exception ex)
-    {
-        logger.LogError(ex, "An error occurred while applying EF migrations.");
-    }
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+//     try
+//     {
+//         logger.LogInformation("Applying EF migrations...");
+//         var dbContext = services.GetRequiredService<CustomerContext>();
+//         dbContext.Database.EnsureCreated();
+//     }
+//     catch (Exception ex)
+//     {
+//         logger.LogError(ex, "An error occurred while applying EF migrations.");
+//     }
+// }
 
-if (isDevelopment)
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-if (!isDevelopment)
-{
-   app.UseDiscoveryClient();
-}
+// if (!isDevelopment)
+// {
+//    app.UseDiscoveryClient();
+// }
 
 app.UseHealthChecks("/api/health");
 

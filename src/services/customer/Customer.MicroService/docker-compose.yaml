@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+    customer.microservice:
+        image: ${DOCKER_REGISTRY-}thgeekspad/microshop-customer-microservice
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - seq
+            - sql
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+        ports:
+            - 5000:80
+    seq:
+        image: datalust/seq
+        ports: 
+            - 5341:80
+        environment:
+            - ACCEPT_EULA=Y
+    sql:
+        build:
+            context: .
+            dockerfile: sql/sql.Dockerfile
+        restart: always
+        ports:
+            - 1431:1433   
+        environment:      
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=M!cr@sh@p

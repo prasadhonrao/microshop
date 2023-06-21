@@ -8,12 +8,12 @@ namespace Customer.MicroService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerCollectionController : ControllerBase
+    public class CustomersCollectionController : ControllerBase
     {
         private readonly ICustomerService customerService;
         private readonly IMapper mapper;
 
-        public CustomerCollectionController(
+        public CustomersCollectionController(
             ICustomerService customerService,
             IMapper mapper)
         {
@@ -21,7 +21,7 @@ namespace Customer.MicroService.Controllers
             this.mapper = mapper;
         }
 
-        [HttpPost(Name = "CreateCustomerCollection")]
+        [HttpPost(Name = "CreateCustomersCollection")]
         public async Task<IActionResult> CreateCustomersCollection(
         [FromBody] IEnumerable<CustomerCreateModel> customerCollection)
         {

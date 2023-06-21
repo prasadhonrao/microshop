@@ -234,6 +234,395 @@
 					"response": []
 				},
 				{
+					"name": "Get Customer Orders",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Customers in XML Format",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Which Does Not Exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyName\": \"Microsoft\",\n    \"contactName\": \"Prasad Honrao\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contactName\": \"Mr. Prasad Honrao\",\n    \"companyName\": \"MICROSOFT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/99",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"99"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/Phone\",\n        \"value\": \"123456789\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer Invalid Property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/invalidProperty\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer Remove Property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"remove\",\n        \"path\": \"/phone\",\n        \"value\": \"11\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer Invalid Body",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Azure",
+			"item": [
+				{
+					"name": "Get All Customers",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{customer-microservice-url}}",
+							"host": [
+								"{{customer-microservice-url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Orders",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customer",
+								"1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Customers in XML Format",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
@@ -353,15 +742,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}",
 							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customer"
+								"{{customer-microservice-url}}"
 							]
 						}
 					},

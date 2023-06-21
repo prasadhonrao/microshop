@@ -7,9 +7,9 @@ namespace Customer.MicroService.Repositories;
 
 public class CustomerRepository : ICustomerRepository
 {
-    private readonly CustomerContext context;
+    private readonly CustomersDbContext context;
 
-    public CustomerRepository(CustomerContext context)
+    public CustomerRepository(CustomersDbContext context)
     {
         this.context = context;
     }
@@ -25,8 +25,17 @@ public class CustomerRepository : ICustomerRepository
         var existingCustomer = context.Customers.FirstOrDefault(c => c.Id == id);
         if (existingCustomer == null) throw new ArgumentNullException(nameof(existingCustomer));
 
-        existingCustomer.FirstName = customer.FirstName;
-        existingCustomer.LastName = customer.LastName;
+        existingCustomer.CompanyName = customer.CompanyName;
+        existingCustomer.ContactName = customer.ContactName;
+        existingCustomer.ContactTitle = customer.ContactTitle;
+        existingCustomer.Address = customer.Address;
+        existingCustomer.City = customer.City;
+        existingCustomer.Region = customer.Region;
+        existingCustomer.PostalCode = customer.PostalCode;
+        existingCustomer.Country = customer.Country;
+        existingCustomer.Phone = customer.Phone;
+        existingCustomer.Fax = customer.Fax;
+
         context.Entry(existingCustomer).State = EntityState.Modified;
     }
 
@@ -56,7 +65,7 @@ public class CustomerRepository : ICustomerRepository
         return await context.Customers.ToListAsync();
     }
 
-    public async Task<CustomerEntity?> GetAsync(int id)
+    public async Task<CustomerEntity> GetAsync(int id)
     {
         return await context.Customers.FirstOrDefaultAsync(c => c.Id == id);
     }

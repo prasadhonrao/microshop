@@ -6,7 +6,7 @@ This documentation provides an overview of the Customer Microservice API, which 
 
 ## Setup Instructions
 
-docker run -d --name microshop-customer-db -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=M!cr@sh@p" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+docker run -d --name MicroshopCustomerDb -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=M!cr@sh@p" -p 1430:1433 -d mcr.microsoft.com/mssql/server:2022-latest
 
 ## Base URL
 

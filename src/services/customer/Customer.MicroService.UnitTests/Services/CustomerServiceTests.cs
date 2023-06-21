@@ -69,7 +69,7 @@ namespace Customer.MicroService.UnitTests.Services
 
             // Assert
             Assert.True(addedCustomer != null);
-            Assert.Equal(100, addedCustomer.Id);
+            Assert.Equal(100, addedCustomer.CustomerID);
             Assert.Equal("Prasad", addedCustomer.FirstName);
             Assert.Equal("Honrao", addedCustomer.LastName);
 

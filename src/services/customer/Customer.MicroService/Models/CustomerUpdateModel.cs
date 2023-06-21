@@ -1,21 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Customer.MicroService.Models
+﻿namespace Customer.MicroService.Models
 {
-    public class CustomerUpdateModel
+    public class CustomerUpdateModel : CustomerBaseModel
     {
-        [Required(ErrorMessage = "First name is required")]
-        [MaxLength(100)]
-        public string FirstName { get;  set; }
-
-        [Required(ErrorMessage = "Last name is required")]
-        [MaxLength(100)]
-        public string LastName { get;  set; }
-
-        public CustomerUpdateModel(string firstName, string lastName)
+        public CustomerUpdateModel(string companyName, string contactName, string contactTitle, string address, string city, string region, string postalCode, string country, string phone, string fax) 
+            : base(companyName, contactName, contactTitle, address, city, region, postalCode, country, phone, fax)
         {
-            this.FirstName = firstName;
-            this.LastName = lastName;
+        }
+
+        public CustomerUpdateModel()
+        {
+            
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Customer.MicroService.UnitTests.Repositories
 
         public void Update(int id, CustomerEntity customer)
         {
-            var existingCustomer = customers.FirstOrDefault(c => c.Id == id);
+            var existingCustomer = customers.FirstOrDefault(c => c.CustomerID == id);
             if (existingCustomer == null) throw new ArgumentNullException(nameof(existingCustomer));
 
             existingCustomer.FirstName = customer.FirstName;
@@ -36,7 +36,7 @@ namespace Customer.MicroService.UnitTests.Repositories
 
         public void Patch(int id, CustomerEntity customer)
         {
-            var existingCustomer = customers.FirstOrDefault(c => c.Id == id);
+            var existingCustomer = customers.FirstOrDefault(c => c.CustomerID == id);
             if (existingCustomer == null) throw new ArgumentNullException(nameof(existingCustomer));
 
             existingCustomer.FirstName = customer.FirstName;
@@ -61,7 +61,7 @@ namespace Customer.MicroService.UnitTests.Repositories
 
         public async Task<CustomerEntity?> GetAsync(int id)
         {
-            var customer = customers.FirstOrDefault(c => c.Id == id);
+            var customer = customers.FirstOrDefault(c => c.CustomerID == id);
             return await Task.FromResult(customer);
         }
 
@@ -73,7 +73,7 @@ namespace Customer.MicroService.UnitTests.Repositories
 
         public Task<bool> CustomerExistsAsync(int id)
         {
-            bool customerExists = customers.Any(c => c.Id == id);
+            bool customerExists = customers.Any(c => c.CustomerID == id);
             return Task.FromResult(customerExists);
         }
     }

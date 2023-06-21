@@ -14,7 +14,7 @@ public class OrderEntity
     [MaxLength(100)]
     public DateTime OrderDate { get; set; }
 
-    public CustomerEntity? Customer { get; set; }
+    public CustomerEntity Customer { get; set; }
 
     [Required(ErrorMessage = "Customer Id is required")]
     [ForeignKey("CustomerId")]    

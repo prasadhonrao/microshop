@@ -85,7 +85,7 @@ namespace Customer.MicroService.Services
             return customerRepository.GetAllAsync();
         }
 
-        public Task<CustomerEntity?> GetAsync(int id)
+        public Task<CustomerEntity> GetAsync(int id)
         {
             if (id <= 0)
             {
@@ -100,7 +100,7 @@ namespace Customer.MicroService.Services
             return customerRepository.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<OrderReadModel>?> GetOrders(int customerId)
+        public Task<IEnumerable<OrderReadModel>> GetOrders(int customerId)
         {
             return orderDataService.GetOrders(customerId);
         }
