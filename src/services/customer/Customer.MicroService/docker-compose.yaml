@@ -25,7 +25,7 @@ services:
             dockerfile: sql/sql.Dockerfile
         restart: always
         ports:
-            - 1440:1433   
+            - 1434:1433   
         environment:      
             - ACCEPT_EULA=Y
             - SA_PASSWORD=M!cr@sh@p

@@ -6,8 +6,6 @@ using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using Steeltoe.Discovery.Client;
-using Steeltoe.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var isDevelopment = builder.Environment.IsDevelopment();
@@ -26,7 +24,6 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// Retrieve an instance of ILoggerFactory
 var loggerFactory = LoggerFactory.Create(builder =>
 {
     builder.AddSerilog(); // Add Serilog to the LoggerFactory
@@ -40,24 +37,13 @@ logger.LogInformation($"Environment: {builder.Environment.EnvironmentName}");
 var seqURL = builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value;
 logger.LogInformation($"Seq URL: {seqURL}");
 
-// Throttle the thread pool 
-//Console.WriteLine("ThreadPool limit: " + Environment.ProcessorCount);
-//ThreadPool.SetMaxThreads(Environment.ProcessorCount, Environment.ProcessorCount);
+var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
+logger.LogInformation($"Database Connection string: {connectionString}");
 
 // Database configuration
 builder.Services.AddDbContext<CustomersDbContext>(options =>
 {
-    if (isDevelopment)
-    {
-        logger.LogInformation("Using in-memory database");
-        options.UseInMemoryDatabase("InMemoryDb"); 
-    }
-    else
-    {
-        var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
-        logger.LogInformation($"Connection string: {connectionString}");
-        options.UseSqlServer(connectionString); // Real SQL Server database
-    }
+    options.UseSqlServer(connectionString); 
 });
 
 // Application specific services
@@ -97,22 +83,6 @@ builder.Services.AddHealthChecks();
 // Console.WriteLine("RabbitMQ URL: " + RabbitMQHost + RabbitMQPort);
 
 var app = builder.Build();
-
-// This is required for Azure App Service
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-//     try
-//     {
-//         logger.LogInformation("Applying EF migrations...");
-//         var dbContext = services.GetRequiredService<CustomerContext>();
-//         dbContext.Database.EnsureCreated();
-//     }
-//     catch (Exception ex)
-//     {
-//         logger.LogError(ex, "An error occurred while applying EF migrations.");
-//     }
-// }
 
 app.UseSwagger();
 app.UseSwaggerUI();

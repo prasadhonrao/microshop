@@ -34,7 +34,7 @@ CREATE TABLE "Customers" (
 	"Fax" nvarchar (24) NULL ,
 	CONSTRAINT "PK_Customers" PRIMARY KEY  CLUSTERED 
 	(
-		"CustomerID"
+		"Id"
 	)
 )
 GO
