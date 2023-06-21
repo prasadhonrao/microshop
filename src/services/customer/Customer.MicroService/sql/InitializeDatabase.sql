@@ -24,7 +24,7 @@ GO
 
 
 CREATE TABLE "Customers" (
-	"Id" nchar (5) NOT NULL ,
+	"Id" int NOT NULL ,
 	"CompanyName" nvarchar (40) NOT NULL ,
 	"ContactName" nvarchar (30) NULL ,
 	"ContactTitle" nvarchar (30) NULL ,
