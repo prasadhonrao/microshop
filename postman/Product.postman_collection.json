@@ -227,7 +227,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:6001/api/product/1",
+							"raw": "http://localhost:6001/api/products/649eaab70c276d36fff792a8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -235,8 +235,8 @@
 							"port": "6001",
 							"path": [
 								"api",
-								"product",
-								"1"
+								"products",
+								"649eaab70c276d36fff792a8"
 							]
 						}
 					},
@@ -264,6 +264,48 @@
 					"response": []
 				},
 				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6001/api/products/649eaab70c276d36fff792a8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6001",
+							"path": [
+								"api",
+								"products",
+								"649eaab70c276d36fff792a8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product Which Does Not Exist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6001/api/products/101",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6001",
+							"path": [
+								"api",
+								"products",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Product",
 					"request": {
 						"method": "POST",
@@ -277,6 +319,26 @@
 								}
 							}
 						},
+						"url": {
+							"raw": "http://localhost:6001/api/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6001",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Version",
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "http://localhost:6001/api/product",
 							"protocol": "http",

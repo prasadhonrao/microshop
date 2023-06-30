@@ -1,11 +1,14 @@
-version: '3.1'
+version: '3.3'
 services:
-  db:
-    image: postgres:latest
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: microshop-product-db
+  mongo:
     ports:
-      - 5432:5432
+      - '27017:27017'
+    container_name: product-db
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=microshop
+    image: mongo
