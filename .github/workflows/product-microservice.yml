@@ -30,11 +30,13 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'adopt'
     - name: Set up Maven
       uses: actions/setup-java@v2
       with:
         java-version: ${{ env.JAVA_VERSION }}
         server-id: maven
+        distribution: 'adopt'
   
   test:
     needs: build
@@ -46,10 +48,12 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
       - name: Set up Maven
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
           server-id: maven
       - name: Test
         run: mvn test
@@ -64,10 +68,12 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
       - name: Set up Maven
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
           server-id: maven
       - name: Build Docker image
         run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
