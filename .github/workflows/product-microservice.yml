@@ -21,27 +21,59 @@ env:
   PROJECT_PATH: src/services/product
 
 jobs:
-  BuildLinux:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
+    - name: Checkout Code
+      uses: actions/checkout@v3
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
         java-version: ${{ env.JAVA_VERSION }}
+    - name: Set up Maven
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        server-id: maven
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+      - name: Set up Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          server-id: maven
+      - name: Test
+        run: mvn test
 
-    - name: Build with Maven
-      run: mvn clean package
-
-    - name: Build Docker image
-      run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
-
-    - name: Log in to Docker Hub
-      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Push Docker image to Docker Hub
-      run: docker push ${{env.IMAGE_NAME}}
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+      - name: Set up Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          server-id: maven
+      - name: Build Docker image
+        run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{env.IMAGE_NAME}}
     
 

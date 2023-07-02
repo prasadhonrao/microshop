@@ -5,7 +5,8 @@ Cross-platform microservices and container based application that runs on Linux,
 ## Business Services
 
 Customer - .NET + SQL Server (ASP.NET Web API + EF)
-Product - Java + Postgres (SpringBoot + JPA)
+Product - Java + MongoDB (SpringBoot + NoSQL)
+Order - Java + MySQL (SpringBoot + JPA)
 Inventory - NodeJS + MongoDB
 Notification - Python (Flask)
 
@@ -16,6 +17,6 @@ Discovery Server - Spring Cloud
 
 ## Build Status (GitHub Actions)
 
-| Image | Status | 
+| Image | Status |
 | ------------- | ------------- |
 | Customer MicroService | [![Customer MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml)
