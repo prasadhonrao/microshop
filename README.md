@@ -20,3 +20,4 @@ Discovery Server - Spring Cloud
 | Image | Status |
 | ------------- | ------------- |
 | Customer MicroService | [![Customer MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml)
+| Product MicroService | [![Product MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/product-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/product-microservice.yml)

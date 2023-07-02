@@ -1,4 +1,4 @@
-name: Product MicroService Build and Deploy to Docker Hub
+name: Product MicroService
 
 on:
   workflow_dispatch:
