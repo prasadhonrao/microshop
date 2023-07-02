@@ -56,7 +56,7 @@ jobs:
           distribution: 'adopt'
           server-id: maven
       - name: Test
-        run: mvn test
+        run: mvn test --no-transfer-progress -f ${{ env.PROJECT_PATH }}/pom.xml
 
   deploy:
     needs: [build, test]
