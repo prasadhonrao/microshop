@@ -1,14 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PROD" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.microshop.microservice.product.ProductMicroserviceApplication" />
+  <configuration default="false" name="TEST" type="JUnit" factoryName="JUnit">
     <module name="product-microservice" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=prod" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.microshop.microservice.product.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
+    <option name="PACKAGE_NAME" value="com.microshop.microservice.product" />
+    <option name="MAIN_CLASS_NAME" value="com.microshop.microservice.product.ProductMicroserviceApplicationTests" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

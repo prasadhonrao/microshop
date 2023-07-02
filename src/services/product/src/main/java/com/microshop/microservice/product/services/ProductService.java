@@ -46,12 +46,13 @@ public class ProductService {
 
     public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = Product.builder()
-                .productName(productRequest.getProductName())
-                .productPrice(productRequest.getProductPrice())
-                .supplierId(productRequest.getSupplierId())
-                .categoryId(productRequest.getCategoryId())
-                .discontinued(productRequest.getDiscontinued())
-                .build();
+                                 .productName(productRequest.getProductName())
+                                 .productPrice(productRequest.getProductPrice())
+                                 .supplierId(productRequest.getSupplierId())
+                                 .categoryId(productRequest.getCategoryId())
+                                 .discontinued(productRequest.getDiscontinued())
+                                 .build();
+
         var savedProduct = productRepository.save(product);
         log.info("Product {} saved successfully", savedProduct.getProductId());
         return mapToProductResponse(savedProduct);

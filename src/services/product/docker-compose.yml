@@ -1,14 +1,16 @@
-version: '3.3'
+version: '3.9'
 services:
-  mongo:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - '27017:27017'
-    container_name: product-db
-    restart: always
-    logging:
-      options:
-        max-size: 1g
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
-      - MONGO_INITDB_ROOT_PASSWORD=microshop
-    image: mongo
+      - 8080:8080
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:latest
+    env_file:
+      - .env

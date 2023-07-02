@@ -7,9 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(value = "product")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Builder
 public class Product {
     @Id
