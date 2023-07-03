@@ -2,18 +2,22 @@
 
 Cross-platform microservices and container based application that runs on Linux, Windows and macOS
 
-## Business Services
+## Application Services
 
-Customer - .NET + SQL Server (ASP.NET Web API + EF)
-Product - Java + MongoDB (SpringBoot + NoSQL)
-Order - Java + MySQL (SpringBoot + JPA)
-Inventory - NodeJS + MongoDB
-Notification - Python (Flask)
+| Service | Technology |
+| ------------- | ------------- |
+| Customer MicroService | ASP.NET Web API Core + SQL Server + EF|
+| Product MicroService | Java 17 + SpringBoot 3.1 + MongoDB |
+| Order MicroService | Java 17 + SpringBoot 3.1 + MySQL |
+| Inventory MicroService | TBD |
+| Notification MicroService | Python Flask |
+
 
 ## Infrastructure Services
-
-API Gateway - Spring Cloud
-Discovery Server - Spring Cloud
+| Service | Technology |
+| ------------- | ------------- |
+| API Gateway | Spring Cloud |
+| Discovery Server | Spring Cloud |
 
 ## Build Status (GitHub Actions)
 
