@@ -1,0 +1,85 @@
+name: Order MicroService
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - src/**
+      - .github/workflows/order-microservice.yml
+      
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - src/**
+      - src/Services/order/**
+      - .github/workflows/order-microservice.yml
+
+env:
+  IMAGE_NAME: thegeekspad/microshop-order-microservice
+  JAVA_VERSION: '17'
+  PROJECT_PATH: src/services/order
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'adopt'
+    - name: Set up Maven
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        server-id: maven
+        distribution: 'adopt'
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
+      - name: Set up Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
+          server-id: maven
+      - name: Test
+        run: mvn test --no-transfer-progress -f ${{ env.PROJECT_PATH }}/pom.xml
+
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
+      - name: Set up Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
+          server-id: maven
+      - name: Build Docker image
+        run: docker build -t ${{env.IMAGE_NAME}} -f ${{env.PROJECT_PATH}}/Dockerfile ${{env.PROJECT_PATH}}
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{env.IMAGE_NAME}}
+    
+
