@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DEV" type="Application" factoryName="Application">
+  <configuration default="false" name="PROD" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.microshop.microservice.order.OrderMicroserviceApplication" />
     <module name="order-microservice" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=dev" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=prod" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.microshop.microservice.order.*" />

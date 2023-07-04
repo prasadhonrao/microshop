@@ -12,7 +12,6 @@ Cross-platform microservices and container based application that runs on Linux,
 | Inventory MicroService | TBD |
 | Notification MicroService | Python Flask |
 
-
 ## Infrastructure Services
 | Service | Technology |
 | ------------- | ------------- |

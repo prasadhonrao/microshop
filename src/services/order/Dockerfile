@@ -17,19 +17,16 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Create a new container for the application runtime
-FROM openjdk:17 AS final
+FROM openjdk:17-jdk-slim AS final
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy the JAR file from the build container
-COPY --from=build /app/target/product-microservice*.jar ./product-microservice.jar
-
-# Set the MongoDB connection properties using environment variables
-ENV SPRING_DATA_MONGODB_URI=${SPRING_DATA_MONGODB_URI}
+COPY --from=build /app/target/order-microservice*.jar ./order-microservice.jar
 
 # Expose the application port
 EXPOSE 8080
 
 # Start the application
-CMD ["java", "-jar", "product-microservice.jar"]
+CMD ["java", "-jar", "order-microservice.jar"]
