@@ -13,6 +13,7 @@ Cross-platform microservices and container based application that runs on Linux,
 | Notification MicroService | Python Flask |
 
 ## Infrastructure Services
+
 | Service | Technology |
 | ------------- | ------------- |
 | API Gateway | Spring Cloud |
@@ -24,3 +25,4 @@ Cross-platform microservices and container based application that runs on Linux,
 | ------------- | ------------- |
 | Customer MicroService | [![Customer MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/customer-microservice.yml)
 | Product MicroService | [![Product MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/product-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/product-microservice.yml)
+| Order MicroService | [![Order MicroService Build and Deploy to Docker Hub](https://github.com/prasadhonrao/microshop/actions/workflows/order-microservice.yml/badge.svg?branch=main)](https://github.com/prasadhonrao/microshop/actions/workflows/order-microservice.yml)
