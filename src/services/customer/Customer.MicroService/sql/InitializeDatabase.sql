@@ -11,6 +11,7 @@ GO
 ----------------------------------------------------------------------------
 --- TABLE CREATION
 ----------------------------------------------------------------------------
+PRINT 'Executing SQL script...'
 
 SET NOCOUNT ON
 GO
@@ -151,16 +152,18 @@ go
 set quoted_identifier on
 go
 
-----------------------------------------------------------------------------
---- DB USER CREATION
-----------------------------------------------------------------------------
-USE master;
-GO
-CREATE LOGIN [microshop_dbuser] WITH PASSWORD=N'Sql1nContainersR0cks!', CHECK_EXPIRATION=OFF, CHECK_POLICY=ON;
-GO
-USE MicroshopCustomerDb;
-GO
-CREATE USER [microshop_dbuser] FOR LOGIN [microshop_dbuser];
-GO
-EXEC sp_addrolemember N'db_owner', [microshop_dbuser];
-GO
+PRINT 'SQL script execution completed.'
+
+-- ----------------------------------------------------------------------------
+-- --- DB USER CREATION
+-- ----------------------------------------------------------------------------
+-- USE master;
+-- GO
+-- CREATE LOGIN [microshop_dbuser] WITH PASSWORD=N'Sql1nContainersR0cks!', CHECK_EXPIRATION=OFF, CHECK_POLICY=ON;
+-- GO
+-- USE MicroshopCustomerDb;
+-- GO
+-- CREATE USER [microshop_dbuser] FOR LOGIN [microshop_dbuser];
+-- GO
+-- EXEC sp_addrolemember N'db_owner', [microshop_dbuser];
+-- GO

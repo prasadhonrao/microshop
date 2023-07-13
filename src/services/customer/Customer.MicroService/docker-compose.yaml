@@ -4,25 +4,14 @@ services:
     customer.microservice:
         image: ${DOCKER_REGISTRY-}thegeekspad/microshop-customer-microservice
         depends_on:
-            - sql
             - seq
+            - sql
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
         ports:
             - 5000:80
         networks:
-        - microshop-network
-    sql:
-        image: mcr.microsoft.com/mssql/server
-        restart: always
-        ports:
-        - 1433:1433
-        env_file:
-        - .env
-        volumes:
-        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-        networks:
-        - microshop-network
+            - microshop-network
     seq:
         image: datalust/seq
         ports: 
@@ -31,8 +20,82 @@ services:
             - ACCEPT_EULA=Y
         networks:
         - microshop-network
-
+    sql:
+        container_name: sql
+        build:
+            context: .
+            dockerfile: sql/sql.Dockerfile
+        restart: always
+        ports:
+            - 1440:1433   
+        env_file:
+            - .env
+        networks:
+            - microshop-network
 networks:
   microshop-network:
+
+
+# To initialize db using Docker comopse
+
+# version: '3.8'
+
+# services:
+#   db:
+#     container_name: ordersql
+#     image: mcr.microsoft.com/mssql/server
+#     restart: always
+#     ports:
+#       - 1433:1433
+#     environment:
+#       - ACCEPT_EULA=Y
+#       - SA_PASSWORD=YourPassword123!
+#       - MSSQL_PID=Express
+#     volumes:
+#       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#     networks:
+#       - order-network
+
+# networks:
+#   order-network:
+
+
+
+# version: '3.4'
+
+# services:
+#     customer.microservice:
+#         image: ${DOCKER_REGISTRY-}thegeekspad/microshop-customer-microservice
+#         depends_on:
+#             - sql
+#             - seq
+#         environment:
+#             - ASPNETCORE_ENVIRONMENT=Production
+#         ports:
+#             - 5000:80
+#         networks:
+#         - microshop-network
+#     sql:
+#         image: mcr.microsoft.com/mssql/server
+#         restart: always
+#         ports:
+#         - 1433:1433
+#         env_file:
+#         - .env
+#         volumes:
+#         - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#         networks:
+#         - microshop-network
+#     seq:
+#         image: datalust/seq
+#         ports: 
+#             - 5341:80
+#         environment:
+#             - ACCEPT_EULA=Y
+#         networks:
+#         - microshop-network
+
+# networks:
+#   microshop-network:
 
 
