@@ -37,6 +37,12 @@ var seqURL = builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value;
 logger.LogInformation($"Seq URL: {seqURL}");
 
 var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
+var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
+if (!string.IsNullOrEmpty(dbPassword))
+{
+    connectionString = connectionString.Replace("${SA_PASSWORD}", dbPassword);
+}
+
 logger.LogInformation($"Database Connection string: {connectionString}");
 
 string orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
