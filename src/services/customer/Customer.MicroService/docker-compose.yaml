@@ -13,7 +13,6 @@ services:
         networks:
         - microshop-network
     sql:
-        container_name: ordersql
         image: mcr.microsoft.com/mssql/server
         restart: always
         ports:
