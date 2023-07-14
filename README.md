@@ -19,6 +19,13 @@ Cross-platform microservices and container based application that runs on Linux,
 | API Gateway | Spring Cloud |
 | Discovery Server | Spring Cloud |
 
+## Feature - Implementation Mapping
+
+| Service | DevOps | ORM | Logging | Unit Testing | Integration Testing | Open API
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Customer | GitHub Action | Entity Framework, AutoMapper | Seq | XUnit | XUnit | Swagger |
+| Product | GitHub Action | JPA | TBD | JUnit | TBD | TBD |
+
 ## Build Status (GitHub Actions)
 
 | Image | Status |
