@@ -207,15 +207,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:6001/api/product",
+							"raw": "http://localhost:{{productPortNumber}}/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6001",
+							"port": "{{productPortNumber}}",
 							"path": [
 								"api",
-								"product"
+								"products"
 							]
 						}
 					},
@@ -227,12 +227,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:6001/api/products/649eaab70c276d36fff792a8",
+							"raw": "http://localhost:{{productPortNumber}}/api/products/649eaab70c276d36fff792a8",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6001",
+							"port": "{{productPortNumber}}",
 							"path": [
 								"api",
 								"products",
@@ -248,15 +248,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:6001/api/product/101",
+							"raw": "http://localhost:{{productPortNumber}}/api/products/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6001",
+							"port": "{{productPortNumber}}",
 							"path": [
 								"api",
-								"product",
+								"products",
 								"101"
 							]
 						}
@@ -290,12 +290,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:6001/api/products/101",
+							"raw": "http://localhost:{{productPortNumber}}/api/products/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6001",
+							"port": "{{productPortNumber}}",
 							"path": [
 								"api",
 								"products",
@@ -312,7 +312,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"productName\": \"P4\"\n}",
+							"raw": "{\n  \"productName\": \"iPhone\",\n  \"supplierId\": 1,\n  \"categoryId\": 1,\n  \"productPrice\": 999.99,\n  \"discontinued\": 0\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -320,15 +320,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:6001/api/product",
+							"raw": "http://localhost:{{productPortNumber}}/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6001",
+							"port": "{{productPortNumber}}",
 							"path": [
 								"api",
-								"product"
+								"products"
 							]
 						}
 					},
@@ -340,15 +340,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:6001/api/product",
+							"raw": "http://localhost:{{productPortNumber}}/api/products/version",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6001",
+							"port": "{{productPortNumber}}",
 							"path": [
 								"api",
-								"product"
+								"products",
+								"version"
 							]
 						}
 					},

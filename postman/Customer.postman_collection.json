@@ -219,7 +219,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -227,7 +227,7 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -251,7 +251,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1/orders",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/1/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -259,7 +259,7 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
+								"customers",
 								"1",
 								"orders"
 							]
@@ -284,7 +284,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -292,7 +292,7 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -316,7 +316,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/92",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -324,7 +324,7 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
+								"customers",
 								"92"
 							]
 						}
@@ -337,7 +337,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/2",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/92",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -345,8 +345,8 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
-								"2"
+								"customers",
+								"92"
 							]
 						}
 					},
@@ -380,7 +380,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"companyName\": \"Microsoft\",\n    \"contactName\": \"Prasad Honrao\"\n}",
+							"raw": "{\n    \"companyName\": \"Apple\",\n    \"contactName\": \"Steve Jobs\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -388,7 +388,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -396,7 +396,7 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -436,10 +436,16 @@
 					"name": "Patch Customer",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/Phone\",\n        \"value\": \"123456789\"\n    }\n]",
+							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/phone\",\n        \"value\": \"123456789\"\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -447,7 +453,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -455,8 +461,38 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
-								"92"
+								"customers",
+								"91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Customer Test Operation",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"op\": \"test\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customers",
+								"91"
 							]
 						}
 					},
@@ -916,15 +952,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -936,15 +972,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/customer/1",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
+								"customers",
 								"1"
 							]
 						}
@@ -957,16 +993,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/customer/101",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/10000000",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
-								"101"
+								"customers",
+								"10000000"
 							]
 						}
 					},
@@ -987,15 +1023,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/customer",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"customers"
 							]
 						}
 					},

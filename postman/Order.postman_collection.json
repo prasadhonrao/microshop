@@ -207,15 +207,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5002/api/order",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5002",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
-								"order"
+								"orders"
 							]
 						}
 					},
@@ -227,16 +227,37 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5002/api/order/1",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/612a8cd6-9d03-49de-b595-bacb7403ae11",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5002",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
-								"order",
-								"1"
+								"orders",
+								"612a8cd6-9d03-49de-b595-bacb7403ae11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/612a8cd6-9d03-49de-b595-bacb7403ae11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{orderPortNumber}}",
+							"path": [
+								"api",
+								"orders",
+								"612a8cd6-9d03-49de-b595-bacb7403ae11"
 							]
 						}
 					},
@@ -248,15 +269,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5002/api/order/101",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5002",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
-								"order",
+								"orders",
 								"101"
 							]
 						}
@@ -270,7 +291,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"customerID\": 2,\n    \"orderDate\": \"2022-01-01\"\n}",
+							"raw": "{\n    \"orderLineItemModelList\" : [ \n        {\n            \"productId\": 1,\n            \"unitPrice\": 99,\n            \"quantity\": 10,\n            \"discount\": 0.9\n        },\n        {\n            \"productId\": 2,\n            \"unitPrice\": 50,\n            \"quantity\": 1,\n            \"discount\": 0\n        }\n    ]\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,15 +299,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5002/api/order",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5002",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
-								"order"
+								"orders"
 							]
 						}
 					},
@@ -366,7 +387,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"customerID\": 2,\n    \"orderDate\": \"2022-01-01\"\n}",
+							"raw": "{\n    \"orderLineItemModelList\" : [ \n        {\n            \"productId\": 1,\n            \"unitPrice\": 99,\n            \"quantity\": 10,\n            \"discount\": 0.9\n        },\n        {\n            \"productId\": 2,\n            \"unitPrice\": 50,\n            \"quantity\": 1,\n            \"discount\": 0\n        }\n    ]\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,15 +395,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/order",
+							"raw": "http://localhost:9090/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "9090",
 							"path": [
 								"api",
-								"order"
+								"orders"
 							]
 						}
 					},

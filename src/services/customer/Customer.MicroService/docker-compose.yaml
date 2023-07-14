@@ -1,8 +1,9 @@
 version: '3.4'
 
 services:
-    customer.microservice:
-        image: ${DOCKER_REGISTRY-}thegeekspad/microshop-customer-microservice
+    customer-microservice:
+        container_name: customer-ms
+        image: thegeekspad/microshop-customer-microservice
         depends_on:
             - seq
             - sql
@@ -13,6 +14,7 @@ services:
         networks:
             - microshop-network
     seq:
+        container_name: seq
         image: datalust/seq
         ports: 
             - 5341:80
@@ -21,7 +23,7 @@ services:
         networks:
         - microshop-network
     sql:
-        container_name: sql
+        container_name: customer-db
         build:
             context: .
             dockerfile: sql/sql.Dockerfile
