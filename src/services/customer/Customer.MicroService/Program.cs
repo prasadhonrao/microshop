@@ -5,87 +5,98 @@ using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 var isDevelopment = builder.Environment.IsDevelopment();
 
-// Configure SeriLog
-#pragma warning disable CS8604 // Possible null reference argument.
-Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information()
-            .Enrich.FromLogContext()
-            .Enrich.WithMachineName()
-            .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
-            .WriteTo.File("logs/customer-microservice.log", rollingInterval: RollingInterval.Day)
-            .WriteTo.Seq(builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value)
-            .CreateLogger();
-#pragma warning restore CS8604 // Possible null reference argument.
+ConfigureLogging(builder);
 
-builder.Host.UseSerilog();
-
-var loggerFactory = LoggerFactory.Create(builder =>
-{
-    builder.AddSerilog(); // Add Serilog to the LoggerFactory
-});
-
+var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog());
 
 var logger = loggerFactory.CreateLogger<Program>();
-
 logger.LogInformation($"Environment: {builder.Environment.EnvironmentName}");
 
-var seqURL = builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value;
-logger.LogInformation($"Seq URL: {seqURL}");
+ConfigureDatabase(builder, logger, isDevelopment);
 
-var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
-var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
-if (!string.IsNullOrEmpty(dbPassword))
-{
-    connectionString = connectionString.Replace("${SA_PASSWORD}", dbPassword);
-}
-
-logger.LogInformation($"Database Connection string: {connectionString}");
-
-string orderServiceUrl = builder.Configuration.GetValue<string>("OrderServiceUrl");
-logger.LogInformation("Order Service URL: {orderServiceUrl}", orderServiceUrl);
-
-string RabbitMQHost = builder.Configuration.GetValue<string>("RabbitMQHost");
-string RabbitMQPort = builder.Configuration.GetValue<string>("RabbitMQPort");
-logger.LogInformation("RabbitMQ URL: " + RabbitMQHost + RabbitMQPort);
-
-builder.Services.AddDbContext<CustomersDbContext>(options =>
-{
-    options.UseSqlServer(connectionString); 
-});
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddHttpClient<IOrderDataService, OrderDataService>();
-
-builder.Services.AddControllers(options =>
-{
-    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
-    options.ReturnHttpNotAcceptable = true; // Return appropriate HTTP status code if client requested format is not supported by the service
-}).AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-})
-  .AddXmlDataContractSerializerFormatters(); // Add XML support
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddHealthChecks();
+ConfigureServices(builder);
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-
-
-app.UseHealthChecks("/api/health");
+ConfigureApp(app);
 
 app.Run();
+
+void ConfigureLogging(WebApplicationBuilder builder)
+{
+    Log.Logger = new LoggerConfiguration()
+        .MinimumLevel.Information()
+        .Enrich.FromLogContext()
+        .Enrich.WithMachineName()
+        .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
+        .WriteTo.File("logs/customer-microservice.log", rollingInterval: RollingInterval.Day)
+        .WriteTo.Seq(builder.Configuration.GetSection("Logging:Seq:ServerUrl").Value)
+        .CreateLogger();
+
+    builder.Host.UseSerilog();
+}
+
+void ConfigureDatabase(WebApplicationBuilder builder, ILogger logger, bool isDevelopment)
+{
+    if (isDevelopment)
+    {
+        logger.LogInformation($"Using in-memory database");
+        builder.Services.AddDbContext<CustomersDbContext>(options =>
+        {
+            options.UseInMemoryDatabase("CustomerDB"); // Use in-memory database in DEV environment
+        });
+    }
+    else
+    {
+        var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
+        var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
+        if (!string.IsNullOrEmpty(dbPassword))
+        {
+            connectionString = connectionString.Replace("${SA_PASSWORD}", dbPassword);
+        }
+        logger.LogInformation($"Database Connection string: {connectionString}");
+
+        builder.Services.AddDbContext<CustomersDbContext>(options =>
+        {
+            options.UseSqlServer(connectionString); // Use SQL Server database in production environment
+        });
+    }
+}
+
+void ConfigureServices(WebApplicationBuilder builder)
+{
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddScoped<ICustomerService, CustomerService>();
+    builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+    builder.Services.AddHttpClient<IOrderDataService, OrderDataService>();
+
+    builder.Services.AddControllers(options =>
+    {
+        options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+        options.ReturnHttpNotAcceptable = true; // Return appropriate HTTP status code if client requested format is not supported by the service
+    }).AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    })
+    .AddXmlDataContractSerializerFormatters(); // Add XML support
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddHealthChecks();
+}
+
+void ConfigureApp(WebApplication app)
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.UseHealthChecks("/api/health");
+}
