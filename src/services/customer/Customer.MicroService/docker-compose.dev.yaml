@@ -9,17 +9,17 @@ services:
         environment:
             - ACCEPT_EULA=Y
     sql:
-        container_name: customer-db
+        container_name: customer-dev-db
         build:
             context: .
-            dockerfile: sql/sql.Dockerfile
+            dockerfile: sql/dev/sql.Dockerfile
         restart: always
         ports:
-            - 1433:1433   
+            - 1432:1433   
         environment:
             - ACCEPT_EULA=Y
-            - SA_PASSWORD=M!cr@sh@p
+            - SA_PASSWORD=M!cr@sh@pDCDEV
         networks:
-            - microshop-network
+            - microshop-dev-network
 networks:
-  microshop-network:
+  microshop-dev-network:

@@ -10,4 +10,14 @@ docker network create microshop-network
 
 docker run -d --rm --name customer-db -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=M!cr@sh@p" -p 1433:1433 --network microshop-network mcr.microsoft.com/mssql/server:2022-latest
 
-docker run -d --rm --name customer-ms -p 8080:80 --network microshop-network thegeekspad/microshop-customer-microservice
+docker run -d --rm --name customer-ms -p 8080:80 \
+  --network microshop-network \
+  -e ASPNETCORE_ENVIRONMENT=Production \
+  -e SA_PASSWORD=M!cr@sh@pDEV \
+  thegeekspad/microshop-customer-microservice
+
+<!-- docker run -d --rm --name customer-ms -p 8080:80 `
+  --network microshop-network `
+  -e ASPNETCORE_ENVIRONMENT=Production `
+  -e SA_PASSWORD=M!cr@sh@p123 `
+  thegeekspad/microshop-customer-microservice -->

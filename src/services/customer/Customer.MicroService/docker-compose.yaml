@@ -21,12 +21,12 @@ services:
         env_file:
             - .env
         networks:
-        - microshop-network
+            - microshop-network
     sql:
         container_name: customer-db
         build:
             context: .
-            dockerfile: sql/sql.Dockerfile
+            dockerfile: sql/prod/sql.Dockerfile
         restart: always
         ports:
             - 1440:1433   
