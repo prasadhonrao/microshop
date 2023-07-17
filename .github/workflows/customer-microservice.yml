@@ -5,16 +5,15 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - src/**
-      - src/Services/Customer/**
+      - src/services/sustomer/**
       - .github/workflows/customer-microservice.yml
       
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - src/**
-      - src/Services/Customer/**
-      - .github/workflows/customer-microservice.yml
+  # pull_request:
+  #   branches: [ "main" ]
+  #   paths:
+  #     - src/**
+  #     - src/Services/Customer/**
+  #     - .github/workflows/customer-microservice.yml
 
 env:
   IMAGE_NAME: thegeekspad/microshop-customer-microservice

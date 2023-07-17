@@ -5,15 +5,15 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - src/**
+      - src/services/order/**
       - .github/workflows/order-microservice.yml
       
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - src/**
-      - src/Services/order/**
-      - .github/workflows/order-microservice.yml
+  # pull_request:
+  #   branches: [ "main" ]
+  #   paths:
+  #     - src/**
+  #     - src/Services/order/**
+  #     - .github/workflows/order-microservice.yml
 
 env:
   IMAGE_NAME: thegeekspad/microshop-order-microservice
