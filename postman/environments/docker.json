@@ -1,0 +1,27 @@
+{
+	"id": "9bb6065e-384e-410f-afc5-9f49838c33e4",
+	"name": "Docker",
+	"values": [
+		{
+			"key": "customerPortNumber",
+			"value": "8080",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "productPortNumber",
+			"value": "8081",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "orderPortNumber",
+			"value": "8082",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-07-17T21:58:49.018Z",
+	"_postman_exported_using": "Postman/10.16.0"
+}

@@ -15,15 +15,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:30001/api/customer",
+							"raw": "http://localhost:{{customerNodePortNumber}}/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "30001",
+							"port": "{{customerNodePortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -35,12 +35,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:30001/api/customer/1",
+							"raw": "http://localhost:{{customerNodePortNumber}}/api/customer/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "30001",
+							"port": "{{customerNodePortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -56,12 +56,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:30001/api/customer/101",
+							"raw": "http://localhost:{{customerNodePortNumber}}/api/customer/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "30001",
+							"port": "{{customerNodePortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -417,7 +417,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/99",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -425,8 +425,8 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
-								"99"
+								"customers",
+								"91"
 							]
 						}
 					},
@@ -475,7 +475,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"test\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    }\n]",
+							"raw": "[\n    {\n        \"op\": \"test\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad Honrao\"\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -513,7 +513,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/2",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -521,7 +521,7 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
+								"customers",
 								"2"
 							]
 						}
@@ -543,7 +543,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -551,8 +551,8 @@
 							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
-								"customer",
-								"92"
+								"customers",
+								"91"
 							]
 						}
 					},
@@ -936,6 +936,102 @@
 							"path": [
 								"api",
 								"customer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Docker Compose",
+			"item": [
+				{
+					"name": "Get All Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Error When Querying Customer Which Doesn't Exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers/10000000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customers",
+								"10000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"customers"
 							]
 						}
 					},
