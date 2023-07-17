@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-mssql-deployment
+  name: customer-db-deployment
 spec:
   replicas: 1
   selector:
@@ -14,22 +14,16 @@ spec:
     spec:
       containers:
       - name: customer-mssql-deployment-container
-        image: mcr.microsoft.com/mssql-server:2017-latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: mcr.microsoft.com/mssql/server:2022-latest
         ports:
         - containerPort: 1433
         env:
-        - name: MSSQL_PID
-          value: "Express"
         - name: ACCEPT_EULA
           value: "Y"
         - name: SA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: customer-mssql-db
+              name: customer-db-secret
               key: SA_PASSWORD
         volumeMounts:
         - mountPath: /var/opt/mssql/data
@@ -37,4 +31,4 @@ spec:
       volumes:
         - name: mssqlcustomerdb
           persistentVolumeClaim:
-            claimName: mssql-customer-pvc
+            claimName: customer-db-pvc

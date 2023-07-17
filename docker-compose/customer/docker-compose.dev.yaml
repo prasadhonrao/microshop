@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+    seq:
+        container_name: seq
+        image: datalust/seq
+        ports: 
+            - 5341:80
+        environment:
+            - ACCEPT_EULA=Y
+    sql:
+        container_name: customer-dev-db
+        build:
+            context: .
+            dockerfile: sql/dev/sql.Dockerfile
+        restart: always
+        ports:
+            - 1432:1433   
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=M!cr@sh@pDCDEV
+        networks:
+            - microshop-dev-network
+networks:
+  microshop-dev-network:

@@ -4,7 +4,7 @@ metadata:
   name: customer-db-secret
 type: Opaque
 data:
-  SA_PASSWORD: TSFjckBzaEBw
+  SA_PASSWORD: TSFjckBzaEBwSzhTREI=
 
 ---
 
@@ -25,7 +25,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-mssql-deployment
+  name: customer-db-deployment
 spec:
   replicas: 1
   selector:
@@ -38,22 +38,16 @@ spec:
     spec:
       containers:
       - name: customer-mssql-deployment-container
-        image: mcr.microsoft.com/mssql-server:2017-latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: mcr.microsoft.com/mssql/server:2022-latest
         ports:
         - containerPort: 1433
         env:
-        - name: MSSQL_PID
-          value: "Express"
         - name: ACCEPT_EULA
           value: "Y"
         - name: SA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: customer-mssql-db
+              name: customer-db-secret
               key: SA_PASSWORD
         volumeMounts:
         - mountPath: /var/opt/mssql/data
@@ -61,13 +55,13 @@ spec:
       volumes:
         - name: mssqlcustomerdb
           persistentVolumeClaim:
-            claimName: mssql-customer-pvc
+            claimName: customer-db-pvc
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-mssql-cluster-ip-service
+  name: customer-db-cluster-ip-service
 spec:
   type: ClusterIP
   ports:
@@ -83,7 +77,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-mssql-load-balancer-service
+  name: customer-db-load-balancer-service
 spec:
   type: LoadBalancer
   ports:

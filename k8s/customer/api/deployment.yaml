@@ -18,8 +18,16 @@ spec:
         - name: customer-deployment-container
           image: thegeekspad/microshop-customer-microservice
           ports:
-          - name: http-port
-            containerPort: 80
+              - name: http-port
+                containerPort: 80
+          env:
+              - name: ACCEPT_EULA
+                value: "Y"
+              - name: SA_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: customer-api-secret
+                    key: SA_PASSWORD
           resources:
             limits:
               memory: "128Mi"
