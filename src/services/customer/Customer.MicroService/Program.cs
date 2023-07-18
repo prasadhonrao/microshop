@@ -39,6 +39,10 @@ void ConfigureLogging(WebApplicationBuilder builder)
         .CreateLogger();
 
     builder.Host.UseSerilog();
+
+    // Log Order Service URL
+    var orderServiceUrl = builder.Configuration.GetSection("OrderServiceUrl").Value;
+    Log.Information($"Order Service URL: {orderServiceUrl}");
 }
 
 void ConfigureDatabase(WebApplicationBuilder builder, ILogger logger, bool isDevelopment)
