@@ -18,14 +18,14 @@ spec:
   selector:
     matchLabels:
       app-service: customer
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
         app-service: customer
     spec:
       containers:
-        - name: customer-deployment-container
+        - name: customer-api-deployment-container
           image: thegeekspad/microshop-customer-microservice
           ports:
               - name: http-port

@@ -66,33 +66,49 @@ spec:
             claimName: order-db-pvc
 ---
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: order-db-cluster-ip-service
-spec:
-  type: ClusterIP
-  ports:
-  - name: db-port
-    protocol: TCP
-    port: 3306
-    targetPort: 3306
-  selector: # this connects the service to the pods
-    app-service: order-db
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: order-db-cluster-ip-service
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - name: db-port
+#     protocol: TCP
+#     port: 3306
+#     targetPort: 3306
+#   selector: # this connects the service to the pods
+#     app-service: order-db
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: order-db-load-balancer-service
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - name: lb-port
+#     protocol: TCP
+#     port: 3306
+#     targetPort: 3306
+#   selector: # this connects the service to the pods
+#     app-service: order-db
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-db-load-balancer-service
+  name: order-db-service
 spec:
-  type: LoadBalancer
+  clusterIP: None
   ports:
-  - name: lb-port
+  - name: db-port
     protocol: TCP
     port: 3306
     targetPort: 3306
-  selector: # this connects the service to the pods
+  selector: 
     app-service: order-db
 
