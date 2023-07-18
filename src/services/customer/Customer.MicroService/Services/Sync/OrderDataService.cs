@@ -23,7 +23,7 @@ public class OrderDataService : IOrderDataService
         try
         {
             logger.LogInformation("Getting orders for customer " +  customerId);
-            var orderServiceUrl = configuration["OrderServiceUrl"] + "/" + customerId + "/orders" ;
+            var orderServiceUrl = configuration["OrderServiceUrl"] + "/customer/" + customerId;
 
             var response = await httpClient.GetAsync(orderServiceUrl);
             logger.LogInformation($"Response: {response}");

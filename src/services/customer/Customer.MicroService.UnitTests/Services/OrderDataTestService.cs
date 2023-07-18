@@ -15,9 +15,9 @@ namespace Customer.MicroService.UnitTests.Services
             // Create dummy order data
             var orders = new List<OrderReadModel>
         {
-            new OrderReadModel(1, customerId, DateTime.Now.AddDays(-2)),
-            new OrderReadModel(2, customerId, DateTime.Now.AddDays(-1)),
-            new OrderReadModel(3, customerId, DateTime.Now)
+            new OrderReadModel("b52fc3fc-2479-44ad-8bfa-ce1ec0aa5962", customerId, DateTime.Now.AddDays(-2), 100),
+            new OrderReadModel("b52fc3fc-2479-44ad-8bfa-ce1ec0aa5111", customerId, DateTime.Now.AddDays(-1), 100),
+            new OrderReadModel("b52fc3fc-2479-44ad-8bfa-ce1ec0aa5222", customerId, DateTime.Now, 100)
         };
 
             // Filter orders based on the provided customerId

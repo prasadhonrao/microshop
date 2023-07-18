@@ -1,20 +1,36 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Customer.MicroService.Models;
 
 public class OrderReadModel 
 {
-    public int OrderID { get; set; }
+    [JsonPropertyName("orderNumber")]
+    public string OrderNumber { get; set; }
+    [JsonPropertyName("customerId")]
     public int CustomerID { get; set; }
+
+    [JsonPropertyName("orderDate")]
     public DateTime OrderDate { get; set; }
+
+    [JsonPropertyName("orderAmount")]
     public decimal OrderAmount { get; set; }
 
-    public OrderReadModel(int orderId, int customerId, DateTime orderDate, decimal orderAmount)
+    [JsonPropertyName("orderLineItemModelList")]
+    public List<OrderLineItemModel> OrderLineItemModelList { get; set; }
+
+    public OrderReadModel()
     {
-        OrderID = orderId;
+        // Default constructor for deserialization
+    }
+
+    public OrderReadModel(string orderId, int customerId, DateTime orderDate, decimal orderAmount, List<OrderLineItemModel>? orderLineItemModelList = null)
+    {
+        OrderNumber = orderId;
         CustomerID = customerId;
         OrderDate = orderDate;
         OrderAmount = orderAmount;
+        OrderLineItemModelList = orderLineItemModelList;
     }
 
     public override string ToString()

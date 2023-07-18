@@ -70,10 +70,10 @@ public class OrdersController {
 
     @GetMapping("/customer/{customerId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<OrderResponse> getOrdersByCustomerId(@PathVariable int customerId) {
+    public ResponseEntity<List<OrderResponse>> getOrdersByCustomerId(@PathVariable int customerId) {
         try {
-            var order = orderService.getOrdersByCustomerId(customerId);
-            return new ResponseEntity<OrderResponse>(order, HttpStatus.OK);
+            var orders = orderService.getOrdersByCustomerId(customerId);
+            return ResponseEntity.ok(orders);
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception rex) {

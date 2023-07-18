@@ -37,11 +37,11 @@ public class OrderService {
         return mapToOrderResponse(order);
     }
 
-    public OrderResponse getOrdersByCustomerId(int customerId) {
-        Order order = orderRepository.findByCustomerId(customerId)
-                .orElseThrow(() -> new NotFoundException("Order not found with customer number: " + customerId));
-
-        return mapToOrderResponse(order);
+    public List<OrderResponse> getOrdersByCustomerId(int customerId) {
+        List<Order> orders = orderRepository.findByCustomerId(customerId);
+        return orders.stream()
+                .map(this::mapToOrderResponse)
+                .collect(Collectors.toList());
     }
 
     public OrderResponse createOrder(OrderRequest orderRequest) {
