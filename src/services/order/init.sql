@@ -6,6 +6,9 @@ USE order_db;
 
 CREATE TABLE orders (
   order_number varchar(255) NOT NULL,
+  customer_id int,
+  order_date date,
+  order_amount decimal(10, 2),
   PRIMARY KEY (order_number)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

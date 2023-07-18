@@ -29,15 +29,27 @@ public class OrderService {
                 .map(this::mapToOrderResponse)
                 .collect(Collectors.toList());
     }
+
     public OrderResponse getOrder(String orderNumber) {
         Order order = orderRepository.findByOrderNumber(orderNumber)
                 .orElseThrow(() -> new NotFoundException("Order not found with order number: " + orderNumber));
 
         return mapToOrderResponse(order);
     }
+
+    public OrderResponse getOrdersByCustomerId(int customerId) {
+        Order order = orderRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new NotFoundException("Order not found with customer number: " + customerId));
+
+        return mapToOrderResponse(order);
+    }
+
     public OrderResponse createOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
+        order.setCustomerId(orderRequest.getCustomerId());
+        order.setOrderDate(orderRequest.getOrderDate());
+        order.setOrderAmount(orderRequest.getOrderAmount());
 
         List<OrderLineItem> orderLineItems = orderRequest.getOrderLineItemModelList()
                 .stream()
@@ -48,6 +60,7 @@ public class OrderService {
         var savedOder = orderRepository.save(order);
         return mapToOrderResponse(savedOder);
     }
+
     public void deleteOrder(String orderNumber) throws NotFoundException {
         Optional<Order> orderOptional = orderRepository.findByOrderNumber(orderNumber);
         if (orderOptional.isEmpty()) {
@@ -56,6 +69,7 @@ public class OrderService {
         Order order = orderOptional.get();
         orderRepository.delete(order);
     }
+
     private OrderLineItem mapToOrderLineItem(OrderLineItemModel model, Order order) {
         OrderLineItem orderLineItem = new OrderLineItem();
         orderLineItem.setUnitPrice(model.getUnitPrice());
@@ -65,15 +79,21 @@ public class OrderService {
         orderLineItem.setOrder(order); // Set the order object
         return orderLineItem;
     }
+
     private OrderResponse mapToOrderResponse(Order order) {
         OrderResponse response = new OrderResponse();
         response.setOrderNumber(order.getOrderNumber());
+        response.setCustomerId(order.getCustomerId());
+        response.setOrderDate(order.getOrderDate());
+        response.setOrderAmount(order.getOrderAmount());
+
         List<OrderLineItemModel> lineItems = order.getOrderLineItemList().stream()
                 .map(this::mapToOrderLineItemModel)
                 .collect(Collectors.toList());
         response.setOrderLineItemModelList(lineItems);
         return response;
     }
+
     private OrderLineItemModel mapToOrderLineItemModel(OrderLineItem orderLineItem) {
         OrderLineItemModel model = new OrderLineItemModel();
         model.setProductId(orderLineItem.getProductId());
@@ -82,4 +102,5 @@ public class OrderService {
         model.setDiscount(orderLineItem.getDiscount());
         return model;
     }
+    
 }

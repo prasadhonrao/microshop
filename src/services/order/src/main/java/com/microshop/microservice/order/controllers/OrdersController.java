@@ -56,6 +56,19 @@ public class OrdersController {
         }
     }
 
+    @GetMapping("/customer/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OrderResponse> getOrdersByCustomerId(@PathVariable int customerId) {
+        try {
+            var order = orderService.getOrdersByCustomerId(customerId);
+            return new ResponseEntity<OrderResponse>(order, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception rex) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/{orderNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> deleteOrder(@PathVariable String orderNumber) {
