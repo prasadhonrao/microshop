@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api-deployment
+  labels:
+    app-service: order
+spec:
+  selector:
+    matchLabels:
+      app-service: order
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: order
+    spec:
+      containers:
+        - name: order-api-deployment-container
+          image: thegeekspad/microshop-order-microservice
+          ports:
+              - name: http-port
+                containerPort: 80
+          env:
+              - name: MYSQL_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: order-api-secret
+                    key: MYSQL_HOST
+              - name: MYSQL_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: order-api-secret
+                    key: MYSQL_PORT
+              - name: MYSQL_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: order-api-secret
+                    key: MYSQL_DB
+              - name: MYSQL_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: order-api-secret
+                    key: MYSQL_USER
+              - name: MYSQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: order-api-secret
+                    key: MYSQL_PASSWORD
+              - name: SPRING_PROFILES_ACTIVE
+                value: prod

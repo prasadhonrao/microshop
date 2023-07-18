@@ -5,7 +5,7 @@ services:
     image: thegeekspad/microshop-order-microservice
     restart: always
     ports:
-      - 8081:8080
+      - 7000:8080
     environment:
       - MYSQL_HOST=orderdb
       - MYSQL_PORT=3306
@@ -22,7 +22,7 @@ services:
     image: mysql
     restart: always
     ports:
-      - 3307:3306
+      - 3308:3306
     environment:
       - MYSQL_ROOT_PASSWORD=mysql
       - MYSQL_DATABASE=order_db

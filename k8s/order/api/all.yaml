@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: order-api-secret
+type: Opaque
+data:
+  MYSQL_HOST: b3JkZXItZGItbG9hZC1iYWxhbmNlci1zZXJ2aWNl # order-db-load-balancer-service
+  MYSQL_PORT: MzMwNg== # 3306
+  MYSQL_DB: b3JkZXJfZGI= # order_db
+  MYSQL_USER: cm9vdA== # root
+  MYSQL_PASSWORD: TSFjckBzaEBwSzhT  # M!cr@sh@pK8S
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-api-cluster-ip-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  selector: # this connects the service to the pods
+    app-service: order
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-api-node-port-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80 # this is the port on the service object and mapped to the node port
+      targetPort: 80 # this is the port on the pod
+      nodePort: 30002 # this is the port exposed on the node. Valid range is 30000-32767.
+  selector: # this connects the service to the pods
+    app-service: order
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-api-load-balancer-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: lb-port
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  selector: # this connects the service to the pods
+    app-service: order
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api-deployment
+  labels:
+    app-service: order
+spec:
+  selector:
+    matchLabels:
+      app-service: order
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: order
+    spec:
+      containers:
+        - name: order-api-deployment-container
+          image: thegeekspad/microshop-order-microservice
+          ports:
+              - name: http-port
+                containerPort: 80
+          env:
+          - name: MYSQL_HOST
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: MYSQL_HOST
+          - name: MYSQL_PORT
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: MYSQL_PORT
+          - name: MYSQL_DB
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: MYSQL_DB
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: MYSQL_USER
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: MYSQL_PASSWORD
+          - name: SPRING_PROFILES_ACTIVE
+            value: prod
+

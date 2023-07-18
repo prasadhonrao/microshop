@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: order-pod
+  name: order-api-pod
   labels:
     app-service: order
 spec:
   containers:
-  - name: order-pod-container
+  - name: order-api-pod-container
     image: thegeekspad/microshop-order-microservice
     ports:
     - containerPort: 80

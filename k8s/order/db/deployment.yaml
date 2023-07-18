@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-service: order-db
+  template:
+    metadata:
+      labels:
+        app-service: order-db
+    spec:
+      containers:
+      - name: order-db-deployment-container
+        image: mysql
+        ports:
+            - containerPort: 3306
+              name: db-port
+        env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: order-db-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: order-db-secret
+                  key: MYSQL_DATABASE
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: order-db-persistent-storage
+      volumes:
+        - name: order-db-persistent-storage
+          persistentVolumeClaim:
+            claimName: order-db-pvc
