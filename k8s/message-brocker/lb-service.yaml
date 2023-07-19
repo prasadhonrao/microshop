@@ -14,5 +14,4 @@ spec:
     port: 5672
     targetPort: 5672
   selector: # this connects the service to the pods
-    app: microshop
-
+    app-service: rabbit-mq-message-broker

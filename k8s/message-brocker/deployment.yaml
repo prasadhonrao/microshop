@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: microshop
+      app-service: rabbit-mq-message-broker
   template:
     metadata:
       labels:
-        app: microshop
+        app-service: rabbit-mq-message-broker
     spec:
       containers:
       - name: microshop-rabbit-mq-container
