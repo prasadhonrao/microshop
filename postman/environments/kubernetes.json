@@ -10,18 +10,18 @@
 		},
 		{
 			"key": "productNodePortNumber",
-			"value": "30002",
+			"value": "30003",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "orderNodePortNumber",
-			"value": "30003",
+			"value": "30002",
 			"type": "default",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2023-07-17T21:59:09.252Z",
+	"_postman_exported_at": "2023-07-19T10:19:21.939Z",
 	"_postman_exported_using": "Postman/10.16.0"
 }

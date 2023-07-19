@@ -15,15 +15,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:30002/api/order",
+							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "30002",
+							"port": "{{orderNodePortNumber}}",
 							"path": [
 								"api",
-								"order"
+								"orders"
 							]
 						}
 					},
@@ -35,16 +35,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:30002/api/order/1",
+							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders/ORD-001",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "30002",
+							"port": "{{orderNodePortNumber}}",
 							"path": [
 								"api",
-								"order",
-								"1"
+								"orders",
+								"ORD-001"
 							]
 						}
 					},
@@ -56,15 +56,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:30002/api/order/101",
+							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "30002",
+							"port": "{{orderNodePortNumber}}",
 							"path": [
 								"api",
-								"order",
+								"orders",
 								"101"
 							]
 						}
@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
+							"raw": "{\n  \"customerId\": 2,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 99.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -86,15 +86,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:31001/api/customer",
+							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "31001",
+							"port": "{{orderNodePortNumber}}",
 							"path": [
 								"api",
-								"customer"
+								"orders"
 							]
 						}
 					},
@@ -227,7 +227,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/612a8cd6-9d03-49de-b595-bacb7403ae11",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/456479d5-9721-4ddb-870d-c3843b5a6e31",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -236,7 +236,29 @@
 							"path": [
 								"api",
 								"orders",
-								"612a8cd6-9d03-49de-b595-bacb7403ae11"
+								"456479d5-9721-4ddb-870d-c3843b5a6e31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{orderPortNumber}}",
+							"path": [
+								"api",
+								"orders",
+								"customer",
+								"1"
 							]
 						}
 					},
@@ -248,7 +270,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/612a8cd6-9d03-49de-b595-bacb7403ae11",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/8ecfd8b6-e600-4498-b3e5-91e233c4a383",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -257,7 +279,7 @@
 							"path": [
 								"api",
 								"orders",
-								"612a8cd6-9d03-49de-b595-bacb7403ae11"
+								"8ecfd8b6-e600-4498-b3e5-91e233c4a383"
 							]
 						}
 					},
@@ -291,7 +313,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"orderLineItemModelList\" : [ \n        {\n            \"productId\": 1,\n            \"unitPrice\": 99,\n            \"quantity\": 10,\n            \"discount\": 0.9\n        },\n        {\n            \"productId\": 2,\n            \"unitPrice\": 50,\n            \"quantity\": 1,\n            \"discount\": 0\n        }\n    ]\n}\n\n",
+							"raw": "{\n  \"customerId\": 2,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 99.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -316,7 +338,7 @@
 			]
 		},
 		{
-			"name": "Docker",
+			"name": "Docker Compose",
 			"item": [
 				{
 					"name": "Get All Orders",
@@ -324,12 +346,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/orders",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
 								"orders"
@@ -344,16 +366,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/order/1",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/a0151ed2-e293-4a26-8709-289b3d7a4225",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
-								"order",
-								"1"
+								"orders",
+								"a0151ed2-e293-4a26-8709-289b3d7a4225"
 							]
 						}
 					},
@@ -365,15 +387,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/order/101",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/101",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
-								"order",
+								"orders",
 								"101"
 							]
 						}
@@ -387,7 +409,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"orderLineItemModelList\" : [ \n        {\n            \"productId\": 1,\n            \"unitPrice\": 99,\n            \"quantity\": 10,\n            \"discount\": 0.9\n        },\n        {\n            \"productId\": 2,\n            \"unitPrice\": 50,\n            \"quantity\": 1,\n            \"discount\": 0\n        }\n    ]\n}\n\n",
+							"raw": "{\n  \"customerId\": 123,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 100.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -395,15 +417,37 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/orders",
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "{{orderPortNumber}}",
 							"path": [
 								"api",
 								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{orderPortNumber}}/api/orders/customer/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{orderPortNumber}}",
+							"path": [
+								"api",
+								"orders",
+								"customer",
+								"123"
 							]
 						}
 					},

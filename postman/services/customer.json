@@ -380,7 +380,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"companyName\": \"Apple\",\n    \"contactName\": \"Steve Jobs\"\n}",
+							"raw": "{\n    \"companyName\": \"MS\",\n    \"contactName\": \"Bill Gates\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -592,6 +592,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{customerPortNumber}}/api/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{customerPortNumber}}",
+							"path": [
+								"api",
+								"home"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -616,9 +636,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{customer-microservice-url}}",
+							"raw": "{{customer-microservice-url}}/api/customers",
 							"host": [
 								"{{customer-microservice-url}}"
+							],
+							"path": [
+								"api",
+								"customers"
 							]
 						}
 					},
@@ -642,12 +666,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1/orders",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1/orders",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -675,12 +697,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer"
@@ -706,12 +726,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -727,12 +745,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -748,12 +764,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/101",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/101",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -801,12 +815,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -831,12 +843,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -861,12 +871,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -891,12 +899,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/1",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer",
@@ -927,12 +933,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
-							"protocol": "http",
+							"raw": "{{customer-microservice-url}}/api/customer",
 							"host": [
-								"localhost"
+								"{{customer-microservice-url}}"
 							],
-							"port": "{{customerPortNumber}}",
 							"path": [
 								"api",
 								"customer"
