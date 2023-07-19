@@ -1,6 +1,29 @@
 # Microshop
 
-Cross-platform microservices and container based application that runs on Linux, Windows and macOS
+Microshop is a cross-platform, microservice-based application designed to serve as a fully functional and scalable ecommerce platform. Built on modern technologies and best practices, Microshop offers a comprehensive solution for online retail businesses seeking to establish a robust and efficient online presence.
+
+Key Features:
+- **Microservices Architecture:** Microshop follows a modular architecture, breaking down complex functionalities into independent microservices. Each microservice is responsible for a specific aspect of the application, facilitating maintainability, scalability, and fault isolation.
+
+- **Scalability and Flexibility:** The application is designed to scale effortlessly as business demands grow. Microservices allow individual components to be deployed independently, enabling seamless expansion and enhanced performance.
+
+- **Dockerized Containers:** Microshop leverages containerization using Docker, ensuring consistency across various environments and simplifying the deployment process.
+
+- **Kubernetes Orchestration:** The application is designed to be deployed and managed on Kubernetes, providing a powerful and flexible orchestration solution for containerized microservices.
+
+- **RESTful APIs:** Microshop offers RESTful APIs for communication between microservices, enabling secure and efficient data exchange.
+
+- **User-friendly Interface:** The frontend of Microshop is designed with a focus on user experience, providing an intuitive and engaging interface for customers to browse products, place orders, and manage their accounts.
+
+- **Authentication and Security:** Robust authentication mechanisms and data encryption ensure that user data and transactions remain secure and protected.
+
+- **Order Processing and Payment Integration:** Microshop includes a streamlined order processing system and supports integration with popular payment gateways, enabling seamless and secure payment transactions.
+
+- **Product Catalog and Inventory Management:** The application offers comprehensive product catalog management, allowing administrators to efficiently manage product details, categories, and stock levels.
+
+- **Order Tracking and Customer Support:** Customers can track their orders in real-time, and the application facilitates seamless customer support through integrated communication channels.
+
+Microshop provides an open-source foundation for ecommerce businesses to build upon and customize as per their specific requirements. Whether setting up a small boutique store or a large-scale online retail platform, Microshop empowers businesses to achieve their ecommerce goals efficiently and effectively.
 
 ## Application Services
 
