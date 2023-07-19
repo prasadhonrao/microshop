@@ -11,23 +11,17 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/api/customer"
+        path: "/api/customers"
         backend:
           service:
-            name: customer-cluster-ip-service
+            name: customer-api-cluster-ip-service
             port: 
               number: 80
       - pathType: Prefix
-        path: "/api/order"
+        path: "/api/orders"
         backend:
           service:
-            name: order-cluster-ip-service
+            name: order-api-cluster-ip-service
             port: 
               number: 80
-      - pathType: Prefix
-        path: "/api/product"
-        backend:
-          service:
-            name: product-cluster-ip-service
-            port: 
-              number: 80
+
