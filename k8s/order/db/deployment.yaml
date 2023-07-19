@@ -24,11 +24,13 @@ spec:
                 secretKeyRef:
                   name: order-db-secret
                   key: MYSQL_ROOT_PASSWORD
+            
             - name: MYSQL_DATABASE
               valueFrom:
-                secretKeyRef:
-                  name: order-db-secret
-                  key: MYSQL_DATABASE
+                configMapKeyRef :
+                  name: order-db-config
+                  key: dbName
+
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: order-db-persistent-storage

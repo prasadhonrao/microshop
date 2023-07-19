@@ -26,11 +26,11 @@ CREATE TABLE order_line_items (
 
 INSERT INTO orders (order_number, customer_id, order_date, order_amount)
 VALUES ('ORD-001', 1, '2023-07-01', 100.00),
-       ('ORD-002', 2, '2023-07-02', 30.00),
-       ('ORD-003', 1, '2023-07-03', 100.00);
+      ('ORD-002', 2, '2023-07-02', 30.00),
+      ('ORD-003', 1, '2023-07-03', 100.00);
 
 INSERT INTO order_line_items (order_number, product_id, unit_price, quantity, discount)
 VALUES ('ORD-001', 'PROD-001', 10.00, 10, 0.0),
-       ('ORD-001', 'PROD-002', 20.00, 3, 0.0),
-       ('ORD-002', 'PROD-003', 15.00, 2, 0.0),
-       ('ORD-003', 'PROD-001', 10.00, 10, 0.0);
+      ('ORD-001', 'PROD-002', 20.00, 3, 0.0),
+      ('ORD-002', 'PROD-003', 15.00, 2, 0.0),
+      ('ORD-003', 'PROD-001', 10.00, 10, 0.0);

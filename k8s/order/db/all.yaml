@@ -1,15 +1,21 @@
+apiVersion : v1
+kind : ConfigMap
+metadata:
+  name : order-db-config
+data:
+  host : order-db-cluster-ip-service
+  dbName: order_db_prod
+
+---
+
 apiVersion: v1
 kind: Secret
 metadata:
   name: order-db-secret
 type: Opaque
 data:
-  MYSQL_ROOT_PASSWORD: TSFjckBzaEBwSzhT 
-  MYSQL_DATABASE: b3JkZXJfZGI=
-
-  # M!cr@sh@pK8S
-# order_db
-
+  MYSQL_ROOT_PASSWORD: cm9vdA==  # root
+  
 ---
 
 apiVersion: v1
@@ -52,11 +58,13 @@ spec:
                 secretKeyRef:
                   name: order-db-secret
                   key: MYSQL_ROOT_PASSWORD
+
             - name: MYSQL_DATABASE
               valueFrom:
-                secretKeyRef:
-                  name: order-db-secret
-                  key: MYSQL_DATABASE
+                configMapKeyRef :
+                  name: order-db-config
+                  key: dbName
+
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: order-db-persistent-storage
@@ -66,46 +74,32 @@ spec:
             claimName: order-db-pvc
 ---
 
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: order-db-cluster-ip-service
-# spec:
-#   type: ClusterIP
-#   ports:
-#   - name: db-port
-#     protocol: TCP
-#     port: 3306
-#     targetPort: 3306
-#   selector: # this connects the service to the pods
-#     app-service: order-db
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-db-cluster-ip-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: db-port
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+  selector: # this connects the service to the pods
+    app-service: order-db
 
-# ---
-
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: order-db-load-balancer-service
-# spec:
-#   type: LoadBalancer
-#   ports:
-#   - name: lb-port
-#     protocol: TCP
-#     port: 3306
-#     targetPort: 3306
-#   selector: # this connects the service to the pods
-#     app-service: order-db
 
 ---
+# Note: Load balancer service is created to test MYSQL connectivity from MYSQL Workbench. It is NOT being used for internal pod communication hence order-db-cluster-ip-service is used as hostname in API configuration
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-db-service
+  name: order-db-load-balancer-service
 spec:
-  clusterIP: None
+  type: LoadBalancer
   ports:
-  - name: db-port
+  - name: lb-port
     protocol: TCP
     port: 3306
     targetPort: 3306
