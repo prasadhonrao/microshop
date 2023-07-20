@@ -17,8 +17,8 @@ public class MessageBusClient : IMessageBusClient
         this.configuration = configuration;
         
         var factory = new ConnectionFactory() {
-            HostName = this.configuration["RabbitMQHost"],
-            Port = int.Parse(this.configuration["RabbitMQPort"])
+            HostName = this.configuration["RABBITMQ_HOST"],
+            Port = int.Parse(this.configuration["RABBITMQ_PORT"])
         };
 
         try
