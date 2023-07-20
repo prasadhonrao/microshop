@@ -62,12 +62,29 @@ void ConfigureDatabase(WebApplicationBuilder builder, ILogger logger, bool isDev
     }
     else
     {
+        // TODO : Revisit this code as this needs to be externalized using K8S Helmchart
+        logger.LogInformation("REPLACING CONNECTION STRING WITH ENV VARIABLES");
+
         var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
+        
         var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
         if (!string.IsNullOrEmpty(dbPassword))
         {
             connectionString = connectionString.Replace("${SA_PASSWORD}", dbPassword);
         }
+
+        var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
+        if (!string.IsNullOrEmpty(dbServer))
+        {
+            connectionString = connectionString.Replace("${DB_SERVER}", dbServer);
+        }
+
+        var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+        if (!string.IsNullOrEmpty(dbName))
+        {
+            connectionString = connectionString.Replace("${DB_NAME}", dbName);
+        }
+
         logger.LogInformation($"Database Connection string: {connectionString}");
 
         builder.Services.AddDbContext<CustomersDbContext>(options =>
