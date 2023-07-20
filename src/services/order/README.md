@@ -1,19 +1,19 @@
 # Getting Started
 
 
-docker network create order-network
+docker network create order-api-dev-network
 
-docker run --name orderdb --net order-network -e MYSQL_ROOT_PASSWORD=mysql -p 3307:3306 -d mysql
+docker run --name order-db-dev-host --net order-api-dev-network -e MYSQL_ROOT_PASSWORD=mysql -p 3307:3306 -d mysql
 
 
 docker run -d `
---name orderapi `
---net order-network `
--p 9090:8080 `
--e MYSQL_HOST=orderdb `
--e MYSQL_PORT=3306 `
--e MYSQL_USER=root `
--e MYSQL_PASSWORD=mysql `
--e MYSQL_DB=order_db `
+--name order-api-dev `
+--net order-api-dev-network `
+-p 7000:8080 `
+-e DB_HOST=order-db-dev-host `
+-e DB_PORT=3306 `
+-e DB_USERNAME=root `
+-e DB_PASSWORD=mysql `
+-e DB_NAME=order_db_dev `
 thegeekspad/microshop-order-microservice
 

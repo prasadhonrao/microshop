@@ -1,34 +1,48 @@
 version: '3.8'
 services:
   app:
-    container_name: orderapi
+    container_name: order-api-dc
     image: thegeekspad/microshop-order-microservice
     restart: always
     ports:
       - 7000:8080
     environment:
-      - MYSQL_HOST=orderdb
-      - MYSQL_PORT=3306
-      - MYSQL_DB=order_db
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=mysql
+      - DB_HOST=order-db-dc # This refers to db container name
+      - DB_PORT=3306 # This is an internal port of db container
+      - DB_NAME=order_db_dc
+      - DB_USERNAME=root
+      - DB_PASSWORD=mysql
       - SPRING_PROFILES_ACTIVE=prod
+      - RABBITMQ_HOST=rabbitmq-dc   # This refers to rabbitmq container name
+      - RABBITMQ_PORT=5672       
     depends_on:
       - db
+      - rabbitmq
     networks:
-      - order-network
+      - order-api-network-dc
+  
   db:
-    container_name: orderdb
+    container_name: order-db-dc
     image: mysql
     restart: always
     ports:
       - 3308:3306
     environment:
       - MYSQL_ROOT_PASSWORD=mysql
-      - MYSQL_DATABASE=order_db
+      - MYSQL_DATABASE=order_db_dc
     networks:
-      - order-network
+      - order-api-network-dc
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init_dc.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  rabbitmq:
+    container_name: rabbitmq-dc
+    image: rabbitmq:3.8
+    restart: always
+    ports:
+      - 5672:5672
+    networks:
+      - order-api-network-dc
+
 networks:
-  order-network:
+  order-api-network-dc:
