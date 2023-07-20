@@ -5,7 +5,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - src/services/sustomer/**
+      - src/services/customer/**
       - .github/workflows/customer-microservice.yml
       
   # pull_request:
