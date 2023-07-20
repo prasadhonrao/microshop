@@ -44,6 +44,10 @@ void ConfigureLogging(WebApplicationBuilder builder)
     // Log Order Service URL
     var orderServiceUrl = builder.Configuration.GetSection("OrderServiceUrl").Value;
     Log.Information($"Order Service URL: {orderServiceUrl}");
+
+    // Log Rabbit MQ URL
+    var rabbitMqUrl = builder.Configuration.GetSection("RABBITMQ_HOST").Value + ":" + builder.Configuration.GetSection("RABBITMQ_PORT").Value;
+    Log.Information($"RabbitMQ URL: {rabbitMqUrl}");
 }
 
 void ConfigureDatabase(WebApplicationBuilder builder, ILogger logger, bool isDevelopment)
