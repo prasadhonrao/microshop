@@ -2,6 +2,7 @@ using AutoMapper;
 using Customer.MicroService.Entities;
 using Customer.MicroService.Models;
 using Customer.MicroService.Services;
+using Customer.MicroService.Services.Sync;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -14,15 +15,18 @@ namespace Customer.MicroService.Controllers;
 public class CustomersController : ControllerBase
 {
     private readonly ICustomerService customerService;
+    private readonly IOrderService orderService;
     private readonly IMapper mapper;
     private readonly ILogger<CustomersController> logger;
 
     public CustomersController(
         ICustomerService customerService,
+        IOrderService orderService,
         IMapper mapper,
         ILogger<CustomersController> logger)
     {
         this.customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+        this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
         this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -70,44 +74,6 @@ public class CustomersController : ControllerBase
             }
 
             return Ok(mapper.Map<CustomerReadModel>(customer));
-        }
-        catch (ArgumentException ex)
-        {
-            logger.LogError(ex, $"Invalid customer id: {id}");
-            return BadRequest($"Invalid customer id: {id}");
-        }
-        catch (Exception ex)
-        {
-            logger.LogCritical(ex, $"Exception occurred while retrieving customer with id: {id}");
-            return StatusCode(500, $"An error occurred while handling your request for customer with id: {id}");
-        }
-    }
-
-    // TODO: Split this method into two parts - order summary and order details
-    [HttpGet("{id}/orders", Name = "GetCustomerOrders")]
-    [ProducesResponseType(typeof(IEnumerable<OrderReadModel>), 200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
-    public async Task<IActionResult> GetCustomerOrders([FromRoute] int id)
-    {
-        try
-        {
-            ValidateId(id);
-
-            logger.LogInformation($"Checking if customer with id: {id} exists in the database");
-
-            bool customerExists = await customerService.CustomerExistsAsync(id);
-
-            if (!customerExists)
-            {
-                logger.LogInformation($"No customer found with id: {id}");
-                return NotFound($"No customer found with id: {id}");
-            }
-
-            logger.LogInformation($"Getting all orders for customer id: {id} ");
-            var orders = await customerService.GetOrders(id);
-            return Ok(orders);
         }
         catch (ArgumentException ex)
         {
@@ -425,4 +391,66 @@ public class CustomersController : ControllerBase
         return property;
     }
 
+    // TODO: Split this method into two parts - order summary and order details
+    [HttpGet("{id}/orders", Name = "GetCustomerOrders")]
+    [ProducesResponseType(typeof(IEnumerable<OrderReadModel>), 200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> GetCustomerOrders([FromRoute] int id)
+    {
+        try
+        {
+            ValidateId(id);
+
+            logger.LogInformation($"Checking if customer with id: {id} exists in the database");
+
+            bool customerExists = await customerService.CustomerExistsAsync(id);
+
+            if (!customerExists)
+            {
+                logger.LogInformation($"No customer found with id: {id}");
+                return NotFound($"No customer found with id: {id}");
+            }
+
+            logger.LogInformation($"Getting all orders for customer id: {id} ");
+            var orders = await orderService.GetOrders(id);
+            return Ok(orders);
+        }
+        catch (ArgumentException ex)
+        {
+            logger.LogError(ex, $"Invalid customer id: {id}");
+            return BadRequest($"Invalid customer id: {id}");
+        }
+        catch (Exception ex)
+        {
+            logger.LogCritical(ex, $"Exception occurred while retrieving customer with id: {id}");
+            return StatusCode(500, $"An error occurred while handling your request for customer with id: {id}");
+        }
+    }
+
+    [HttpPost("publishOrder", Name = "PublishOrder")]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> PublishOrder([FromBody] OrderPublishModel orderPublishModel)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid order details");
+            }
+
+            // Place the order using the OrderService
+            await orderService.PublishOrder(orderPublishModel);
+
+            return CreatedAtRoute(nameof(GetCustomerById), new { id = orderPublishModel.CustomerID }, orderPublishModel);
+        }
+        catch (Exception ex)
+        {
+            logger.LogCritical(ex, $"An error occurred while placing the order. Please try again later.");
+            return StatusCode(500, "An error occurred while placing the order. Please try again later.");
+        }
+    }
 }

@@ -3,6 +3,7 @@ using Customer.MicroService.Controllers;
 using Customer.MicroService.Entities;
 using Customer.MicroService.Models;
 using Customer.MicroService.Services;
+using Customer.MicroService.Services.Sync;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -11,20 +12,24 @@ namespace Customer.MicroService.UnitTests.Controllers
 {
     public class CustomersControllerTests
     {
-        private readonly Mock<ICustomerService> _customerServiceMock;
-        private readonly Mock<IMapper> _mapperMock;
-        private readonly Mock<ILogger<CustomersController>> _loggerMock;
-        private readonly CustomersController _controller;
+        private readonly Mock<ICustomerService> customerServiceMock;
+        private readonly Mock<IOrderService> orderServiceMock;
+
+        private readonly Mock<IMapper> mapperMock;
+        private readonly Mock<ILogger<CustomersController>> loggerMock;
+        private readonly CustomersController controller;
 
         public CustomersControllerTests()
         {
-            _customerServiceMock = new Mock<ICustomerService>();
-            _mapperMock = new Mock<IMapper>();
-            _loggerMock = new Mock<ILogger<CustomersController>>();
-            _controller = new CustomersController(
-                _customerServiceMock.Object,
-                _mapperMock.Object,
-                _loggerMock.Object
+            customerServiceMock = new Mock<ICustomerService>();
+            orderServiceMock = new Mock<IOrderService>();
+            mapperMock = new Mock<IMapper>();
+            loggerMock = new Mock<ILogger<CustomersController>>();
+            controller = new CustomersController(
+                customerServiceMock.Object,
+                orderServiceMock.Object,
+                mapperMock.Object,
+                loggerMock.Object
             );
         }
 

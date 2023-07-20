@@ -9,14 +9,13 @@ namespace Customer.MicroService.Services
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository customerRepository;
-        private readonly IOrderDataService orderDataService;
+        
 
         public CustomerService(
-                ICustomerRepository customerRepository,
-                IOrderDataService orderDataService)
+                ICustomerRepository customerRepository)
         {
             this.customerRepository = customerRepository;
-            this.orderDataService = orderDataService ?? throw new ArgumentNullException(nameof(orderDataService));
+            
         }
 
         public void Add(CustomerEntity entity)
@@ -98,11 +97,6 @@ namespace Customer.MicroService.Services
         public Task<bool> SaveChangesAsync()
         {
             return customerRepository.SaveChangesAsync();
-        }
-
-        public Task<IEnumerable<OrderReadModel>> GetOrders(int customerId)
-        {
-            return orderDataService.GetOrders(customerId);
         }
 
         public async Task<bool> CustomerExistsAsync(int id)

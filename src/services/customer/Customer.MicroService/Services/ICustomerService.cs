@@ -14,7 +14,7 @@ namespace Customer.MicroService.Services
         void Delete(int entity);
         Task<IEnumerable<CustomerEntity>> FindAsync(Expression<Func<CustomerEntity, bool>> predicate);
         Task<bool> SaveChangesAsync();
-        Task<IEnumerable<OrderReadModel>> GetOrders(int customerId);
+
         public Task<bool> CustomerExistsAsync(int id);
     }
 }

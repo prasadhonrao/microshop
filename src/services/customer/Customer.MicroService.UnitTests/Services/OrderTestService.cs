@@ -1,14 +1,9 @@
 ﻿using Customer.MicroService.Models;
 using Customer.MicroService.Services.Sync;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Customer.MicroService.UnitTests.Services
 {
-    public class OrderDataTestService : IOrderDataService
+    public class OrderTestService : IOrderService
     {
         public Task<IEnumerable<OrderReadModel>?> GetOrders(int customerId)
         {
@@ -25,6 +20,11 @@ namespace Customer.MicroService.UnitTests.Services
 
             // Return the filtered orders as a Task
             return Task.FromResult<IEnumerable<OrderReadModel>?>(customerOrders);
+        }
+
+        public Task PublishOrder(OrderPublishModel order)
+        {
+            throw new NotImplementedException();
         }
     }
 

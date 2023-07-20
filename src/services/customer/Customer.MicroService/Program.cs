@@ -1,6 +1,7 @@
 using Customer.MicroService.Data;
 using Customer.MicroService.Repositories;
 using Customer.MicroService.Services;
+using Customer.MicroService.Services.Async;
 using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -77,7 +78,8 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddScoped<ICustomerService, CustomerService>();
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-    builder.Services.AddHttpClient<IOrderDataService, OrderDataService>();
+    builder.Services.AddHttpClient<IOrderService, OrderService>();
+    builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
     builder.Services.AddControllers(options =>
     {

@@ -1,68 +1,66 @@
-    using System.Text;
-using System.Text.Json;
-using Customer.MicroService.Models;
+using System.Text;
 using RabbitMQ.Client;
 
 namespace Customer.MicroService.Services.Async;
 
 public class MessageBusClient : IMessageBusClient
 {
-    private readonly IConfiguration _configuration;
-    private readonly ILogger<MessageBusClient> _logger;
-    private readonly IConnection _connection;
-    private readonly IModel _channel;
+    private readonly IConfiguration configuration;
+    private readonly ILogger<MessageBusClient> logger;
+    private readonly IConnection connection;
+    private readonly IModel channel;
 
     public MessageBusClient(IConfiguration configuration, 
                             ILogger<MessageBusClient> logger)
     {
-        _logger = logger;
-        _configuration = configuration;
+        this.logger = logger;
+        this.configuration = configuration;
         
         var factory = new ConnectionFactory() {
-            HostName = _configuration["RabbitMQHost"],
-            Port = int.Parse(_configuration["RabbitMQPort"])
+            HostName = this.configuration["RabbitMQHost"],
+            Port = int.Parse(this.configuration["RabbitMQPort"])
         };
 
         try
         {
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+            connection = factory.CreateConnection();
+            channel = connection.CreateModel();
+            channel.ExchangeDeclare(exchange: "order_exchange", type: ExchangeType.Fanout);
 
-            _connection.ConnectionShutdown += (s, e) => {
-                _logger.LogInformation("Connection shut down");
+            connection.ConnectionShutdown += (s, e) => {
+                this.logger.LogInformation("Connection shut down");
             };
 
-            _logger.LogInformation("Connecting to RabbitMQ");
+            this.logger.LogInformation("Connecting to RabbitMQ");
         }
         catch (Exception ex)
         {
-            _logger.LogError("Exception : Could not connect to RabbitMQ");
-            _logger.LogError(ex.StackTrace);
+            this.logger.LogError("Exception : Could not connect to RabbitMQ");
+            this.logger.LogError(ex.StackTrace);
         }
     }
-    public void CreateNewOrder(OrderReadModel order)
+
+    public Task<bool> PublishMessage(string exchangeName, string message)
     {
-        var message = JsonSerializer.Serialize(order);
-        if (_connection.IsOpen) {
-            _logger.LogInformation($"RabbitMQ connection open, sending message {message}...");
-            SendMessage(message);
-        } else {
-            _logger.LogWarning("RabbitMQ connection closed, can not send the message...");
+        try
+        {
+            var body = Encoding.UTF8.GetBytes(message);
+            channel.BasicPublish(exchange: exchangeName, routingKey: "", basicProperties: null, body: body);
+            logger.LogInformation($"Message published to RabbitMQ exchange '{exchangeName}'.");
+            return Task.FromResult(true);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError($"Exception while publishing message to RabbitMQ: {ex.Message}");
+            return Task.FromResult(false);
         }
     }
-
-    private void SendMessage(string message) {
-        var body = Encoding.UTF8.GetBytes(message);
-        _channel.BasicPublish(exchange: "trigger", routingKey:"", basicProperties: null, body: body);
-        _logger.LogInformation("Message sent successfully");
-    }
-
+   
     public void Dispose() {
-        _logger.LogInformation("Disposing RabbitMQ");
-        if (_channel.IsOpen) {
-            _channel.Close();
-            _connection.Close();
+        logger.LogInformation("Disposing RabbitMQ");
+        if (channel.IsOpen) {
+            channel.Close();
+            connection.Close();
         }
     }
 }

@@ -24,7 +24,7 @@ public class OrderReadModel
         // Default constructor for deserialization
     }
 
-    public OrderReadModel(string orderId, int customerId, DateTime orderDate, decimal orderAmount, List<OrderLineItemModel>? orderLineItemModelList = null)
+    public OrderReadModel(string orderId, int customerId, DateTime orderDate, decimal orderAmount, List<OrderLineItemModel> orderLineItemModelList = null)
     {
         OrderNumber = orderId;
         CustomerID = customerId;
