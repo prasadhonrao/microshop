@@ -68,7 +68,7 @@ public class OrdersController {
         }
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/customers/{customerId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<OrderResponse>> getOrdersByCustomerId(@PathVariable int customerId) {
         try {
