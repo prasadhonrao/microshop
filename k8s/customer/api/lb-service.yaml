@@ -10,5 +10,4 @@ spec:
     port: 80
     targetPort: 80
   selector: # this connects the service to the pods
-    app-service: customer
-
+    app-service: customer-api

@@ -1,4 +1,25 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-config
+data:
+  RABBITMQ_HOST: rabbit-mq-cluster-ip-service
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_MANAGEMENT_PORT: "15672"
+
+---
+
+apiVersion : v1
+kind : ConfigMap
+metadata:
+  name : customer-api-config
+data:
+  host : customer-db-cluster-ip-service
+  dbName: CustomerDBProd
+
+---
+
+apiVersion: v1
 kind: Secret
 metadata:
   name: customer-api-secret
@@ -13,16 +34,16 @@ kind: Deployment
 metadata:
   name: customer-api-deployment
   labels:
-    app-service: customer
+    app-service: customer-api
 spec:
   selector:
     matchLabels:
-      app-service: customer
+      app-service: customer-api
   replicas: 1
   template:
     metadata:
       labels:
-        app-service: customer
+        app-service: customer-api
     spec:
       containers:
         - name: customer-api-deployment-container
@@ -33,11 +54,31 @@ spec:
           env:
               - name: ACCEPT_EULA
                 value: "Y"
+              - name: DB_SERVER
+                valueFrom:
+                  configMapKeyRef:
+                    name: customer-api-config
+                    key: host
+              - name: DB_NAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: customer-api-config
+                    key: dbName
               - name: SA_PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: customer-api-secret
                     key: SA_PASSWORD
+              - name: RABBITMQ_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: rabbitmq-config
+                    key: RABBITMQ_HOST
+              - name: RABBITMQ_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: rabbitmq-config
+                    key: RABBITMQ_PORT
           resources:
             limits:
               memory: "128Mi"
@@ -71,7 +112,7 @@ spec:
     port: 80
     targetPort: 80
   selector: # this connects the service to the pods
-    app-service: customer
+    app-service: customer-api
 
 ---
 
@@ -86,7 +127,7 @@ spec:
       targetPort: 80 # this is the port on the pod
       nodePort: 30001 # this is the port exposed on the node. Valid range is 30000-32767.
   selector: # this connects the service to the pods
-    app-service: customer
+    app-service: customer-api
 
 ---
 
@@ -102,5 +143,5 @@ spec:
     port: 80
     targetPort: 80
   selector: # this connects the service to the pods
-    app-service: customer
+    app-service: customer-api
 

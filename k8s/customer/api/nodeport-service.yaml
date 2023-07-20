@@ -9,4 +9,4 @@ spec:
       targetPort: 80 # this is the port on the pod
       nodePort: 30001 # this is the port exposed on the node. Valid range is 30000-32767.
   selector: # this connects the service to the pods
-    app-service: customer
+    app-service: customer-api

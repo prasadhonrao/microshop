@@ -3,48 +3,53 @@ kind: Deployment
 metadata:
   name: order-api-deployment
   labels:
-    app-service: order
+    app-service: order-api
 spec:
   selector:
     matchLabels:
-      app-service: order
+      app-service: order-api
   replicas: 1
   template:
     metadata:
       labels:
-        app-service: order
+        app-service: order-api
     spec:
       containers:
         - name: order-api-deployment-container
           image: thegeekspad/microshop-order-microservice
           ports:
               - name: http-port
-                containerPort: 80
+                containerPort: 8080
           env:
-              - name: MYSQL_HOST
-                valueFrom:
-                  secretKeyRef:
-                    name: order-api-secret
-                    key: MYSQL_HOST
-              - name: MYSQL_PORT
-                valueFrom:
-                  secretKeyRef:
-                    name: order-api-secret
-                    key: MYSQL_PORT
-              - name: MYSQL_DB
-                valueFrom:
-                  secretKeyRef:
-                    name: order-api-secret
-                    key: MYSQL_DB
-              - name: MYSQL_USER
-                valueFrom:
-                  secretKeyRef:
-                    name: order-api-secret
-                    key: MYSQL_USER
-              - name: MYSQL_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: order-api-secret
-                    key: MYSQL_PASSWORD
-              - name: SPRING_PROFILES_ACTIVE
-                value: prod
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: order-api-config
+                key: host
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: order-api-config
+                key: dbName
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: DB_USERNAME
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: order-api-secret
+                key: DB_PASSWORD
+          - name: SPRING_PROFILES_ACTIVE
+            value: prod
+          - name: RABBITMQ_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: rabbitmq-config
+                key: RABBITMQ_HOST
+          - name: RABBITMQ_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: rabbitmq-config
+                key: RABBITMQ_PORT

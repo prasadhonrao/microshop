@@ -5,7 +5,7 @@ metadata:
 data:
   host : order-db-cluster-ip-service
   dbName: order_db_prod
-  dbPort: '3306'
+  dbPort: "3306"
 
 ---
 
@@ -48,27 +48,33 @@ spec:
               configMapKeyRef:
                 name: order-api-config
                 key: host
-          
           - name: DB_NAME
             valueFrom:
               configMapKeyRef:
                 name: order-api-config
                 key: dbName
-          
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
                 name: order-api-secret
                 key: DB_USERNAME
-          
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: order-api-secret
                 key: DB_PASSWORD
-
           - name: SPRING_PROFILES_ACTIVE
             value: prod
+          - name: RABBITMQ_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: rabbitmq-config
+                key: RABBITMQ_HOST
+          - name: RABBITMQ_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: rabbitmq-config
+                key: RABBITMQ_PORT
 
 ---
 

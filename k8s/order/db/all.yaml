@@ -51,7 +51,7 @@ spec:
         image: mysql
         ports:
             - containerPort: 3306
-              name: db-port
+              name: order-db-port
         env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit-mq-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-service: rabbit-mq-message-broker
+  template:
+    metadata:
+      labels:
+        app-service: rabbit-mq-message-broker
+    spec:
+      containers:
+      - name: microshop-rabbit-mq-container
+        image: rabbitmq:3-management
+        ports:
+          - containerPort: 15672
+            name: management-port
+          - containerPort: 5672
+            name: messaging-port
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-mq-cluster-ip-service # this value must match the rabbit mq config in the connection string of the service project
+spec:
+  type: ClusterIP
+  ports:
+  - name: management-port
+    protocol: TCP
+    port: 15672
+    targetPort: 15672
+  - name: messaging-port
+    protocol: TCP
+    port: 5672
+    targetPort: 5672
+  selector:
+    app-service: rabbit-mq-message-broker
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-mq-load-balancer-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: management-port
+    protocol: TCP
+    port: 15672
+    targetPort: 15672
+  - name: messaging-port
+    protocol: TCP
+    port: 5672
+    targetPort: 5672
+  selector: # this connects the service to the pods
+    app-service: rabbit-mq-message-broker
