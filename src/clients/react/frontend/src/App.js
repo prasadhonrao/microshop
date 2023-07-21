@@ -1,7 +1,9 @@
 import { Container } from 'react-bootstrap';
+import { Outlet } from 'react-router-dom';
+
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import HomePage from './pages/home/HomePage';
+
 
 
 const App = () => {
@@ -10,7 +12,7 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <HomePage />
+          <Outlet />
         </Container>
       </main>
       <Footer />
