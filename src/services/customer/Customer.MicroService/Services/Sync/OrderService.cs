@@ -12,8 +12,10 @@ public class OrderService : IOrderService
     private readonly ILogger<OrderService> logger;
     private readonly IMessageBusClient messageBusClient;
 
-    public OrderService(HttpClient client, IConfiguration configuration, ILogger<OrderService> logger,
-                            IMessageBusClient messageBusClient)
+    public OrderService(HttpClient client, 
+                        IConfiguration configuration, 
+                        ILogger<OrderService> logger,
+                        IMessageBusClient messageBusClient)
     {
         this.httpClient = client;
         this.configuration = configuration;
@@ -26,7 +28,8 @@ public class OrderService : IOrderService
         try
         {
             logger.LogInformation("Getting orders for customer " +  customerId);
-            var orderServiceUrl = configuration["OrderServiceUrl"] + "/customer/" + customerId;
+
+            var orderServiceUrl = configuration["OrderServiceUrl"] + "/customers/" + customerId;
 
             var response = await httpClient.GetAsync(orderServiceUrl);
             logger.LogInformation($"Response: {response}");
@@ -36,7 +39,8 @@ public class OrderService : IOrderService
                 return await response.Content.ReadFromJsonAsync<IEnumerable<OrderReadModel>>(
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
-
+            
+            // TODO: Why both are returning null?
             // Handle specific error scenarios or throw appropriate exceptions
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
