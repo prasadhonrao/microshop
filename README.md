@@ -29,9 +29,9 @@ Microshop provides an open-source foundation for ecommerce businesses to build u
 
 | Service | Technology |
 | ------------- | ------------- |
-| Customer MicroService | ASP.NET Web API Core + SQL Server + EF|
-| Product MicroService | Java 17 + SpringBoot 3.1 + MongoDB |
-| Order MicroService | Java 17 + SpringBoot 3.1 + MySQL |
+| Customer MicroService | ASP.NET Web API Core, SQL Server, EF|
+| Product MicroService | Node, Express, MongoDB, Mongoose |
+| Order MicroService | Java 17, SpringBoot 3.1, MySQL, JPA |
 | Inventory MicroService | TBD |
 | Notification MicroService | Python Flask |
 
