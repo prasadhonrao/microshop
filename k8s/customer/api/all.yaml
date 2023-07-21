@@ -25,7 +25,7 @@ metadata:
   name: customer-api-secret
 type: Opaque
 data:
-  SA_PASSWORD: TSFjckBzaEBwSzhT
+  SA_PASSWORD: TSFjckBzaEBwSzhT #M!cr@sh@pK8S
   
 ---
 

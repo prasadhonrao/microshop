@@ -3,5 +3,5 @@ kind : ConfigMap
 metadata:
   name : order-db-config
 data:
-  host : order-db-service
+  host : order-db-cluster-ip-service
   dbName: order_db_prod
