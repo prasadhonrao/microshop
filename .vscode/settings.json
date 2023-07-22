@@ -8,6 +8,7 @@
         "Newtonsoft",
         "nvarchar",
         "RABBITMQ",
+        "reduxjs",
         "Serilog",
         "Steeltoe",
         "thegeekspad"
