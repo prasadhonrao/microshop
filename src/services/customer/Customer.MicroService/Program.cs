@@ -18,11 +18,20 @@ var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog());
 var logger = loggerFactory.CreateLogger<Program>();
 logger.LogInformation($"Environment: {builder.Environment.EnvironmentName}");
 
-ConfigureDatabase(builder, logger, isDevelopment);
-
 ConfigureServices(builder);
 
+ConfigureDatabase(builder, logger, isDevelopment);
+
 var app = builder.Build();
+
+// Insert dummy data only in DEV environment
+if (isDevelopment)
+{
+    using var scope = app.Services.CreateScope();
+    var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+    await dataSeeder.SeedDataAsync();
+}
+
 
 ConfigureApp(app);
 
@@ -101,6 +110,12 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
     builder.Services.AddHttpClient<IOrderService, OrderService>();
     builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+
+    // Register CustomerDataSeeder to insert dummy data in DEV environment
+    if (isDevelopment)
+    {
+        builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+    }
 
     builder.Services.AddControllers(options =>
     {
