@@ -9,8 +9,14 @@ export const productsApiSlice = apiSlice.injectEndpoints({
             }),
             keepUnusedDataFor: 5 // keep data for 5 seconds even if it's not used
         }),
+        getProductDetails: builder.query({
+            query: (productId) => ({ 
+                url: `${PRODUCTS_URL}/${productId}`,
+            }),
+            keepUnusedDataFor: 5 // keep data for 5 seconds even if it's not used
+        }),
     })
 });
 
 // Export hooks for usage in functional components and follow naming convention strictly
-export const { useGetProductsQuery } = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery } = productsApiSlice;
