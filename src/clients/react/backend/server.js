@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-
+import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 
 import productRoutes from './routes/productRoutes.js';
@@ -18,6 +18,9 @@ const app = express();
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Cookie parser middleware
+app.use(cookieParser());
 
 
 app.get('/', (req, res) => {
