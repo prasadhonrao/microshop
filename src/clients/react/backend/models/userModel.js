@@ -12,6 +12,18 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }
 
+// this wil run before saving the user
+userSchema.pre('save', async function (next) {
+    // if password is not modified, then move on
+    if (!this.isModified('password')) {
+        next();
+    }
+
+    // if password is modified, then hash it
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
 const User = mongoose.model('User', userSchema);
 
 export default User;
