@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: customer-api-pod
+  labels:
+    app-service: customer
+spec:
+  containers:
+  - name: customer-api-pod-container
+    image: thegeekspad/microshop-customer-microservice
+    ports:
+        - name: http-port
+          containerPort: 80
+    env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: "M!cr@sh@pK8S"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    readinessProbe:
+      httpGet:
+        path: /api/health
+        port: 80
+      initialDelaySeconds: 2
+      periodSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: /api/health
+        port: 80
+      initialDelaySeconds: 15
+      timeoutSeconds: 2
+      periodSeconds: 20
+      failureThreshold: 1
+
+
+# kubectl apply -f pod.yaml
+# kubectl get pods
+# kubectl describe pod customer-pod
+# kubectl delete pod customer-pod
+# kubectl delete -f pod.yaml
+# kubectl exec -it customer-pod -- /bin/bash

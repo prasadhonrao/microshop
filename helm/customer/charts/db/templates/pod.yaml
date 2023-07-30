@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: customer-db-pod
+  labels:
+    app-service: customer
+spec:
+  containers:
+    - name: customer-db-pod-container
+      image: mcr.microsoft.com/mssql/server:2022-latest
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+      - containerPort: 1433
+      env:
+      - name: MSSQL_PID
+        value: "Express"
+      - name: ACCEPT_EULA
+        value: "Y"
+      - name: SA_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: customer-db-secret
+            key: SA_PASSWORD
+      volumeMounts:
+      - mountPath: /var/opt/mssql/data
+        name: customer-db-volume-mount
+  volumes:
+    - name: customer-db-volume-mount
+      persistentVolumeClaim:
+        claimName: customer-db-pvc

@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-api-deployment
+  labels:
+    app-service: customer-api
+spec:
+  selector:
+    matchLabels:
+      app-service: customer-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app-service: customer-api
+    spec:
+      containers:
+        - name: customer-api-deployment-container
+          image: thegeekspad/microshop-customer-microservice
+          ports:
+              - name: http-port
+                containerPort: 80
+          env:
+              - name: ACCEPT_EULA
+                value: "Y"
+              - name: DB_SERVER
+                valueFrom:
+                  configMapKeyRef:
+                    name: customer-api-config
+                    key: host
+              - name: DB_NAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: customer-api-config
+                    key: dbName
+              - name: SA_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: customer-api-secret
+                    key: SA_PASSWORD
+              - name: RABBITMQ_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: rabbitmq-config
+                    key: RABBITMQ_HOST
+              - name: RABBITMQ_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: rabbitmq-config
+                    key: RABBITMQ_PORT
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 80
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+            periodSeconds: 20
+            failureThreshold: 1

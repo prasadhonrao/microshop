@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-api-load-balancer-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: lb-port
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  selector: # this connects the service to the pods
+    app-service: customer-api

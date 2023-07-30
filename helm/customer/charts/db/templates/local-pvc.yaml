@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: customer-db-pvc
+spec:
+  resources:
+    requests:
+      storage: 900Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
