@@ -7,451 +7,151 @@
 	},
 	"item": [
 		{
-			"name": "K8S-NodePort",
-			"item": [
-				{
-					"name": "Get All Products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:30003/api/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "30003",
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Product",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:30003/api/product/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "30003",
-							"path": [
-								"api",
-								"product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Product Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:30003/api/product/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "30003",
-							"path": [
-								"api",
-								"product",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"productName\": \"P4\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:30003/api/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "30003",
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"response": []
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "K8S-Ingress",
-			"item": [
-				{
-					"name": "Get All Products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/product",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Product",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/product/1",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Product Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/product/101",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"product",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"productName\": \"P9999\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://microshop.com/api/product",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/64bac55ef3806e6e6af8d324",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"64bac55ef3806e6e6af8d324"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "Local",
-			"item": [
-				{
-					"name": "Get All Products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Product",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products/649eaab70c276d36fff792a8",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products",
-								"649eaab70c276d36fff792a8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Product Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Product",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products/649eaab70c276d36fff792a8",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products",
-								"649eaab70c276d36fff792a8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Product Which Does Not Exist",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"productName\": \"iPhone\",\n  \"supplierId\": 1,\n  \"categoryId\": 1,\n  \"productPrice\": 999.99,\n  \"discontinued\": 0\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Version",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{productPortNumber}}/api/products/version",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{productPortNumber}}",
-							"path": [
-								"api",
-								"products",
-								"version"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Error When Querying Product Which Doesn't Exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/101",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"101"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "Docker",
-			"item": [
-				{
-					"name": "Get All Products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Product",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/product/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Product Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/product/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"product",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"productName\": \"iPhone\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8082/api/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"product"
-							]
-						}
-					},
-					"response": []
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/649eaab70c276d36fff792a8",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"649eaab70c276d36fff792a8"
+					]
 				}
-			]
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product Which Does Not Exist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/101",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productName\": \"iPhone\",\n  \"supplierId\": 1,\n  \"categoryId\": 1,\n  \"productPrice\": 999.99,\n  \"discontinued\": 0\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Version",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/version",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"version"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

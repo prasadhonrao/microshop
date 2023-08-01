@@ -7,1137 +7,431 @@
 	},
 	"item": [
 		{
-			"name": "K8S-NodePort",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerNodePortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerNodePortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerNodePortNumber}}/api/customer/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerNodePortNumber}}",
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Customer Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerNodePortNumber}}/api/customer/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerNodePortNumber}}",
-							"path": [
-								"api",
-								"customer",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:31000/api/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "31000",
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
+			"name": "Get All Customers",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
 				}
-			]
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "K8S-Ingress",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/customer",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/customer/1",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Customer Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/customer/101",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"customer",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://microshop.com/api/customer",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Customer Orders",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
 				}
-			]
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/1/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"1",
+						"orders"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "Local",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer Orders",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/1/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"1",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Customers in XML Format",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/92",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"92"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Customer",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/92",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"92"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer Which Does Not Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer/92",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customer",
-								"92"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"companyName\": \"MS\",\n    \"contactName\": \"Bill Gates\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Customer",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Mr. Prasad Honrao\",\n    \"companyName\": \"MICROSOFT\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"91"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json-patch+json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/phone\",\n        \"value\": \"123456789\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"91"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer Test Operation",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"test\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad Honrao\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"91"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer Invalid Property",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/invalidProperty\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer Remove Property",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"remove\",\n        \"path\": \"/phone\",\n        \"value\": \"11\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/91",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"91"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer Invalid Body",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Version",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/home",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"home"
-							]
-						}
-					},
-					"response": []
+			"name": "Get All Customers in XML Format",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
 				}
-			]
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "Azure",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customers",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer Orders",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1/orders",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Customers in XML Format",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/xml",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Customer",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer Which Does Not Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/101",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{customer-microservice-url}}",
-							"host": [
-								"{{customer-microservice-url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Customer",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"AAA\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/firstName\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer Invalid Property",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/invalidProperty\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patch Customer Remove Property",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"op\": \"remove\",\n        \"path\": \"/firstName\",\n        \"value\": \"Jack\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer/1",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer Invalid Body",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{customer-microservice-url}}/api/customer",
-							"host": [
-								"{{customer-microservice-url}}"
-							],
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Customer",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
 				}
-			]
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/92",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"92"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "Docker Compose",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Customer Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/10000000",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"10000000"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
+			"name": "Delete Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/92",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"92"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "Docker",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Customer Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers/10000000",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers",
-								"10000000"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{customerPortNumber}}/api/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{customerPortNumber}}",
-							"path": [
-								"api",
-								"customers"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Customer Which Does Not Exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customer/92",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customer",
+						"92"
+					]
 				}
-			]
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"companyName\": \"MS\",\n    \"contactName\": \"Bill Gates\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"companyName\": \"MS\",\n    \"contactName\": \"Bill Gates\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Customer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contactName\": \"Mr. Prasad Honrao\",\n    \"companyName\": \"MICROSOFT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/91",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Customer",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json-patch+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad S Honrao\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/phone\",\n        \"value\": \"123456789\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/91",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Customer Test Operation",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"op\": \"test\",\n        \"path\": \"/contactName\",\n        \"value\": \"Prasad Honrao\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/91",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Customer Invalid Property",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/invalidProperty\",\n        \"value\": \"Jack\"\n    },\n    {\n        \"op\": \"replace\",\n        \"path\": \"/lastName\",\n        \"value\": \"Morris\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Customer Remove Property",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"op\": \"remove\",\n        \"path\": \"/phone\",\n        \"value\": \"11\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/91",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer Invalid Body",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Version",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{customerPort}}/api/customers/version",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{customerPort}}",
+					"path": [
+						"api",
+						"customers",
+						"version"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

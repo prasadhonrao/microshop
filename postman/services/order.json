@@ -7,453 +7,152 @@
 	},
 	"item": [
 		{
-			"name": "K8S-NodePort",
-			"item": [
-				{
-					"name": "Get All Orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderNodePortNumber}}",
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Order",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders/ORD-001",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderNodePortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"ORD-001"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Order Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderNodePortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Order",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"customerId\": 2,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 99.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{orderNodePortNumber}}/api/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderNodePortNumber}}",
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "K8S-Ingress",
-			"item": [
-				{
-					"name": "Get All Orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/order",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"order"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Order",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/order/1",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"order",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Order Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://microshop.com/api/order/101",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"order",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Order",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"contactName\": \"Prajakta Honrao\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://microshop.com/api/customer",
-							"protocol": "http",
-							"host": [
-								"microshop",
-								"com"
-							],
-							"path": [
-								"api",
-								"customer"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders/456479d5-9721-4ddb-870d-c3843b5a6e31",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders",
+						"456479d5-9721-4ddb-870d-c3843b5a6e31"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "Local",
-			"item": [
-				{
-					"name": "Get All Orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Order",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/456479d5-9721-4ddb-870d-c3843b5a6e31",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"456479d5-9721-4ddb-870d-c3843b5a6e31"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer Order",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/customer/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"customer",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Order",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/8ecfd8b6-e600-4498-b3e5-91e233c4a383",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"8ecfd8b6-e600-4498-b3e5-91e233c4a383"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Order Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Order",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"customerId\": 2,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 99.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
+			"name": "Get Customer Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders/customers/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders",
+						"customers",
+						"1"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "Docker Compose",
-			"item": [
-				{
-					"name": "Get All Orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Order",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/a0151ed2-e293-4a26-8709-289b3d7a4225",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"a0151ed2-e293-4a26-8709-289b3d7a4225"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Error When Querying Order Which Doesn't Exist",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/101",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"101"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Order",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"customerId\": 123,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 100.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer Order",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:{{orderPortNumber}}/api/orders/customer/123",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "{{orderPortNumber}}",
-							"path": [
-								"api",
-								"orders",
-								"customer",
-								"123"
-							]
-						}
-					},
-					"response": []
+			"name": "Delete Order",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders/8ecfd8b6-e600-4498-b3e5-91e233c4a383",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders",
+						"8ecfd8b6-e600-4498-b3e5-91e233c4a383"
+					]
 				}
-			]
+			},
+			"response": []
+		},
+		{
+			"name": "Get Error When Querying Order Which Doesn't Exist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders/101",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders",
+						"101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerId\": 2,\n  \"orderDate\": \"2023-07-01\",\n  \"orderAmount\": 99.0,\n  \"orderLineItemModelList\": [\n    {\n      \"productId\": \"PROD-001\",\n      \"unitPrice\": 10.0,\n      \"quantity\": 2,\n      \"discount\": 0.0\n    },\n    {\n      \"productId\": \"PROD-002\",\n      \"unitPrice\": 90.0,\n      \"quantity\": 1,\n      \"discount\": 0.1\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Version",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{orderPort}}/api/orders/version",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{orderPort}}",
+					"path": [
+						"api",
+						"orders",
+						"version"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
