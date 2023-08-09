@@ -1,9 +1,9 @@
-import { LinkContainer } from "react-router-bootstrap";
+import { LinkContainer } from 'react-router-bootstrap';
 
-import { Badge, Navbar, Nav, Container } from "react-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import logo from "../../assets/logo.png";
+import { Badge, Navbar, Nav, Container } from 'react-bootstrap';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import logo from '../../assets/logo.png';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -22,7 +22,7 @@ const Header = () => {
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
-                />{" "}
+                />{' '}
                 Microshop
               </Navbar.Brand>
             </LinkContainer>
@@ -33,11 +33,11 @@ const Header = () => {
                   <Nav.Link>
                     <FaShoppingCart />
                     Cart
-                  {cartItems.length > 0 && (
-                    <Badge pill bg="success" style={{ marginLeft: "5px" }}>
-                      {cartItems.reduce((a, c) => a + c.qty, 0)}
-                    </Badge>
-                  )}
+                    {cartItems.length > 0 && (
+                      <Badge pill bg="success" style={{ marginLeft: '5px' }}>
+                        {cartItems.reduce((a, c) => a + c.qty, 0)}
+                      </Badge>
+                    )}
                   </Nav.Link>
                 </LinkContainer>
                 <LinkContainer container="nav" to="/signin">

@@ -10,6 +10,7 @@
         "RABBITMQ",
         "reduxjs",
         "Serilog",
+        "signin",
         "Steeltoe",
         "thegeekspad"
     ],

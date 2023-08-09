@@ -1,22 +1,27 @@
-import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Form, Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
-import Loader from "../../components/loader/Loader";
-import Message from "../../components/message/Message";
-import Rating from "../../components/rating/Rating";
-import { useGetProductDetailsQuery } from "../../slices/productsApiSlice";
-import { addToCart } from "../../slices/cartSlice";
+import { useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {
+  Form,
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+} from 'react-bootstrap';
+
+import Loader from '../../components/loader/Loader';
+import Message from '../../components/message/Message';
+import Rating from '../../components/rating/Rating';
+import { useGetProductDetailsQuery } from '../../slices/productsApiSlice';
+import { addToCart } from '../../slices/cartSlice';
 
 const ProductPage = () => {
   const { id: productId } = useParams();
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [qty, setQty] = useState(1);
-  
   const {
     data: product,
     error,
@@ -24,7 +29,7 @@ const ProductPage = () => {
   } = useGetProductDetailsQuery(productId);
 
   const addToCartHandler = () => {
-    dispatch(addToCart({...product, qty}));
+    dispatch(addToCart({ ...product, qty }));
     navigate('/cart');
   };
 
@@ -36,7 +41,9 @@ const ProductPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error?.data?.message || error.error}</Message>
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <Row>
@@ -79,27 +86,30 @@ const ProductPage = () => {
                       <Col>
                         <strong>
                           {product.countInStock > 0
-                            ? "In stock"
-                            : "Out Of Stock"}
+                            ? 'In stock'
+                            : 'Out Of Stock'}
                         </strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
-                  
+
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
                         <Col>Qty</Col>
                         <Col>
-                          <Form.Control 
-                            as='select' 
-                            value={qty} 
-                            onChange={(e) => setQty(Number(e.target.value))}>
-                              {[...Array(product.countInStock).keys()].map((x) => (
-                                <option key={x + 1} value = {x + 1}>
-                                   { x + 1} 
+                          <Form.Control
+                            as="select"
+                            value={qty}
+                            onChange={(e) => setQty(Number(e.target.value))}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
                                 </option>
-                              ) )}
+                              )
+                            )}
                           </Form.Control>
                         </Col>
                       </Row>
@@ -111,7 +121,7 @@ const ProductPage = () => {
                       className="btn-block"
                       type="button"
                       disabled={product.countInStock === 0}
-                      onClick = {addToCartHandler}
+                      onClick={addToCartHandler}
                     >
                       Add to Cart
                     </Button>

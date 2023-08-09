@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, 
-        createRoutesFromElements, 
-        Route, 
-        RouterProvider} from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -22,10 +24,10 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/product/:id" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="about" element={<div>About</div>} /> 
+      <Route path="about" element={<div>About</div>} />
     </Route>
   )
-)
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

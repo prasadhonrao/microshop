@@ -71,6 +71,17 @@ const products = [
     rating: 4,
     numReviews: 12,
   },
-]
+  {
+    name: 'Antique Typewriter',
+    image: '/images/typewriter.jpg',
+    description: 'Most amazing antique typewriter',
+    brand: 'Remington Standard',
+    category: 'Antiques',
+    price: 99.99,
+    countInStock: 5,
+    rating: 4.8,
+    numReviews: 5,
+  },
+];
 
-export default products
+export default products;

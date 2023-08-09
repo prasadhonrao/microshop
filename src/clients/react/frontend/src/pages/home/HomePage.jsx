@@ -1,8 +1,8 @@
-import { Row, Col } from "react-bootstrap";
-import Product from "../../components/product/Product";
-import Loader  from "../../components/loader/Loader";
-import Message from "../../components/message/Message";
-import { useGetProductsQuery } from "../../slices/productsApiSlice";
+import { Row, Col } from 'react-bootstrap';
+import Product from '../../components/product/Product';
+import Loader from '../../components/loader/Loader';
+import Message from '../../components/message/Message';
+import { useGetProductsQuery } from '../../slices/productsApiSlice';
 
 const HomePage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
@@ -12,7 +12,9 @@ const HomePage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error?.data?.message || error.error}</Message>
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <h1>Latest Products</h1>

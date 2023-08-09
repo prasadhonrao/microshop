@@ -1,7 +1,7 @@
 {
   "name": "microshop",
   "version": "1.0.0",
-  "description": "eCommerce app",
+  "description": "MicroShop is a microservice based e-commerce application.",
   "type": "module",
   "main": "server.js",
   "scripts": {
