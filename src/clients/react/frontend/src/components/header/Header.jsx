@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 
 const Header = () => {
-  const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+  const { cartItems } = useSelector((state) => state.cart); // cart property is set in the store
 
   return (
     <>
@@ -32,7 +31,7 @@ const Header = () => {
                 <LinkContainer container="nav" to="/cart">
                   <Nav.Link>
                     <FaShoppingCart />
-                    Cart
+                    {/* Cart */}
                     {cartItems.length > 0 && (
                       <Badge pill bg="success" style={{ marginLeft: '5px' }}>
                         {cartItems.reduce((a, c) => a + c.qty, 0)}
@@ -43,7 +42,7 @@ const Header = () => {
                 <LinkContainer container="nav" to="/signin">
                   <Nav.Link>
                     <FaUser />
-                    Sign In
+                    {/* Sign In */}
                   </Nav.Link>
                 </LinkContainer>
               </Nav>

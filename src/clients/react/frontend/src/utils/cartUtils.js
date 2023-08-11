@@ -1,10 +1,18 @@
 export const addDecimals = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2);
-}
+  return (Math.round(num * 100) / 100).toFixed(2);
+};
 
 export const updateCart = (state) => {
+  if (state.cartItems.length === 0) {
+    state.itemsPrice = 0;
+    state.shippingPrice = 0;
+    state.taxPrice = 0;
+    state.totalPrice = 0;
+  } else {
     // Calculate items price
-    state.itemsPrice =addDecimals(state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0));            
+    state.itemsPrice = addDecimals(
+      state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
 
     // Calculate shipping price
     // If order is over $100 then free shipping else $10 for shipping
@@ -15,12 +23,13 @@ export const updateCart = (state) => {
 
     // Calculate total price
     state.totalPrice = (
-        Number(state.itemsPrice) + 
-        Number(state.shippingPrice) + 
-        Number(state.taxPrice)
-    ).toFixed(2);    
+      Number(state.itemsPrice) +
+      Number(state.shippingPrice) +
+      Number(state.taxPrice)
+    ).toFixed(2);
+  }
 
-    localStorage.setItem("cart", JSON.stringify(state));
+  localStorage.setItem('cart', JSON.stringify(state));
 
-    return state;
-}
+  return state;
+};
