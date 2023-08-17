@@ -2,6 +2,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import { Badge, Navbar, Nav, Container } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { BsChatDots } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 
@@ -43,6 +44,12 @@ const Header = () => {
                   <Nav.Link>
                     <FaUser />
                     {/* Sign In */}
+                  </Nav.Link>
+                </LinkContainer>
+                <LinkContainer container="nav" to="/chat">
+                  <Nav.Link>
+                    <BsChatDots />
+                    {/* Chat */}
                   </Nav.Link>
                 </LinkContainer>
               </Nav>
