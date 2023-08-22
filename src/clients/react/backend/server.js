@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Cookie parser middleware
+// This allow us to access request.cookie
 app.use(cookieParser());
 
 app.get('/', (req, res) => {

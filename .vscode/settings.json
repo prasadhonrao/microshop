@@ -1,22 +1,23 @@
 {
-    "cSpell.words": [
-        "appsettings",
-        "ASPNETCORE",
-        "Fanout",
-        "microshop",
-        "mssql",
-        "Newtonsoft",
-        "nvarchar",
-        "RABBITMQ",
-        "reduxjs",
-        "Serilog",
-        "signin",
-        "Steeltoe",
-        "thegeekspad"
-    ],
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "disabled",
-    "files.exclude": {
-        "**/*.user": true
-    }
+  "cSpell.words": [
+    "appsettings",
+    "ASPNETCORE",
+    "Fanout",
+    "microshop",
+    "mssql",
+    "Newtonsoft",
+    "nvarchar",
+    "RABBITMQ",
+    "reduxjs",
+    "Serilog",
+    "signin",
+    "Steeltoe",
+    "thegeekspad",
+    "toastify"
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "disabled",
+  "files.exclude": {
+    "**/*.user": true
+  }
 }
