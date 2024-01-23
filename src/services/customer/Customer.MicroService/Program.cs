@@ -6,7 +6,6 @@ using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 var isDevelopment = builder.Environment.IsDevelopment();
@@ -20,18 +19,9 @@ logger.LogInformation($"Environment: {builder.Environment.EnvironmentName}");
 
 ConfigureServices(builder);
 
-ConfigureDatabase(builder, logger, isDevelopment);
+ConfigureDatabase(builder);
 
 var app = builder.Build();
-
-// Insert dummy data only in DEV environment
-if (isDevelopment)
-{
-    using var scope = app.Services.CreateScope();
-    var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-    await dataSeeder.SeedDataAsync();
-}
-
 
 ConfigureApp(app);
 
@@ -59,23 +49,21 @@ void ConfigureLogging(WebApplicationBuilder builder)
     Log.Information($"RabbitMQ URL: {rabbitMqUrl}");
 }
 
-void ConfigureDatabase(WebApplicationBuilder builder, ILogger logger, bool isDevelopment)
+void ConfigureDatabase(WebApplicationBuilder builder)
 {
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+
     if (isDevelopment)
     {
         logger.LogInformation($"Using in-memory database");
         builder.Services.AddDbContext<CustomersDbContext>(options =>
-        {
-            options.UseInMemoryDatabase("CustomerDB"); // Use in-memory database in DEV environment
-        });
+        options.UseSqlServer(connectionString));
+
     }
     else
     {
         // TODO : Revisit this code as this needs to be externalized using K8S Helmchart
         logger.LogInformation("REPLACING CONNECTION STRING WITH ENV VARIABLES");
-
-        var connectionString = builder.Configuration.GetConnectionString("CustomerDBConnectionString");
-        
         var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
         if (!string.IsNullOrEmpty(dbPassword))
         {
@@ -110,12 +98,6 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
     builder.Services.AddHttpClient<IOrderService, OrderService>();
     builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
-
-    // Register CustomerDataSeeder to insert dummy data in DEV environment
-    if (isDevelopment)
-    {
-        builder.Services.AddScoped<IDataSeeder, DataSeeder>();
-    }
 
     builder.Services.AddControllers(options =>
     {
