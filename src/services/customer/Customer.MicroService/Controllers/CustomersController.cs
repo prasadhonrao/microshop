@@ -2,7 +2,6 @@ using AutoMapper;
 using Customer.MicroService.Entities;
 using Customer.MicroService.Models;
 using Customer.MicroService.Services;
-using Customer.MicroService.Services.Sync;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using System.Reflection;

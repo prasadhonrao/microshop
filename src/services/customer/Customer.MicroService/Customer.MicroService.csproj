@@ -38,4 +38,12 @@
     <PackageReference Include="System.Text.Json" Version="8.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\code\git\Microshop\src\services\customer\Customer.MicroService\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\code\git\Microshop\src\services\customer\Customer.MicroService\.editorconfig" />
+  </ItemGroup>
+
 </Project>

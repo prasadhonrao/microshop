@@ -1,7 +1,5 @@
 ﻿using Customer.MicroService.Entities;
-using Customer.MicroService.Models;
 using Customer.MicroService.Repositories;
-using Customer.MicroService.Services.Sync;
 using System.Linq.Expressions;
 
 namespace Customer.MicroService.Services

@@ -2,7 +2,6 @@ using Customer.MicroService.Data;
 using Customer.MicroService.Repositories;
 using Customer.MicroService.Services;
 using Customer.MicroService.Services.Async;
-using Customer.MicroService.Services.Sync;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;

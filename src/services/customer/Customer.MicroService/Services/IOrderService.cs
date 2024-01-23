@@ -1,8 +1,9 @@
 using Customer.MicroService.Models;
 
-namespace Customer.MicroService.Services.Sync;
+namespace Customer.MicroService.Services;
 
-public interface IOrderService {
+public interface IOrderService
+{
     Task<IEnumerable<OrderReadModel>> GetOrders(int customerId);
     Task PublishOrder(OrderPublishModel order);
 }

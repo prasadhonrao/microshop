@@ -3,7 +3,7 @@ using Customer.MicroService.Services.Async;
 using System.Net;
 using System.Text.Json;
 
-namespace Customer.MicroService.Services.Sync;
+namespace Customer.MicroService.Services;
 
 public class OrderService : IOrderService
 {
@@ -12,22 +12,22 @@ public class OrderService : IOrderService
     private readonly ILogger<OrderService> logger;
     private readonly IMessageBusClient messageBusClient;
 
-    public OrderService(HttpClient client, 
-                        IConfiguration configuration, 
+    public OrderService(HttpClient client,
+                        IConfiguration configuration,
                         ILogger<OrderService> logger,
                         IMessageBusClient messageBusClient)
     {
-        this.httpClient = client;
+        httpClient = client;
         this.configuration = configuration;
         this.logger = logger;
         this.messageBusClient = messageBusClient;
     }
 
-    public async Task<IEnumerable<OrderReadModel>> GetOrders(int customerId) 
+    public async Task<IEnumerable<OrderReadModel>> GetOrders(int customerId)
     {
         try
         {
-            logger.LogInformation("Getting orders for customer " +  customerId);
+            logger.LogInformation("Getting orders for customer " + customerId);
 
             var orderServiceUrl = configuration["OrderServiceUrl"] + "/customers/" + customerId;
 
@@ -39,7 +39,7 @@ public class OrderService : IOrderService
                 return await response.Content.ReadFromJsonAsync<IEnumerable<OrderReadModel>>(
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
-            
+
             // TODO: Why both are returning null?
             // Handle specific error scenarios or throw appropriate exceptions
             if (response.StatusCode == HttpStatusCode.NotFound)
