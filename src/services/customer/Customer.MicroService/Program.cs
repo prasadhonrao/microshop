@@ -55,25 +55,19 @@ void ConfigureDatabase(WebApplicationBuilder builder)
 
     if (isDevelopment)
     {
-        logger.LogInformation($"Using in-memory database");
+        logger.LogInformation($"Using development database");
         builder.Services.AddDbContext<CustomersDbContext>(options =>
         options.UseSqlServer(connectionString));
 
     }
     else
     {
-        // TODO : Revisit this code as this needs to be externalized using K8S Helmchart
-        logger.LogInformation("REPLACING CONNECTION STRING WITH ENV VARIABLES");
-        var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
-        if (!string.IsNullOrEmpty(dbPassword))
-        {
-            connectionString = connectionString.Replace("${SA_PASSWORD}", dbPassword);
-        }
+        logger.LogInformation($"Using production SQL Server database");
 
-        var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
+        var dbServer = Environment.GetEnvironmentVariable("DB_HOST");
         if (!string.IsNullOrEmpty(dbServer))
         {
-            connectionString = connectionString.Replace("${DB_SERVER}", dbServer);
+            connectionString = connectionString.Replace("${DB_HOST}", dbServer);
         }
 
         var dbName = Environment.GetEnvironmentVariable("DB_NAME");
@@ -82,11 +76,17 @@ void ConfigureDatabase(WebApplicationBuilder builder)
             connectionString = connectionString.Replace("${DB_NAME}", dbName);
         }
 
+        var dbPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
+        if (!string.IsNullOrEmpty(dbPassword))
+        {
+            connectionString = connectionString.Replace("${SA_PASSWORD}", dbPassword);
+        }
+
         logger.LogInformation($"Database Connection string: {connectionString}");
 
         builder.Services.AddDbContext<CustomersDbContext>(options =>
         {
-            options.UseSqlServer(connectionString); // Use SQL Server database in production environment
+            options.UseSqlServer(connectionString); 
         });
     }
 }
