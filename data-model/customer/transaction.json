@@ -1,0 +1,7 @@
+{
+  "transactionId": "550e8400-e29b-41d4-a716-446655440001",
+  "transactionDate": "2021-06-25T00:00:00Z",
+  "orderId": "550e8400-e29b-41d4-a716-446655440002",
+  "maskedCardNumber": "**** **** **** 3456",
+  "transactionAmount": 100.0
+}

@@ -1,0 +1,18 @@
+{
+  "orderId": "550e8400-e29b-41d4-a716-446655440001",
+  "orderDate": "2021-06-25T00:00:00Z",
+  "orderTotal": 100.0,
+  "orderStatus": "Shipped",
+  "discountApplied": {
+    "type": "coupon", // could be "coupon" or "promotion"
+    "id": "550e8400-e29b-41d4-a716-446655440012" // the ID of the coupon or promotion
+  },
+  "products": [
+    {
+      "productId": "550e8400-e29b-41d4-a716-446655440001",
+      "productName": "Test Product",
+      "quantity": 1,
+      "unitCost": 100.0
+    }
+  ]
+}

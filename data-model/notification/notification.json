@@ -1,0 +1,11 @@
+{
+  "notificationId": "550e8400-e29b-41d4-a716-446655440001",
+  "customerId": "550e8400-e29b-41d4-a716-446655440001",
+  "orderId": "550e8400-e29b-41d4-a716-446655440001",
+  "sentDate": "2021-06-25T00:00:00Z",
+  "notificationType": "Order Status Change",
+  "notificationMethod": "Email",
+  "message": "Your order status has changed.",
+  "orderStatus": "Shipped",
+  "previousOrderStatus": "Processing"
+}

@@ -1,0 +1,11 @@
+{
+  "_id": "550e8400-e29b-41d4-a716-446655440001",
+  "orderId": "550e8400-e29b-41d4-a716-446655440001",
+  "customerId": "550e8400-e29b-41d4-a716-446655440001",
+  "cardId": "550e8400-e29b-41d4-a716-446655440001",
+  "paymentMethod": "Credit Card",
+  "amountPaid": 100.0,
+  "paymentStatus": "Completed",
+  "transactionId": "550e8400-e29b-41d4-a716-446655440001",
+  "paymentDate": "2021-06-25T00:00:00Z"
+}

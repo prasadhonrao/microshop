@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "550e8400-e29b-41d4-a716-446655440010",
+    "promotionName": "Summer Sale",
+    "promotionDescription": "10% off all items!",
+    "discountType": "percentage",
+    "discountValue": 10,
+    "startDate": "2022-06-01T00:00:00Z",
+    "endDate": "2022-06-30T23:59:59Z",
+    "minPurchase": 50,
+    "applicableProducts": ["550e8400-e29b-41d4-a716-446655440000"],
+    "status": "active"
+  },
+  {
+    "_id": "550e8400-e29b-41d4-a716-446655440011",
+    "promotionName": "Winter Sale",
+    "promotionDescription": "20% off all items!",
+    "discountType": "percentage",
+    "discountValue": 20,
+    "startDate": "2022-12-01T00:00:00Z",
+    "endDate": "2022-12-31T23:59:59Z",
+    "minPurchase": 100,
+    "applicableProducts": [],
+    "status": "inactive"
+  }
+]

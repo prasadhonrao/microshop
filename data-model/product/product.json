@@ -1,0 +1,78 @@
+{
+  "_id": "550e8400-e29b-41d4-a716-446655440000",
+  "productName": "Example Product",
+  "productDescription": "This is an example product.",
+  "price": 100.0,
+  "quantity": 100,
+  "status": "active", //active, inactive, discontinued
+  "inventoryStatus": "In Stock", // In Stock, Out of Stock, Low stock, Pre-Order
+  "seo": {
+    "metaTitle": "Example Product - Electronics",
+    "metaDescription": "This is an example product in the Electronics category.",
+    "slug": "example-product"
+  },
+  "categories": [
+    {
+      "_id": "550e8400-e29b-41d4-a716-446655440001",
+      "categoryName": "Electronics",
+      "categoryDescription": "All kinds of electronic items"
+    }
+  ],
+  "specifications": [
+    {
+      "name": "Brand",
+      "value": "Example Brand"
+    },
+    {
+      "name": "Model",
+      "value": "Example Model"
+    },
+    {
+      "name": "Weight",
+      "value": "1 kg"
+    },
+    {
+      "name": "Dimensions",
+      "value": "10 x 10 x 10 cm"
+    }
+  ],
+  "images": [
+    {
+      "imageUrl": "https://example.com/images/example-product.jpg",
+      "imageDescription": "Front view of example product"
+    }
+  ],
+  "variants": [
+    {
+      "_id": "550e8400-e29b-41d4-a716-446655440001",
+      "color": "Red",
+      "size": "M",
+      "quantity": 50
+    }
+  ],
+  "relatedProducts": [
+    "550e8400-e29b-41d4-a716-446655440002",
+    "550e8400-e29b-41d4-a716-446655440003"
+  ],
+  "reviews": [
+    {
+      "customerId": "550e8400-e29b-41d4-a716-446655440001",
+      "rating": 5,
+      "comment": "Great product!"
+    }
+  ],
+  "ratings": [
+    {
+      "customerId": "550e8400-e29b-41d4-a716-446655440001",
+      "rating": 5
+    }
+  ],
+  "aggregateRating": {
+    "averageRating": 4.5,
+    "ratingCount": 100
+  },
+  "aggregateReview": {
+    "averageReview": 4.5,
+    "reviewCount": 100
+  }
+}

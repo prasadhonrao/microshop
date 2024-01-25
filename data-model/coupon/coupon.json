@@ -1,0 +1,14 @@
+{
+  "_id": "550e8400-e29b-41d4-a716-446655440012",
+  "couponCode": "SUMMER10",
+  "couponDescription": "10% off with code SUMMER10!",
+  "discountType": "percentage", // could be "percentage" or "fixed_amount"
+  "discountValue": 10, // if "percentage", this would be a percent; if "fixed_amount", this would be a dollar amount
+  "startDate": "2022-06-01T00:00:00Z",
+  "endDate": "2022-06-30T23:59:59Z",
+  "minPurchase": 50, // minimum purchase amount for the coupon to apply
+  "applicableProducts": ["550e8400-e29b-41d4-a716-446655440000"], // array of product IDs to which the coupon applies; if empty, applies to all products
+  "status": "active", // could be "active", "inactive", or "expired"
+  "usesPerUser": 1, // the number of times each user can use the coupon
+  "totalUses": 1000 // the total number of times the coupon can be used
+}

@@ -1,0 +1,6 @@
+{
+  "cardNumber": "1234567890123456",
+  "maskedCardNumber": "**** **** **** 3456",
+  "cardHolderName": "John Doe",
+  "expiryDate": "12/2023"
+}

@@ -1,0 +1,99 @@
+{
+  "_id": "550e8400-e29b-41d4-a716-446655440001",
+  "title": "Mr.",
+  "firstName": "John",
+  "lastName": "Doe",
+  "displayName": "JohnD",
+  "email": "john.doe@example.com",
+  "phoneNumber": "+1234567890",
+  "passwordHash": "5f4dcc3b5aa765d61d8327deb882cf99",
+  "dateOfBirth": "1980-01-01T00:00:00Z",
+  "accountCreationDate": "2021-06-25T00:00:00Z",
+  "lastLoginDate": "2021-06-26T00:00:00Z",
+  "usedCoupons": ["550e8400-e29b-41d4-a716-446655440012"],
+  "usedPromotions": ["550e8400-e29b-41d4-a716-446655440012"],
+  "preference": {
+    "language": "English",
+    "currency": "USD",
+    "billingAddress": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "Anystate",
+      "country": "AnyCountry",
+      "postalCode": "12345"
+    },
+    "shippingAddress": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "Anystate",
+      "country": "AnyCountry",
+      "postalCode": "12345"
+    },
+    "paymentMethod": {
+      "cardNumber": "1234567890123456",
+      "maskedCardNumber": "**** **** **** 3456",
+      "cardHolderName": "John Doe",
+      "expiryDate": "12/2023"
+    },
+    "notificationPreferences": {
+      "email": true,
+      "sms": true
+    }
+  },
+  "shippingAddresses": [
+    {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "Anystate",
+      "country": "AnyCountry",
+      "postalCode": "12345"
+    }
+  ],
+  "billingAddresses": [
+    {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "Anystate",
+      "country": "AnyCountry",
+      "postalCode": "12345"
+    }
+  ],
+  "bankCards": [
+    {
+      "cardNumber": "1234567890123456",
+      "maskedCardNumber": "**** **** **** 3456",
+      "cardHolderName": "John Doe",
+      "expiryDate": "12/2023"
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "550e8400-e29b-41d4-a716-446655440001",
+      "orderDate": "2021-06-25T00:00:00Z",
+      "orderTotal": 100.0,
+      "orderStatus": "Shipped",
+      "products": [
+        {
+          "productId": "550e8400-e29b-41d4-a716-446655440001",
+          "quantity": 1,
+          "price": 100.0
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "transactionId": "550e8400-e29b-41d4-a716-446655440001",
+      "transactionDate": "2021-06-25T00:00:00Z",
+      "orderId": "550e8400-e29b-41d4-a716-446655440001",
+      "maskedCardNumber": "**** **** **** 3456",
+      "transactionAmount": 100.0
+    }
+  ],
+  "ratings": [
+    {
+      "productId": "550e8400-e29b-41d4-a716-446655440001",
+      "rating": 5
+    }
+  ]
+}

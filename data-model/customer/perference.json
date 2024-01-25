@@ -1,0 +1,29 @@
+{
+  "language": "English",
+  "currency": "USD",
+  "billingAddress": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "Anystate",
+    "country": "AnyCountry",
+    "postalCode": "12345"
+  },
+  "shippingAddress": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "Anystate",
+    "country": "AnyCountry",
+    "postalCode": "12345"
+  },
+  "paymentMethod": {
+    "cardNumber": "1234567890123456",
+    "maskedCardNumber": "**** **** **** 3456",
+    "cardHolderName": "John Doe",
+    "expiryDate": "12/2023"
+  },
+  "notificationPreferences": {
+    "email": true,
+    "sms": true,
+    "phone": false
+  }
+}
