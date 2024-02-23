@@ -1,5 +1,5 @@
 {
-  "_id": "550e8400-e29b-41d4-a716-446655440001",
-  "categoryName": "Electronics",
-  "categoryDescription": "All kinds of electronic items"
+  "id": "550e8400-e29b-41d4-a716-446655440001",
+  "name": "Electronics",
+  "description": "All kinds of electronic items"
 }

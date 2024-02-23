@@ -1,0 +1,114 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440006",
+    "name": "Apple iPhone 13",
+    "description": "Latest model of Apple's flagship smartphone.",
+    "price": 999,
+    "quantity": 100,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "name": "Electronics",
+        "description": "All kinds of electronic items"
+      }
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440007",
+    "name": "Samsung Galaxy S21",
+    "description": "Samsung's newest smartphone with advanced features.",
+    "price": 899,
+    "quantity": 150,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "name": "Electronics",
+        "description": "All kinds of electronic items"
+      }
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440008",
+    "name": "Harry Potter and the Philosopher's Stone",
+    "description": "The first book in the Harry Potter series by J.K. Rowling.",
+    "price": 20,
+    "quantity": 200,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440002",
+        "name": "Books",
+        "description": "Books from various genres"
+      }
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440009",
+    "name": "Levi's Men's 501 Original Fit Jeans",
+    "description": "Classic straight-fit jeans ideal for medium to athletic builds, Levi's® 501® Original Fit Jeans are the most iconic of all Levi's® jeans.",
+    "price": 59.5,
+    "quantity": 120,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440003",
+        "name": "Clothing",
+        "description": "Men's, Women's, and Children's Clothing"
+      }
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440010",
+    "name": "Calvin Klein Women's Modern Cotton Bralette",
+    "description": "An updated classic, this unlined cotton bralette features an elastic bra band with repeating, iconic Calvin Klein logo.",
+    "price": 28.0,
+    "quantity": 85,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440003",
+        "name": "Clothing",
+        "description": "Men's, Women's, and Children's Clothing"
+      }
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440011",
+    "name": "Instant Pot Duo 7-in-1 Electric Pressure Cooker",
+    "description": "Cooks Fast & Saves Time: The Instant Pot Duo multi-cooker combines 7 appliances in one: pressure cooker, slow cooker, rice cooker, steamer, sauté pan, yogurt maker and warmer – and cooks up to 70% faster.",
+    "price": 89.0,
+    "quantity": 150,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440004",
+        "name": "Home & Kitchen",
+        "description": "Home appliances and kitchenware"
+      }
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440012",
+    "name": "Dyson V11 Torque Drive Cordless Vacuum Cleaner",
+    "description": "Dyson's most intelligent, powerful cordless vacuum. Twice the suction of any cordless vacuum.",
+    "price": 599.99,
+    "quantity": 80,
+    "status": "Active",
+    "inventoryStatus": "InStock",
+    "categories": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440004",
+        "name": "Home & Kitchen",
+        "description": "Home appliances and kitchenware"
+      }
+    ]
+  }
+]

@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "52ace88b-3614-4233-8f6a-fdeba95d63ad",
+		"_postman_id": "cb61bb33-ca74-4b04-a114-af2622c95beb",
 		"name": "Product",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1811327"
 	},
 	"item": [
 		{
-			"name": "Get All Products",
+			"name": "Get Products",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -31,7 +31,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}:{{productPort}}/api/products/64bac55ef3806e6e6af8d324",
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/?id",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -39,19 +39,31 @@
 					"path": [
 						"api",
 						"products",
-						"64bac55ef3806e6e6af8d324"
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Error When Querying Product Which Doesn't Exist",
+			"name": "Get Product Which Does Not Exist",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{baseUrl}}:{{productPort}}/api/products/101",
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/?id",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -59,7 +71,66 @@
 					"path": [
 						"api",
 						"products",
-						"101"
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/?id/categories",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						""
+					],
+					"query": [
+						{
+							"key": "id/categories",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products From Specified Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/category/?id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"category",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
 					]
 				}
 			},
@@ -71,7 +142,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}:{{productPort}}/api/products/649eaab70c276d36fff792a8",
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/?id",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -79,7 +150,13 @@
 					"path": [
 						"api",
 						"products",
-						"649eaab70c276d36fff792a8"
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
 					]
 				}
 			},
@@ -91,7 +168,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}:{{productPort}}/api/products/101",
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/?id",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -99,7 +176,13 @@
 					"path": [
 						"api",
 						"products",
-						"101"
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
 					]
 				}
 			},
@@ -107,6 +190,34 @@
 		},
 		{
 			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Example Product\",\n  \"description\": \"This is an example product.\",\n  \"price\": 100.0,\n  \"quantity\": 100,\n  \"status\": \"\",\n  \"inventoryStatus\": \"\",\n  \"seo\": {\n    \"metaTitle\": \"Example Product - Electronics\",\n    \"metaDescription\": \"This is an example product in the Electronics category.\",\n    \"slug\": \"example-product\"\n  },\n  \"categories\": [],\n  \"specifications\": [],\n  \"images\": [],\n  \"variants\": [],\n  \"relatedProducts\":[],\n  \"reviews\":[],\n  \"ratings\":[],\n  \"aggregateRating\": {},\n  \"agreegateReview\" :{}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product Quantity",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -128,6 +239,108 @@
 					"path": [
 						"api",
 						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/categories",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/categories/?id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"categories",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productName\": \"iPhone\",\n  \"supplierId\": 1,\n  \"categoryId\": 1,\n  \"productPrice\": 999.99,\n  \"discontinued\": 0\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/products/categories",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"products",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:{{productPort}}/api/product/categories/?id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{productPort}}",
+					"path": [
+						"api",
+						"product",
+						"categories",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
 					]
 				}
 			},

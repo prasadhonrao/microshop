@@ -1,5 +1,5 @@
 {
-  "_id": "550e8400-e29b-41d4-a716-446655440012",
+  "id": "550e8400-e29b-41d4-a716-446655440012",
   "couponCode": "SUMMER10",
   "couponDescription": "10% off with code SUMMER10!",
   "discountType": "percentage", // could be "percentage" or "fixed_amount"

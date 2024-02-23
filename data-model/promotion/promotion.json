@@ -1,6 +1,6 @@
 [
   {
-    "_id": "550e8400-e29b-41d4-a716-446655440010",
+    "id": "550e8400-e29b-41d4-a716-446655440010",
     "promotionName": "Summer Sale",
     "promotionDescription": "10% off all items!",
     "discountType": "percentage",
@@ -12,7 +12,7 @@
     "status": "active"
   },
   {
-    "_id": "550e8400-e29b-41d4-a716-446655440011",
+    "id": "550e8400-e29b-41d4-a716-446655440011",
     "promotionName": "Winter Sale",
     "promotionDescription": "20% off all items!",
     "discountType": "percentage",

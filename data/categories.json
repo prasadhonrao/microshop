@@ -1,0 +1,27 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "name": "Electronics",
+    "description": "All kinds of electronic items"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440002",
+    "name": "Books",
+    "description": "Books from various genres"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440003",
+    "name": "Clothing",
+    "description": "Men's, Women's, and Children's Clothing"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440004",
+    "name": "Home & Kitchen",
+    "description": "Home appliances and kitchenware"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440005",
+    "name": "Sports & Outdoors",
+    "description": "Sports equipment and outdoor gear"
+  }
+]
